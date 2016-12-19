@@ -1,6 +1,24 @@
 'use strict';
 
 $(function() {
+    var isMobile = false;
+    
+    $('body').one("touchstart tap", toggleMusic).bind("touchstart tap", function() {
+        isMobile = true;
+        var el = document.documentElement,
+          rfs = el.requestFullscreen
+            || el.webkitRequestFullScreen
+            || el.mozRequestFullScreen
+            || el.msRequestFullscreen 
+        ;
+    
+        rfs.call(el);
+        
+        //lock portrait orientation on mobile
+        screen.orientation.lock("portrait");
+        screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+        screen.lockOrientationUniversal("portrait");
+    });
     
     var soundEffectsOn = true;
     
@@ -83,26 +101,35 @@ $(function() {
     
     
     //set music toggle functionality
-    $("#controls__toggle--music").click(function() {
+    function toggleMusic() {
         var music =document.getElementById('music');
       if (music.paused == false) {
           music.pause();
-          $(this).css("background-position-y", "32px").attr("title", "Music On");
+          $("#controls__toggle--music").css("background-position-y", "32px").attr("title", "Music On");
       } else {
           music.play();
-          $(this).css("background-position-y", "").attr("title", "Music Off");
+          $("#controls__toggle--music").css("background-position-y", "").attr("title", "Music Off");
+          if (isMobile && soundEffectsOn) {
+              toggleSound();
+          }
       }
-    });
+    }
+    
+    $("#controls__toggle--music").click(toggleMusic);
     
     //set sound effects toggle functionality
-    $("#controls__toggle--sound").click(function() {
-      if (soundEffectsOn) {
+    function toggleSound() {
+        if (soundEffectsOn) {
           soundEffectsOn = false;
-          $(this).css("background-position-y", "32px").attr("title", "Sound Effects On");
+          $("#controls__toggle--sound").css("background-position-y", "32px").attr("title", "Sound Effects On");
       } else {
           soundEffectsOn = true;
-          $(this).css("background-position-y", "").attr("title", "Sound Effects Off");
+          $("#controls__toggle--sound").css("background-position-y", "").attr("title", "Sound Effects Off");
+          if (isMobile && !document.getElementById('music').paused) {
+              toggleMusic();
+          }
       }
-    });
+    }
+    $("#controls__toggle--sound").click(toggleSound);
 	
 })
