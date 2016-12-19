@@ -122,7 +122,7 @@ html {
     z-index: 10;
     border-radius: 0 0 4px 4px;
     transition: transform 80ms ease;
-    transform: scale(0.3);
+    transform: scale(0.4);
     transform-origin: top;
 }
 
