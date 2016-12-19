@@ -25,7 +25,7 @@ $(function() {
     })
         .then(function() {
         
-    	var backgroundScrollSpeed = 150;
+    	var backgroundScrollSpeed = 150;//higher number is slower
     	var backgroundTiming;
     	var backgroundTransition;
     	var backgroundMargin;
