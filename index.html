@@ -14,6 +14,12 @@
         <!-- Place favicon.ico in the root directory -->
         
         <link rel="manifest" href="/manifest.json">
+        
+        <script>
+            //load local stylesheet if CDN load triggers onerror event
+          function loadLocalAnimateCss() {document.write('<link rel="stylesheet" href="css/animate.min.css">');}  
+        </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" onerror="loadLocalAnimateCss()" >
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
