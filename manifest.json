@@ -3,8 +3,18 @@
   "name": "Pokemon Tic-Tac-Toe",
   "icons": [
     {
-      "src": "tile.png",
+      "src": "\/tic-tac-toe-390x390.png",
+      "sizes": "390x390",
+      "type": "image/png"
+    },
+    {
+      "src": "\/tile.png",
       "sizes": "558x558",
+      "type": "image/png"
+    },
+    {
+      "src": "\/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png"
     }
   ],
