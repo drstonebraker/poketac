@@ -1,34 +1,5 @@
 'use strict';
 
-//set sound effects toggle functionality
-function toggleSound() {
-    if (soundEffectsOn) {
-      soundEffectsOn = false;
-      $("#controls__toggle--sound").css("background-position-y", "32px").attr("title", "Sound Effects On");
-  } else {
-      soundEffectsOn = true;
-      $("#controls__toggle--sound").css("background-position-y", "").attr("title", "Sound Effects Off");
-      if (isMobile && !document.getElementById('music').paused) {
-          toggleMusic();
-      }
-  }
-}
-
-//set music toggle functionality
-function toggleMusic() {
-    var music =document.getElementById('music');
-  if (music.paused == false) {
-      music.pause();
-      $("#controls__toggle--music").css("background-position-y", "32px").attr("title", "Music On");
-  } else {
-      music.play();
-      $("#controls__toggle--music").css("background-position-y", "").attr("title", "Music Off");
-      if (isMobile && soundEffectsOn) {
-          toggleSound();
-      }
-  }
-}
-
 //animate the logos in the opening splash modal
 function splashAnimation() {
 	var animateTicTacToe;
@@ -49,7 +20,6 @@ function splashAnimation() {
 		i++;
 	}
 
-    console.log($("#ttt-logo__element--board"))
 	$("#ttt-logo__element--board").slideDown(animationInterval / 4, function() {
 
 		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
@@ -66,9 +36,42 @@ function splashAnimation() {
 $(function() {
     var isMobile = false;
     
+    // Music and sound effects settings
+    var soundEffectsOn = true;
+    function toggleSound() {
+        if (soundEffectsOn) {
+          soundEffectsOn = false;
+          $("#controls__toggle--sound").css("background-position-y", "32px").attr("title", "Sound Effects On");
+      } else {
+          soundEffectsOn = true;
+          $("#controls__toggle--sound").css("background-position-y", "").attr("title", "Sound Effects Off");
+          if (isMobile && !document.getElementById('music').paused) {
+              toggleMusic();
+          }
+      }
+    }
+    
+    //set music toggle functionality
+    function toggleMusic() {
+        var music =document.getElementById('music');
+      if (music.paused == false) {
+          music.pause();
+          $("#controls__toggle--music").css("background-position-y", "32px").attr("title", "Music On");
+      } else {
+          music.play();
+          $("#controls__toggle--music").css("background-position-y", "").attr("title", "Music Off");
+          if (isMobile && soundEffectsOn) {
+              toggleSound();
+          }
+      }
+    }
+    $("#controls__toggle--music").click(toggleMusic);
+    $("#controls__toggle--sound").click(toggleSound);
+    
     function setMobileSettings() {
         if (!isMobile) { //if this is the first time tapping the page
             document.getElementById('music').play();
+            toggleSound();
         }
         
         isMobile = true;
@@ -90,11 +93,6 @@ $(function() {
     
     // for mobile, activate music, set fullscreen, lock portrait orientation
     $('#view').bind("touchstart tap", setMobileSettings);
-    
-    // Music and sound effects settings
-    var soundEffectsOn = true;
-    $("#controls__toggle--music").click(toggleMusic);
-    $("#controls__toggle--sound").click(toggleSound);
     
     //load background map image
     new Promise(function(resolve) {
