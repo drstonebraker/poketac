@@ -113,7 +113,7 @@ html {
 	z-index: -1;
 }
 
-
+/* MUSIC & SOUND TOGGLES */
 .controls {
     position: fixed;
     height: 50px;
@@ -184,6 +184,57 @@ html {
     background-position-x: 32px;
 }
 
+/* MODAL AND OPENING SPLASH */
+
+.modal--splash {
+	height: 65vh;
+	width: 65vw;
+	max-width: 250px;
+	min-width: 185px;
+	max-height: 330px;
+}
+
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #FFEAA0;
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke.png);
+	border: 3px solid #FF891D;
+	border-radius: 15px;
+	box-shadow: 0 0 0 2px white, 0 0 7px 0 #222;
+}
+
+.ttt-logo {
+	position: absolute;
+	top: calc(50% - 30px);
+	left: 50%;
+	height: 130px;
+	width: 130px;
+	margin: -65px 0 0 -65px;
+}
+
+.ttt-logo__element {
+	position: absolute;
+	height: 130px;
+	width: 130px;
+}
+
+.ttt-logo__element--board {
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/logos/board-logo-390.png);
+	background-size: 130px;
+}
+
+.pokemon-logo {
+	display: inline-block;
+	position: absolute;
+	top: calc(50% + 55px);
+	left: 50%;
+	width: 180px;
+	margin: -33px 0 0 -90px;
+}
+
 
 /* UTILITY CLASSES */
 
@@ -199,8 +250,8 @@ html {
  * Hide visually and from screen readers
  */
 
-.hidden {
-    display: none !important;
+.u-hidden {
+    display: none;
 }
 
 /*
@@ -208,7 +259,7 @@ html {
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
 
-.visuallyhidden {
+.u-visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -225,8 +276,8 @@ html {
  * https://www.drupal.org/node/897638
  */
 
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
+.u-visuallyhidden.focusable:active,
+.u-visuallyhidden.focusable:focus {
     clip: auto;
     height: auto;
     margin: 0;
@@ -239,7 +290,7 @@ html {
  * Hide visually and from screen readers, but maintain layout
  */
 
-.invisible {
+.u-invisible {
     visibility: hidden;
 }
 
@@ -255,13 +306,13 @@ html {
  *    `:before` to contain the top-margins of child elements.
  */
 
-.clearfix:before,
-.clearfix:after {
+.u-clearfix:before,
+.u-clearfix:after {
     content: " "; /* 1 */
     display: table; /* 2 */
 }
 
-.clearfix:after {
+.u-clearfix:after {
     clear: both;
 }
 

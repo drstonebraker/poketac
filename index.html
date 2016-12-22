@@ -32,17 +32,28 @@
         <!-- Add your site or application content here -->
         <audio id="music" src="./sounds/music/main-theme.mp3" autoplay loop preload="auto"></audio>
         <main class="view" id="view">
-            
-        
             <div class="controls u-grey-bg" id="controls">
                 <button class="controls__toggle controls__toggle--music" id="controls__toggle--music" title="Music Off"></button>
                 <button class="controls__toggle controls__toggle--sound" id="controls__toggle--sound" title="Sound Effects Off"></button>
             </div>
+            
+            <div class="modal modal--splash" id="modal">
+            	<div class="modal__content modal__content--splash" id="modal__content--splash">
+            		<div class="ttt-logo" id="ttt-logo">
+            			<div class="ttt-logo__element ttt-logo__element--board u-hidden" id="ttt-logo__element--board"></div>
+            			<img class="ttt-logo__element ttt-logo__element--tic u-hidden" id="ttt-logo__element--tic" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/tic-logo-390.png" />
+            		</div>
+            		<img class="pokemon-logo u-hidden" id="pokemon-logo" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/pokemon-logo.png" />
+            	</div>
+            </div>
         </main>
         
 
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.1.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
