@@ -41,10 +41,10 @@ $(function() {
     function toggleSound() {
         if (soundEffectsOn) {
           soundEffectsOn = false;
-          $("#controls__toggle--sound").css("background-position-y", "-40px").attr("title", "Sound Effects On");
+          $("#controls__toggle--sound").addClass("controls__toggle--off").attr("title", "Sound Effects On");
       } else {
           soundEffectsOn = true;
-          $("#controls__toggle--sound").css("background-position-y", "").attr("title", "Sound Effects Off");
+          $("#controls__toggle--sound").removeClass("controls__toggle--off").attr("title", "Sound Effects Off");
           if (isMobile && !document.getElementById('music').paused) {
               toggleMusic();
           }
@@ -56,10 +56,10 @@ $(function() {
         var music =document.getElementById('music');
       if (music.paused == false) {
           music.pause();
-          $("#controls__toggle--music").css("background-position-y", "-40px").attr("title", "Music On");
+          $("#controls__toggle--music").addClass("controls__toggle--off").attr("title", "Music On");
       } else {
           music.play();
-          $("#controls__toggle--music").css("background-position-y", "").attr("title", "Music Off");
+          $("#controls__toggle--music").removeClass("controls__toggle--off").attr("title", "Music Off");
           if (isMobile && soundEffectsOn) {
               toggleSound();
           }

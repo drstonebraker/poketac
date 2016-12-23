@@ -186,6 +186,10 @@ html {
     background-position-x: -110px;
 }
 
+.controls__toggle--off {
+    background-position-y: -40px;
+}
+
 /* MODAL AND OPENING SPLASH */
 
 .modal--splash {
@@ -202,7 +206,7 @@ html {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: #FFEAA0;
-	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke.png);
+	background-image: url(../img/dimension-poke.png);
 	border: 3px solid #FF891D;
 	border-radius: 15px;
 	box-shadow: 0 0 0 2px white, 0 0 7px 0 #222;
