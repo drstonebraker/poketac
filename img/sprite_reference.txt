@@ -1,0 +1,10 @@
+5px spacing between each sprite
+
+row  	y-val	dimensions
+1	5	30x30(4),96x64(10),20x20
+2	40	30x30
+3	75	390x390(4),166x336,150x347	
+4	470	128x128
+5	603	244x244
+6	852	244x244
+7	1101	382x141

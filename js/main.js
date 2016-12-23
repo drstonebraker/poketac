@@ -25,8 +25,8 @@ function splashAnimation() {
 		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
 
 		setTimeout(function() {
-			$('#pokemon-logo').removeClass('u-hidden').addClass('animated bounceIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-				$(this).removeClass("animated bounceIn");
+			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				$(this).removeClass("animated rubberBand");
 			});
 		}, animationInterval * 4);
 
@@ -41,7 +41,7 @@ $(function() {
     function toggleSound() {
         if (soundEffectsOn) {
           soundEffectsOn = false;
-          $("#controls__toggle--sound").css("background-position-y", "32px").attr("title", "Sound Effects On");
+          $("#controls__toggle--sound").css("background-position-y", "-40px").attr("title", "Sound Effects On");
       } else {
           soundEffectsOn = true;
           $("#controls__toggle--sound").css("background-position-y", "").attr("title", "Sound Effects Off");
@@ -56,7 +56,7 @@ $(function() {
         var music =document.getElementById('music');
       if (music.paused == false) {
           music.pause();
-          $("#controls__toggle--music").css("background-position-y", "32px").attr("title", "Music On");
+          $("#controls__toggle--music").css("background-position-y", "-40px").attr("title", "Music On");
       } else {
           music.play();
           $("#controls__toggle--music").css("background-position-y", "").attr("title", "Music Off");
