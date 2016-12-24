@@ -225,11 +225,25 @@ html {
 	position: absolute;
 	height: 130px;
 	width: 130px;
+	background-size: 666px;
+	background-position-y: -25px;
+	background-image: url("../img/spritesheet.png");
 }
 
 .ttt-logo__element--board {
-	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/logos/board-logo-390.png);
-	background-size: 130px;
+	background-position-x: -2px;
+}
+
+.ttt-logo__element--tic {
+	background-position-x: -134px;
+}
+
+.ttt-logo__element--tac {
+	background-position-x: -266px;
+}
+
+.ttt-logo__element--toe {
+	background-position-x: -398px;
 }
 
 .pokemon-logo {
@@ -238,7 +252,11 @@ html {
 	top: calc(50% + 55px);
 	left: 50%;
 	width: 180px;
+	height: 67px;
 	margin: -33px 0 0 -90px;
+	background-image: url("../img/spritesheet.png");
+	background-size: 941px;
+	background-position: -2px -519px;
 }
 
 

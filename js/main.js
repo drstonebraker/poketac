@@ -4,23 +4,20 @@
 function splashAnimation() {
 	var animateTicTacToe;
 	var animationInterval = 674; //674 is beat of opening music
-	var logoStates = [
-		'<img class="ttt-logo__element ttt-logo__element--tic" id="ttt-logo__element--tic" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/tic-logo-390.png"/><img class="ttt-logo__element ttt-logo__element--tac u-hidden" id="ttt-logo__element--tac" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/tac-logo-390.png"/>',
-		'<img class="ttt-logo__element ttt-logo__element--tac" id="ttt-logo__element--tac" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/tac-logo-390.png"/><img class="ttt-logo__element ttt-logo__element--toe u-hidden" id="ttt-logo__element--toe" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/toe-logo-390.png"/>',
-		'<img class="ttt-logo__element ttt-logo__element--toe" id="ttt-logo__element--toe" src="https://preview.c9users.io/dsto/tic-tac-toe/img/logos/toe-logo-390.png"/>'
-	];
-	var i = 0;
+	var logoStates = ["board","tic","tac","toe"];
+	var i = 1;
 
 	function animateTicTacToeFn() {
-		$("#ttt-logo").html(logoStates[i]);
-
-		if (i == 2) {
+		$("#ttt-logo__element").addClass("ttt-logo__element--" + logoStates[i]).removeClass("ttt-logo__element--" + logoStates[i-1]);
+        console.log(("#ttt-logo__element--" + logoStates[i]),("#ttt-logo__element--" + logoStates[i-1]));
+        console.log($("#ttt-logo__element").attr("class"));
+		if (i == 3) {
 			clearInterval(animateTicTacToe);
 		}
 		i++;
 	}
 
-	$("#ttt-logo__element--board").slideDown(animationInterval / 4, function() {
+	$("#ttt-logo__element").slideDown(animationInterval / 4, function() {
 
 		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
 
