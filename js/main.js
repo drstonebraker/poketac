@@ -16,18 +16,20 @@ function splashAnimation() {
 		}
 		i++;
 	}
-
-	$("#ttt-logo__element").slideDown(animationInterval / 4, function() {
-
-		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
-
-		setTimeout(function() {
-			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-				$(this).removeClass("animated rubberBand");
-			});
-		}, animationInterval * 4);
-
-	});
+    
+    setTimeout(function() {
+    	$("#ttt-logo__element").slideDown(animationInterval / 4, function() {
+    
+    		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
+    
+    		setTimeout(function() {
+    			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+    				$(this).removeClass("animated rubberBand");
+    			});
+    		}, animationInterval * 4);
+    
+    	});
+    }, animationInterval * 2);
 }
 
 $(function() {
