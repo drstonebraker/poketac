@@ -193,8 +193,8 @@ html {
 /* MODAL AND OPENING SPLASH */
 
 .modal--splash {
-	height: 65vh;
-	width: 65vw;
+	height: 66vh;
+	width: 66vw;
 	max-width: 250px;
 	min-width: 185px;
 	max-height: 330px;
@@ -258,6 +258,167 @@ html {
 	background-size: 941px;
 	background-position: -2px -519px;
 }
+
+/* OAK DIALOGUE */
+
+.modal__content {
+	text-align: center;
+}
+
+.modal-text {
+	font-family: 'Pathway Gothic One', Helvetica, sans-serif;
+}
+
+.char-tall {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	height: 200px;
+	margin-top: -100px;
+	right: -10px;
+}
+
+.char-tall--oak {
+	width: 99px;
+	background-image: url("https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png");
+	background-size: 1189px;
+	background-position: -946px -45px;
+}
+
+.modal__content--oak {
+	margin: 30px 100px 30px 30px;
+}
+
+.modal-text--oak {	
+	text-align: center;
+	min-width: 160px;
+}
+
+/* oak3 */
+.name-input {
+	display: block;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid lightgrey;
+	box-shadow: 0 0 3px 0px lightgrey;
+	width: 130px;
+	margin: 0 auto;
+}
+
+.button {
+	display: block;
+	color: white;
+	cursor: pointer;
+	padding: 5px 20px;
+	border-radius: 10px;
+	  text-shadow:
+   -1px -1px 0 #6EC637,  
+    1px -1px 0 #6EC637,
+    -1px 1px 0 #6EC637,
+     1px 1px 0 #6EC637;
+	margin: 15px auto 0 auto;
+	box-shadow: 
+		0 0 0 1px white,
+		1px 1px 0 1px #333;
+	font-size: .8em;
+}
+
+.button--green {
+	background-color: #85F444;
+	border: 2px solid #6EC637;
+	animation-duration: 20ms;
+	animation-iteration-count: 1;
+}
+
+/* oak4 */
+.button--avatar {
+	display: inline-block;
+	background-color: #222;
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke-grey.png);
+	padding: 0;
+	border-radius: 18px;
+	transition: all 50ms ease;
+	margin: 2px;
+}
+
+.button--avatar:hover {
+	background-color: #6EC637;
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke.png);
+}
+
+.button--avatar:hover > .button__avatar {
+		transform: scale(1.15);
+}
+
+.button__avatar {
+	height: 64px;
+	width: 96px;
+	background-size: 1997px;
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
+	border-radius: 18px;  
+	transition: transform 50ms ease;
+}
+
+.button__avatar--female {
+	background-position: -246px -5px;
+}
+
+.button__avatar--male {
+	background-position: -145px -5px;
+}
+
+/* oak6 */
+.pokeball {
+	cursor: pointer;
+	display: inline-block;
+	margin: 9px 13px;
+	width: 44px;
+	height: 44px;
+	padding: 0px;
+}
+
+.pokeball__element {
+	position: absolute;
+	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
+	background-size: 666px;
+	width: 44px;
+	height: 44px;
+	margin-top: -22px;
+}
+
+.pokeball__ball {	
+	background-position: -2px -156px;	
+	transition: transform 300ms ease;
+	z-index: 1;
+}
+
+.pokeball:hover > .pokeball__ball {
+	transform: translateX(-22px) rotate(-1rad);
+}
+
+.pokeball:hover > .pokeball__pokemon {
+	transform: scale(1.2) translateX(7px);
+}
+
+.pokeball__pokemon {
+	transition: transform 140ms ease 100ms;
+	transform-origin: left;
+	z-index: 0;
+}
+
+.pokeball__pokemon--0 {
+	background-position: -46px -156px;
+}
+
+.pokeball__pokemon--1 {
+	background-position: -223px -156px;
+}
+
+.pokeball__pokemon--2 {
+	background-position: -401px -156px;
+}
+
+/* end Oak dialogue */
 
 
 /* UTILITY CLASSES */

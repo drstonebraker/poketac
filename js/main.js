@@ -34,7 +34,10 @@ function splashAnimation() {
 
 $(function() {
     var isMobile = false;
-    
+    var playerName;
+	var playerAvatar;
+	var playerPokemon;
+	
     // Music and sound effects settings
     var soundEffectsOn = true;
     function toggleSound() {
@@ -91,7 +94,7 @@ $(function() {
     }
     
     // for mobile, activate music, set fullscreen, lock portrait orientation
-    $('#view').bind("touchstart tap", setMobileSettings);
+    $('#view').on("touchstart tap", setMobileSettings);
     
     //load background map image
     new Promise(function(resolve) {
@@ -169,8 +172,79 @@ $(function() {
 
     }); // end "then" attached to background image load promise
     
-    splashAnimation();
+    // OAK MODAL DIALOGUES
+    function oak1() {
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Well, hello there!<br>It's nice to see you dropping by!</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#char-tall--oak").removeClass("u-hidden");
+		$("#modal").removeClass('modal--splash');
+		$("#modal__content--splash").replaceWith(modalContentOak);
+		$("body").one('click', oak2);
+	}
+	
+	function oak2() {
+		console.log("oak2");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>We’ve just discovered a new pastime here in the Pokemon world.  It’s all the rage.  They call it Tic-Tac-Toe!<br>That’s why you’re here, isn’t it?</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak3);
+	}
+	
+	function oak3() {
+		console.log("oak3");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>But look at me getting ahead of myself.  I’ve forgotten my manners!  I’m Professor Oak.<br>And you are...?</p>";
+		var nameInput = '<input type="text" placeholder="Type your name" class="name-input" id="name-input"></input>';
+		var nameBtn = '<button type="button" class="button button--green" id="button-player-name">OK</button>';
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameInput+nameBtn+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("#button-player-name").one('click', oak4);
+	}
+	
+	function oak4() {
+		console.log("oak4");
+		playerName = $("#name-input").val();
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Welcome, "+playerName+"!  You’ll have to forgive me, but my eyes are going bad.  Can you tell me what you look like?</p>";
+		var buttonAvatarFemale = '<button type="button" class="button button--avatar" id="button-player-avatar-f" data-avatar="player-female"><div class="button__avatar button__avatar--female" id="button__avatar--female"></div></button>';
+		var buttonAvatarMale = '<button type="button" class="button button--avatar" id="button-player-avatar-m" data-avatar="player-male"><div class="button__avatar button__avatar--male" id="button__avatar--male"></div></button>';
+		
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonAvatarFemale+buttonAvatarMale+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$(".button--avatar").one('click', function() {
+			event.stopPropagation();
+			playerAvatar = $(this).data().avatar;
+			oak5();
+		});
+	}
+	
+	function oak5() {
+		console.log("oak5");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>You look like a confident young trainer, you say?  Wonderful!  You’ll need that confidence in your challenges.</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak6);
+	}
+	
+	function oak6() {
+		console.log("oak6");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Before you play, you’ll need a pokemon.<br>I have three right here you can choose from!</p>";
+		var pokeball0 = '<button type="button" class="pokeball" id="pokeball--0"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--0" id="pokeball__pokemon--0"></div></button>';
+		var pokeball1 = '<button type="button" class="pokeball" id="pokeball--1"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--1" id="pokeball__pokemon--1"></div></button>';
+		var pokeball2 = '<button type="button" class="pokeball" id="pokeball--2"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--2" id="pokeball__pokemon--2"></div></button>';
+		
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+pokeball0+pokeball1+pokeball2+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak7);
+	}
+	//end Oak modal dialogues
     
+    splashAnimation();
+    $("body").one('click', oak1); //first oak dialogue screen
 
 	
 })
