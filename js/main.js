@@ -296,6 +296,34 @@ $(function() {
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak8);
 	}
+	
+	function oak8() {
+		console.log("oak8");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>There are eight different gym leaders you can challenge.<br><br>Some of them are tougher than others!</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak9);
+	}
+	
+	function oak9() {
+		console.log("oak9");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to challengers who can beat them.  See if you can collect all eight!</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak10);
+	}
+	
+	function oak10() {
+		console.log("oak10");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Are you ready to play?</p>";
+		var buttonPlay = "";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak11);
+	}
 	//end Oak modal dialogues
     
     splashAnimation();
