@@ -173,6 +173,10 @@ $(function() {
     }); // end "then" attached to background image load promise
     
     // OAK MODAL DIALOGUES
+    $("#controls").on("touchstart click", function() {
+        event.stopPropagation();
+    })
+    
     function oak1() {
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Well, hello there!<br>It's nice to see you dropping by!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
