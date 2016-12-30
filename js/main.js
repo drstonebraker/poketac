@@ -1,5 +1,41 @@
 'use strict';
 
+const POKEMON = {
+    "Bulbasaur": {
+        type: "grass",
+        advantage: "water",
+        disadvantage: "fire",
+        evolution: [
+            "Bulbasaur",
+            "Ivysaur",
+            "Venusaur",
+            "Mega Venusaur"
+            ]
+    },
+    "Charmander": {
+        type: "fire",
+        advantage: "grass",
+        disadvantage: "water",
+        evolution: [
+            "Charmander",
+            "Charmeleon",
+            "Charizard",
+            "Mega Charizard"
+            ]
+    },
+    "Squirtle": {
+        type: "water",
+        advantage: "fire",
+        disadvantage: "grass",
+        evolution: [
+            "Squirtle",
+            "Wartortle",
+            "Blastoise",
+            "Mega Blastoise"
+            ]
+    }
+}
+
 //animate the logos in the opening splash modal
 function splashAnimation() {
 	var animateTicTacToe;
@@ -37,6 +73,7 @@ $(function() {
     var playerName;
 	var playerAvatar;
 	var playerPokemon;
+	var playerType;
 	
     // Music and sound effects settings
     var soundEffectsOn = true;
@@ -236,14 +273,28 @@ $(function() {
 	function oak6() {
 		console.log("oak6");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Before you play, you’ll need a pokemon.<br>I have three right here you can choose from!</p>";
-		var pokeball0 = '<button type="button" class="pokeball" id="pokeball--0"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--0" id="pokeball__pokemon--0"></div></button>';
-		var pokeball1 = '<button type="button" class="pokeball" id="pokeball--1"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--1" id="pokeball__pokemon--1"></div></button>';
-		var pokeball2 = '<button type="button" class="pokeball" id="pokeball--2"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--2" id="pokeball__pokemon--2"></div></button>';
+		var pokeball0 = '<button type="button" data-pokemon="Bulbasaur" class="pokeball" id="pokeball--0"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--0" id="pokeball__pokemon--0"></div></button>';
+		var pokeball1 = '<button type="button" data-pokemon="Charmander" class="pokeball" id="pokeball--1"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--1" id="pokeball__pokemon--1"></div></button>';
+		var pokeball2 = '<button type="button" data-pokemon="Squirtle" class="pokeball" id="pokeball--2"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--2" id="pokeball__pokemon--2"></div></button>';
 		
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+pokeball0+pokeball1+pokeball2+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak7);
+		$(".pokeball").one('click', function() {
+			event.stopPropagation();
+			playerPokemon = $(this).data().pokemon;
+			playerType = POKEMON[playerPokemon].type;
+			oak7();
+		});
+	}
+	
+	function oak7() {
+		console.log("oak7");
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>So you chose a "+playerPokemon+"!  Interesting choice.<br><br>Because "+playerPokemon+" is "+playerType+"-type, you’ll have an advantage against "+POKEMON[playerPokemon].advantage+"-type pokemon, but a disadvantage against "+POKEMON[playerPokemon].disadvantage+"-type pokemon.</p>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		
+		$("#modal__content--oak").replaceWith(modalContentOak);
+		$("body").one('click', oak8);
 	}
 	//end Oak modal dialogues
     
