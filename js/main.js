@@ -204,6 +204,8 @@ $(function() {
     	
     	updateBackgroundTiming()
     	$(window).on("resize", updateBackgroundTiming);
+    	
+    	$("#view").addClass("view--gym"); // add gym background image behind pokemon world background
 
     }); // end "then" attached to background image load promise
     
@@ -330,8 +332,8 @@ $(function() {
 	function oak10() {
 		console.log("oak10");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Are you ready to play?</p>";
-		var buttonPlay = "";
-		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		var buttonPlay = '<button type="button" class="button button--green" id="button-player-name">Ready!</button>';
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak11);

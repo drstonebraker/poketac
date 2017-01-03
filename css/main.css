@@ -108,6 +108,14 @@ html {
 	left: 0px;
 }
 
+.view--gym {
+    background: url(../img/gym.png) no-repeat center bottom fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .background {
 	height: 100%;
 	z-index: -1;
