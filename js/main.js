@@ -45,8 +45,6 @@ function splashAnimation() {
 
 	function animateTicTacToeFn() {
 		$("#ttt-logo__element").addClass("ttt-logo__element--" + logoStates[i]).removeClass("ttt-logo__element--" + logoStates[i-1]);
-        console.log(("#ttt-logo__element--" + logoStates[i]),("#ttt-logo__element--" + logoStates[i-1]));
-        console.log($("#ttt-logo__element").attr("class"));
 		if (i == 3) {
 			clearInterval(animateTicTacToe);
 		}
@@ -280,12 +278,26 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+pokeball0+pokeball1+pokeball2+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$(".pokeball").one('click', function() {
-			event.stopPropagation();
+		
+		function choosePokemon() {
+		    event.stopPropagation();
 			playerPokemon = $(this).data().pokemon;
 			playerType = POKEMON[playerPokemon].type;
 			oak7();
-		});
+		}
+		
+		if (isMobile) {
+		    $(".pokeball").on('touchstart', function() {
+		        var isFocused = $(this).hasClass("pokeball--focus");
+		        $(".pokeball").removeClass("pokeball--focus").off('touchstart', choosePokemon);
+		        if (isFocused) {
+		            $(this).one('click', choosePokemon);//do not use touchstart on this
+		        }
+		        $(this).toggleClass("pokeball--focus");
+		    });
+		} else {
+		    $(".pokeball").one('click', choosePokemon);
+		}
 	}
 	
 	function oak7() {

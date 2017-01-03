@@ -400,6 +400,14 @@ html {
 	transform: scale(1.2) translateX(7px);
 }
 
+.pokeball--focus > .pokeball__ball {
+	transform: translateX(-22px) rotate(-1rad);
+}
+
+.pokeball--focus > .pokeball__pokemon {
+	transform: scale(1.2) translateX(7px);
+}
+
 .pokeball__pokemon {
 	transition: transform 140ms ease 100ms;
 	transform-origin: left;
