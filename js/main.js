@@ -131,7 +131,7 @@ $(function() {
     // for mobile, activate music, set fullscreen, lock portrait orientation
     $('#view').on("touchstart tap", setMobileSettings);
     
-    //load background map image
+    //load overworld background image
     new Promise(function(resolve) {
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     
@@ -145,11 +145,11 @@ $(function() {
         
         var background = document.createElement('img') ;
         background.src = backgroundSource;
-        background.id = "background";
-        background.className = "background";
+        background.id = "overworld";
+        background.className = "overworld";
         background.onload = resolve;
         $("#view").prepend(background);
-        $("#background").attr('alt', "A map of the Pokemon world in the background")
+        $("#overworld").attr('alt', "A map of the Pokemon world in the background")
         
     }) // then set horizontal scrolling animation
         .then(function() {
@@ -161,7 +161,7 @@ $(function() {
     	var animateBackground; //a setInterval function
     	
     	function updateBackgroundTiming() {	//triggered on load and resize.  also starts/restarts animation
-    		backgroundMargin = Math.floor($("#background").width() - document.documentElement.clientWidth);
+    		backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
     		backgroundTiming = backgroundMargin * backgroundScrollSpeed;
     		
     		var backgroundTransition = "transform "+backgroundTiming+"ms linear"
@@ -170,7 +170,7 @@ $(function() {
     			"-webkit-transition": backgroundTransition
     		};
     		
-    		$("#background").css(backgroundTransitionObj);		
+    		$("#overworld").css(backgroundTransitionObj);		
     		
     		clearInterval(animateBackground);		
     		animateBackgroundFn()
@@ -190,7 +190,7 @@ $(function() {
     				"-webkit-transform": backgroundTranslate
     			}	
     		}
-    		$("#background").css(backgroundTransform)
+    		$("#overworld").css(backgroundTransform)
     	
     		
     		if (!reverse) {
@@ -332,11 +332,18 @@ $(function() {
 	function oak10() {
 		console.log("oak10");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Are you ready to play?</p>";
-		var buttonPlay = '<button type="button" class="button button--green" id="button-player-name">Ready!</button>';
+		var buttonPlay = '<button type="button" class="button button--green" id="button-play">Ready!</button>';
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak11);
+		$("#button-play").one('click', oak11);
+	}
+	
+	function oak11() {
+	    $("#button-play").addClass("animated bounceBtn").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function() {
+    		$(this).removeClass("animated bounceBtn");
+    		
+    	});
 	}
 	//end Oak modal dialogues
     

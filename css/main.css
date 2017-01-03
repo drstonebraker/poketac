@@ -116,7 +116,7 @@ html {
     background-size: cover;
 }
 
-.background {
+.overworld {
 	height: 100%;
 	z-index: -1;
 }
@@ -428,10 +428,51 @@ html {
 
 .pokeball__pokemon--2 {
 	background-position: -401px -156px;
+}/* end Oak dialogue */
+
+
+/* bounceBtn animation to use with Animate.css */
+.bounceBtn {
+  -webkit-animation-name: bounceBtn;
+  animation-name: bounceBtn;
 }
 
-/* end Oak dialogue */
+@keyframes bounceBtn {
+  from, 50%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+	
+	0% {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 
+  33% {
+    -webkit-transform: scale3d(.7, .7, .7);
+    transform: scale3d(.7, .7, .7);
+  }
+
+  67% {
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+} /* end bounceBtn animation */
+
+/* animated transition to gym background */
+.overworld--transition {
+	height: 100%;
+	z-index: -1;
+}
+
+/* end animated transition to gym background */
 
 /* UTILITY CLASSES */
 
