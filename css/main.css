@@ -392,18 +392,14 @@ html {
 	z-index: 1;
 }
 
-.pokeball:hover > .pokeball__ball {
-	transform: translateX(-22px) rotate(-1rad);
-}
-
-.pokeball:hover > .pokeball__pokemon {
-	transform: scale(1.2) translateX(7px);
-}
-
+.pokeball:hover > .pokeball__ball, 
+.pokeball:focus > .pokeball__ball, 
 .pokeball--focus > .pokeball__ball {
 	transform: translateX(-22px) rotate(-1rad);
 }
 
+.pokeball:hover > .pokeball__pokemon, 
+.pokeball:focus > .pokeball__pokemon, 
 .pokeball--focus > .pokeball__pokemon {
 	transform: scale(1.2) translateX(7px);
 }
