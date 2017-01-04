@@ -435,6 +435,7 @@ html {
 .bounceBtn {
   -webkit-animation-name: bounceBtn;
   animation-name: bounceBtn;
+  animation-duration: 250ms !important;
 }
 
 @keyframes bounceBtn {
@@ -466,13 +467,6 @@ html {
   }
 } /* end bounceBtn animation */
 
-/* animated transition to gym background */
-.overworld--transition {
-	height: 100%;
-	z-index: -1;
-}
-
-/* end animated transition to gym background */
 
 /* UTILITY CLASSES */
 

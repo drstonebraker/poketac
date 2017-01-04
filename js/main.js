@@ -1,5 +1,8 @@
 'use strict';
 
+const TRANSITION_END = "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
+const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+
 const POKEMON = {
     "Bulbasaur": {
         type: "grass",
@@ -57,7 +60,7 @@ function splashAnimation() {
     		animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
     
     		setTimeout(function() {
-    			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+    			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one(ANIMATION_END, function() {
     				$(this).removeClass("animated rubberBand");
     			});
     		}, animationInterval * 4);
@@ -72,6 +75,7 @@ $(function() {
 	var playerAvatar;
 	var playerPokemon;
 	var playerType;
+	var animateBackground; //a setInterval function
 	
     // Music and sound effects settings
     var soundEffectsOn = true;
@@ -156,9 +160,7 @@ $(function() {
         
     	var backgroundScrollSpeed = 150;//higher number is slower
     	var backgroundTiming; //time in ms for full scroll of one direction
-    	var backgroundTransition; //css transition value used for animation
     	var backgroundMargin; //number of horizontal pixels to scroll each direction
-    	var animateBackground; //a setInterval function
     	
     	function updateBackgroundTiming() {	//triggered on load and resize.  also starts/restarts animation
     		backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
@@ -336,14 +338,32 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-play").one('click', oak11);
+		$("#button-play").on('click', oak11);
 	}
 	
 	function oak11() {
-	    $("#button-play").addClass("animated bounceBtn").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function() {
+	    $("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
     		$(this).removeClass("animated bounceBtn");
-    		
     	});
+    	var transitionDuration = 700;
+    	var transitionEasing = "cubic-bezier(.9,0,.96,.5)";
+    	var translateVal = $("#overworld").offset().left;
+    	var transformVal = "translateX(" + translateVal + "px) scale(50)";
+		var transitionVal = "transform "+transitionDuration+"ms "+transitionEasing+", opacity "+transitionDuration+"ms "+transitionEasing;
+		var originVal = ($(window).width() / 2) - translateVal; //distance from left of overworld to viewport center
+		var cssVal = {
+		    "transform": transformVal,
+		    "-webkit-transform": transformVal,
+		    "transform-origin": originVal + "px center",
+		    "-webkit-transform-origin": originVal + "px center",
+		    "transition": transitionVal,
+		    "-webkit-transition": transitionVal,
+		    "opacity": "0"
+		}
+		$("#overworld").css(cssVal).one(TRANSITION_END, function() {
+			$(this).hide();
+		});
+		clearInterval(animateBackground);
 	}
 	//end Oak modal dialogues
     
