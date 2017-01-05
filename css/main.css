@@ -172,11 +172,11 @@ html {
     background-image: url("../img/spritesheet.png");
     top: 9px;
     z-index: 11;
+    background-position-y: -5px;
 }
 
 .controls__toggle--music {
     background-position-x: -5px;
-    background-position-y: -5px;
     left: -3px;
 }
 
@@ -186,7 +186,6 @@ html {
 
 .controls__toggle--sound {
     background-position-x: -40px;
-    background-position-y: -5px;
     right: -3px;
 }
 
@@ -233,7 +232,7 @@ html {
 	position: absolute;
 	height: 130px;
 	width: 130px;
-	background-size: 666px;
+	background-size: 734px;
 	background-position-y: -25px;
 	background-image: url("../img/spritesheet.png");
 }
@@ -263,8 +262,8 @@ html {
 	height: 67px;
 	margin: -33px 0 0 -90px;
 	background-image: url("../img/spritesheet.png");
-	background-size: 941px;
-	background-position: -2px -519px;
+	background-size: 1037.5px;
+	background-position: -2px -529px;
 }
 
 /* OAK DIALOGUE */
@@ -289,8 +288,8 @@ html {
 .char-tall--oak {
 	width: 99px;
 	background-image: url("https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png");
-	background-size: 1189px;
-	background-position: -946px -45px;
+	background-size: 1313px;
+	background-position: -947px -45px;
 }
 
 .modal__content--oak {
@@ -361,7 +360,6 @@ html {
 .button__avatar {
 	height: 64px;
 	width: 96px;
-	background-size: 1997px;
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
 	border-radius: 18px;  
 	transition: transform 50ms ease;
@@ -388,14 +386,15 @@ html {
 .pokeball__element {
 	position: absolute;
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
-	background-size: 666px;
+	background-size: 757px;
 	width: 44px;
 	height: 44px;
 	margin-top: -22px;
+	background-position-y: -161.5px;
 }
 
 .pokeball__ball {	
-	background-position: -2px -156px;	
+	background-position-x: -2px;	
 	transition: transform 300ms ease;
 	z-index: 1;
 }
@@ -419,15 +418,15 @@ html {
 }
 
 .pokeball__pokemon--0 {
-	background-position: -46px -156px;
+	background-position-x: -47.5px;
 }
 
 .pokeball__pokemon--1 {
-	background-position: -223px -156px;
+	background-position-x: -230px;
 }
 
 .pokeball__pokemon--2 {
-	background-position: -401px -156px;
+	background-position-x: -413px;
 }/* end Oak dialogue */
 
 
