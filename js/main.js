@@ -206,7 +206,7 @@ $(function() {
     	
     	updateBackgroundTiming()
     	$(window).on("resize", updateBackgroundTiming);
-    	
+		    	
     	$("#view").addClass("view--gym"); // add gym background image behind pokemon world background
 
     }); // end "then" attached to background image load promise
@@ -306,7 +306,7 @@ $(function() {
 	
 	function oak7() {
 		console.log("oak7");
-		var text = "<p class='modal-text modal-text--oak' id='modal-text'>So you chose a "+playerPokemon+"!  Interesting choice.<br><br>Because "+playerPokemon+" is "+playerType+"-type, you’ll have an advantage against "+POKEMON[playerPokemon].advantage+"-type pokemon, but a disadvantage against "+POKEMON[playerPokemon].disadvantage+"-type pokemon.</p>";
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>So you chose a "+playerPokemon+"!<br><br>Because "+playerPokemon+" is "+playerType+"-type, you’ll have an advantage against "+POKEMON[playerPokemon].advantage+"-type pokemon, but a disadvantage against "+POKEMON[playerPokemon].disadvantage+"-type pokemon.</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
@@ -342,8 +342,19 @@ $(function() {
 	}
 	
 	function oak11() {
+		console.log("oak11");
 	    $("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
     		$(this).removeClass("animated bounceBtn");
+    		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Good luck!</p>";
+			var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+			
+			$("#modal__content--oak").replaceWith(modalContentOak);
+    		
+    		setTimeout(function() {
+    			$("#modal").addClass("animated bounceOutDownCenter").one(ANIMATION_END, function() {
+    				$(this).hide().removeClass("animated bounceOutDownCenter");
+    			});
+    		}, 1000);
     	});
     	var transitionDuration = 700;
     	var transitionEasing = "cubic-bezier(.9,0,.96,.5)";

@@ -212,7 +212,7 @@ html {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate3d(-50%, -50%, 0px);
 	background-color: #FFEAA0;
 	background-image: url(../img/dimension-poke.png);
 	border: 3px solid #FF891D;
@@ -466,6 +466,52 @@ html {
     transform: scale3d(1, 1, 1);
   }
 } /* end bounceBtn animation */
+
+
+/* custom bounceOutDownCenter animation to use with Animate.css, based on bounceOutDown */
+@-webkit-keyframes bounceOutDownCenter {
+  20% {
+    -webkit-transform: translate3d(-50%, calc(-50% + 10px), 0);
+    transform: translate3d(-50%, calc(-50% + 10px), 0);
+  }
+
+  40%, 45% {
+    opacity: 1;
+    -webkit-transform: translate3d(-50%, calc(-50% - 20px), 0);
+    transform: translate3d(-50%, calc(-50% - 20px), 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-50%, calc(-50% + 2000px), 0);
+    transform: translate3d(-50%, calc(-50% + 2000px), 0);
+  }
+}
+
+@keyframes bounceOutDownCenter {
+  20% {
+    -webkit-transform: translate3d(-50%, calc(-50% + 10px), 0);
+    transform: translate3d(-50%, calc(-50% + 10px), 0);
+  }
+
+  40%, 45% {
+    opacity: 1;
+    -webkit-transform: translate3d(-50%, calc(-50% - 20px), 0);
+    transform: translate3d(-50%, calc(-50% - 20px), 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-50%, calc(-50% + 2000px), 0);
+    transform: translate3d(-50%, calc(-50% + 2000px), 0);
+  }
+}
+
+.bounceOutDownCenter {
+  -webkit-animation-name: bounceOutDownCenter;
+  animation-name: bounceOutDownCenter;
+} /* end custom bounceOutDownCenter animation */
+
 
 
 /* UTILITY CLASSES */
