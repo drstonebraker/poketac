@@ -106,8 +106,8 @@ $(function() {
           }
       }
     }
-    $("#controls__toggle--music").click(toggleMusic);
-    $("#controls__toggle--sound").click(toggleSound);
+    $("#controls__toggle--music").on("click touchstart", toggleMusic);
+    $("#controls__toggle--sound").on("click touchstart", toggleMusic);
     
     function setMobileSettings() {
         if (!isMobile) { //if this is the first time tapping the page
@@ -223,7 +223,7 @@ $(function() {
 		$("#char-tall--oak").removeClass("u-hidden");
 		$("#modal").removeClass('modal--splash');
 		$("#modal__content--splash").replaceWith(modalContentOak);
-		$("body").one('click', oak2);
+		$("body").one('click touchstart', oak2);
 	}
 	
 	function oak2() {
@@ -232,7 +232,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak3);
+		$("body").one('click touchstart', oak3);
 	}
 	
 	function oak3() {
@@ -257,7 +257,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonAvatarFemale+buttonAvatarMale+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$(".button--avatar").one('click', function() {
+		$(".button--avatar").one('click touchstart', function() {
 			event.stopPropagation();
 			playerAvatar = $(this).data().avatar;
 			oak5();
@@ -272,7 +272,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak6);
+		$("body").one('click touchstart', oak6);
 	}
 	
 	function oak6() {
@@ -313,7 +313,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak8);
+		$("body").one('click touchstart', oak8);
 	}
 	
 	function oak8() {
@@ -322,7 +322,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak9);
+		$("body").one('click touchstart', oak9);
 	}
 	
 	function oak9() {
@@ -331,7 +331,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak10);
+		$("body").one('click touchstart', oak10);
 	}
 	
 	function oak10() {
@@ -341,7 +341,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-play").on('click', oak11);
+		$("#button-play").on('click touchstart', oak11);
 	}
 	
 	function oak11() {
@@ -398,7 +398,7 @@ $(function() {
 	//end Oak modal dialogues
     
     splashAnimation();
-    $("body").one('click', oak1); //first oak dialogue screen
+    $("body").one('click touchstart', oak1); //first oak dialogue screen
 
 	
 })
