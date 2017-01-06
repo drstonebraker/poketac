@@ -343,6 +343,7 @@ $(function() {
 	
 	function oak11() {
 		console.log("oak11");
+		//exit oak modal and enter gamespace
 		$("#gamespace").removeClass("u-hidden");
 	    $("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
     		$(this).removeClass("animated bounceBtn");
@@ -358,6 +359,8 @@ $(function() {
     			});
     		}, 1000);
     	});
+    	
+    	//zoom into overworld
     	var transitionDuration = 700;
     	var transitionEasing = "cubic-bezier(.9,0,.96,.5)";
     	var translateVal = $("#overworld").offset().left;
@@ -377,6 +380,17 @@ $(function() {
 			$(this).hide();
 		});
 		clearInterval(animateBackground);
+		
+		// choosing a challenger
+		$(".button--avatar").on("touchstart click", function() {
+			$(this).addClass("animated bounceOutUp").one(ANIMATION_END, function() {
+				$(".button--avatar, #heading--challengers").not(this).addClass("animated fadeOutDown").one(ANIMATION_END, function() {
+					$("#challengers").hide();
+					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp");
+				});
+			});
+			
+		});
 	}
 	//end Oak modal dialogues
     
