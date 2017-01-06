@@ -343,6 +343,7 @@ $(function() {
 	
 	function oak11() {
 		console.log("oak11");
+		$("#gamespace").removeClass("u-hidden");
 	    $("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
     		$(this).removeClass("animated bounceBtn");
     		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Good luck!</p>";
@@ -353,6 +354,7 @@ $(function() {
     		setTimeout(function() {
     			$("#modal").addClass("animated bounceOutDownCenter").one(ANIMATION_END, function() {
     				$(this).hide().removeClass("animated bounceOutDownCenter");
+    				$("#gamespace").removeClass("u-blurred");
     			});
     		}, 1000);
     	});
