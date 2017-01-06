@@ -239,11 +239,12 @@ $(function() {
 		console.log("oak3");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>But look at me getting ahead of myself.  I’ve forgotten my manners!  I’m Professor Oak.<br>And you are...?</p>";
 		var nameInput = '<input type="text" placeholder="Type your name" class="name-input" id="name-input"></input>';
-		var nameBtn = '<button type="button" class="button button--green" id="button-player-name">OK</button>';
-		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameInput+nameBtn+'</div>';
+		var nameBtn = '<button type="submit" class="button button--green" id="button-player-name">OK</button>';
+		var nameForm = "<form id='nameForm'>"+nameInput+nameBtn+"</form>";
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameForm+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-player-name").one('click', oak4);
+		$("#button-player-name").one('click touchstart submit', oak4);
 	}
 	
 	function oak4() {
@@ -261,6 +262,8 @@ $(function() {
 			playerAvatar = $(this).data().avatar;
 			oak5();
 		});
+		
+		return false; //prevent default submit behavior on name input
 	}
 	
 	function oak5() {
@@ -324,7 +327,7 @@ $(function() {
 	
 	function oak9() {
 		console.log("oak9");
-		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to challengers who can beat them.  See if you can collect all eight!</p>";
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to players who can beat them.  See if you can collect all eight!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
