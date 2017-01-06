@@ -1,5 +1,11 @@
 'use strict';
 
+//detect IE
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+if (isIE) {
+	document.body.innerHTML = "<p class='browserupgrade'>You are using an <strong>outdated</strong> browser. This game is only playable with <a href='http://browsehappy.com/'>an upgraded browser</a>.</p>";
+}
+
 const TRANSITION_END = "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
 
