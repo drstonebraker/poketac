@@ -522,7 +522,6 @@ html {
 .gamespace {
     width: 100%;
     height: 100%;
-    transition: filter 700ms ease, opacity 50ms ease;
 }
 
 /* challenger buttons */
@@ -803,6 +802,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .u-blurred {
     filter: blur(80px);
     opacity: 0;
+}
+
+.u-blurred-transition {
+    transition: filter 700ms ease, opacity 50ms ease;
 }
 
 /* ==========================================================================

@@ -364,7 +364,7 @@ $(function() {
     		setTimeout(function() {
     			$("#modal").addClass("animated bounceOutDownCenter").one(ANIMATION_END, function() {
     				$(this).hide().removeClass("animated bounceOutDownCenter");
-    				$("#gamespace").removeClass("u-blurred");
+    				showChallengers();
     			});
     		}, 1000);
     	});
@@ -389,22 +389,25 @@ $(function() {
 			$(this).hide();
 		});
 		clearInterval(animateBackground);
+	}
+	//end Oak modal dialogues
+	
+	function showChallengers() {
+		$("#tray, #challengers").removeClass("u-blurred");
 		
 		// choosing a challenger
 		$(".button--avatar").on("click", function() {
 			$(this).addClass("animated bounceOutUp").one(ANIMATION_END, function() {
 				$(".button--avatar, #heading--challengers").not(this).addClass("animated fadeOutDown").one(ANIMATION_END, function() {
-					$("#challengers").hide();
+					$("#challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp");
 				});
 			});
-			
 		});
 	}
-	//end Oak modal dialogues
     
     splashAnimation();
     $("body").one('click', oak1);//first oak dialogue screen
     
 	
-})
+}) // end document.ready function
