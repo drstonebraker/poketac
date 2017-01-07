@@ -257,8 +257,8 @@ $(function() {
 		console.log("oak4");
 		playerName = $("#name-input").val();
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Welcome, "+playerName+"!  You’ll have to forgive me, but my eyes are going bad.  Can you tell me what you look like?</p>";
-		var buttonAvatarFemale = '<button type="button" class="button button--avatar" id="button-player-avatar-f" data-avatar="player-female"><div class="button__avatar button__avatar--female" id="button__avatar--female"></div></button>';
-		var buttonAvatarMale = '<button type="button" class="button button--avatar" id="button-player-avatar-m" data-avatar="player-male"><div class="button__avatar button__avatar--male" id="button__avatar--male"></div></button>';
+		var buttonAvatarFemale = '<button type="button" class="button button--avatar" id="button-player-avatar-f" data-avatar="player-female"><div class="button__avatar avatar--female" id="button__avatar--female"></div></button>';
+		var buttonAvatarMale = '<button type="button" class="button button--avatar" id="button-player-avatar-m" data-avatar="player-male"><div class="button__avatar avatar--male" id="button__avatar--male"></div></button>';
 		
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonAvatarFemale+buttonAvatarMale+'</div>';
 		

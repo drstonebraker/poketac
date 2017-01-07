@@ -364,20 +364,23 @@ html {
 		transform: scale(1.2);
 }
 
-.button__avatar {
-	height: 64px;
+.avatar {
+    height: 64px;
 	width: 96px;
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
-	border-radius: 18px;  
-	transition: transform 50ms ease;
     background-position-y: -5px;
 }
 
-.button__avatar--female {
+.button__avatar {
+	border-radius: 18px;  
+	transition: transform 50ms ease;
+}
+
+.avatar--female {
 	background-position-x: -246px;
 }
 
-.button__avatar--male {
+.avatar--male {
 	background-position-x: -145px;
 }
 
@@ -559,35 +562,35 @@ html {
     align-items: center;
 }
 
-.button__avatar--challenger-0 {
+.avatar--challenger-0 {
     background-position-x: -347px;
 }
 
-.button__avatar--challenger-1 {
+.avatar--challenger-1 {
     background-position-x: -448px;
 }
 
-.button__avatar--challenger-2 {
+.avatar--challenger-2 {
     background-position-x: -549px;
 }
 
-.button__avatar--challenger-3 {
+.avatar--challenger-3 {
     background-position-x: -650px;
 }
 
-.button__avatar--challenger-4 {
+.avatar--challenger-4 {
     background-position-x: -751px;
 }
 
-.button__avatar--challenger-5 {
+.avatar--challenger-5 {
     background-position-x: -852px;
 }
 
-.button__avatar--challenger-6 {
+.avatar--challenger-6 {
     background-position-x: -953px;
 }
 
-.button__avatar--challenger-7 {
+.avatar--challenger-7 {
     background-position-x: -1054px;
 } /* end challenger buttons */
 
