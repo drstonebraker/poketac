@@ -34,42 +34,89 @@
         <main class="view" id="view">
             <section class="gamespace u-hidden" id="gamespace">
                 <div class="screen-center" id="screen-center"></div>
-                <div class="gameboard" id="gameboard"></div>
+                <div class="marquee u-hidden" id="marquee">
+                    <div class="marquee__avatar-box marquee__avatar-box--player u-textured" id="marquee__avatar-box--player">
+                        <div class="avatar avatar--drop-shadow" id="avatar--player"></div>
+                    </div>
+                    <div class="marquee__avatar-box marquee__avatar-box--challenger u-textured" id="marquee__avatar-box--challenger">
+                        <div class="avatar avatar--drop-shadow" id="avatar--challenger"></div>
+                    </div>
+                    <div class="marquee__dialogue-container">
+                        <div class="marquee__dialogue u-textured" id="marquee__dialogue">
+                            <p class="marquee__dialogue__text" id="marquee__dialogue__text"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gameboard u-hidden" id="gameboard">
+                    <div class="gameboard__row">
+                        <div class="gameboard__cell" id="gameboard__cell--a1" data-cell="a1">
+                            <div id="a1"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--b1" data-cell="b1">
+                            <div id="b1"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--c1" data-cell="c1">
+                            <div id="c1"></div>
+                        </div>
+                    </div><!--end marquee-->
+                    <div class="gameboard__row">
+                        <div class="gameboard__cell" id="gameboard__cell--a2" data-cell="a2">
+                            <div id="a2"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--b2" data-cell="b2">
+                            <div id="b2"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--c2" data-cell="c2">
+                            <div id="c2"></div>
+                        </div>
+                    </div>
+                    <div class="gameboard__row">
+                        <div class="gameboard__cell" id="gameboard__cell--a3" data-cell="a3">
+                            <div id="a3"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--b3" data-cell="b3">
+                            <div id="b3"></div>
+                        </div>
+                        <div class="gameboard__cell" id="gameboard__cell--d3" data-cell="c3">
+                            <div id="c3"></div>
+                        </div>
+                    </div>
+                </div><!--end gameboard-->
                 <div class="challengers u-blurred u-blurred-transition" id="challengers">
                     <h1 class="heading heading--challengers" id="heading--challengers">Choose a Challenger</h1>
                     <div class="challengers__row">
-                        <button type="button" class="button button--avatar button--challenger-0" id="button--challenger-0" title="Brock (Very Easy)" data-gymNumber="0">
-                            <div class="button__avatar avatar--challenger-0" id="button__avatar--challenger-0"></div>
+                        <button type="button" class="button button--avatar button--challenger-0" id="button--challenger-0" title="Brock (Very Easy)" data-gymnumber="0">
+                            <div class="button__avatar avatar avatar--challenger-0" id="button__avatar--challenger-0"></div>
                         </button>
-                        <button type="button" class="button button--avatar button--challenger-1" id="button--challenger-1" title="Misty (Very Easy)" data-gymNumber="1">
-                            <div class="button__avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
-                        </button>
-                    </div>
-                    <div class="challengers__row">    
-                        <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" data-gymNumber="2">
-                            <div class="button__avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
-                        </button>
-                        <button type="button" class="button button--avatar button--challenger-3" id="button--challenger-3" title="Erika (Easy)"  data-gymNumber="3">
-                            <div class="button__avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
+                        <button type="button" class="button button--avatar button--challenger-1" id="button--challenger-1" title="Misty (Very Easy)" data-gymnumber="1">
+                            <div class="button__avatar avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
                         </button>
                     </div>
                     <div class="challengers__row">    
-                        <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" data-gymNumber="4">
-                            <div class="button__avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
+                        <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" data-gymnumber="2">
+                            <div class="button__avatar avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
                         </button>
-                        <button type="button" class="button button--avatar button--challenger-5" id="button--challenger-5" title="Sabrina (Moderate)" data-gymNumber="5">
-                            <div class="button__avatar avatar--challenger-5" id="button__avatar--challenger-5"></div>
+                        <button type="button" class="button button--avatar button--challenger-3" id="button--challenger-3" title="Erika (Easy)"  data-gymnumber="3">
+                            <div class="button__avatar avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">    
+                        <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" data-gymnumber="4">
+                            <div class="button__avatar avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-5" id="button--challenger-5" title="Sabrina (Moderate)" data-gymnumber="5">
+                            <div class="button__avatar avatar avatar--challenger-5" id="button__avatar--challenger-5"></div>
                         </button>
                     </div>
                     <div class="challengers__row">
-                        <button type="button" class="button button--avatar button--challenger-6" id="button--challenger-6" title="Blaine (Difficult)" data-gymNumber="6">
-                            <div class="button__avatar avatar--challenger-6" id="button__avatar--challenger-6"></div>
+                        <button type="button" class="button button--avatar button--challenger-6" id="button--challenger-6" title="Blaine (Difficult)" data-gymnumber="6">
+                            <div class="button__avatar avatar avatar--challenger-6" id="button__avatar--challenger-6"></div>
                         </button>
-                        <button type="button" class="button button--avatar button--challenger-7" id="button--challenger-7" title="Giovanni (Very Difficult)" data-gymNumber="7">
-                            <div class="button__avatar avatar--challenger-7" id="button__avatar--challenger-7"></div>
+                        <button type="button" class="button button--avatar button--challenger-7" id="button--challenger-7" title="Giovanni (Very Difficult)" data-gymnumber="7">
+                            <div class="button__avatar avatar avatar--challenger-7" id="button__avatar--challenger-7"></div>
                         </button>
                     </div>
-                </div>
+                </div><!--end challenger buttons-->
                 <div class="tray-container">
                     <div class="tray u-blurred u-blurred-transition" id="tray">
                         <div class="tray__row tray__row--0">
@@ -141,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><!--end badge tray-->
             </section>
             <div class="controls u-grey-bg" id="controls">
                 <button type="button" class="controls__toggle controls__toggle--music" id="controls__toggle--music" title="Music Off"></button>

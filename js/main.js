@@ -9,6 +9,7 @@ if (isIE) {
 const TRANSITION_END = "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
 
+const CHALLENGERS = ["Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni"];
 const POKEMON = {
     "Bulbasaur": {
         type: "grass",
@@ -81,6 +82,8 @@ $(function() {
 	var playerAvatar;
 	var playerPokemon;
 	var playerType;
+	var currentGym;
+	var earnedBadges = [];
 	var animateBackground; //a setInterval function
 	
     // Music and sound effects settings
@@ -257,8 +260,8 @@ $(function() {
 		console.log("oak4");
 		playerName = $("#name-input").val();
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Welcome, "+playerName+"!  You’ll have to forgive me, but my eyes are going bad.  Can you tell me what you look like?</p>";
-		var buttonAvatarFemale = '<button type="button" class="button button--avatar" id="button-player-avatar-f" data-avatar="player-female"><div class="button__avatar avatar--female" id="button__avatar--female"></div></button>';
-		var buttonAvatarMale = '<button type="button" class="button button--avatar" id="button-player-avatar-m" data-avatar="player-male"><div class="button__avatar avatar--male" id="button__avatar--male"></div></button>';
+		var buttonAvatarFemale = '<button type="button" class="button button--avatar" id="button-player-avatar-f" data-avatar="female"><div class="button__avatar avatar avatar--female" id="button__avatar--female"></div></button>';
+		var buttonAvatarMale = '<button type="button" class="button button--avatar" id="button-player-avatar-m" data-avatar="male"><div class="button__avatar avatar avatar--male" id="button__avatar--male"></div></button>';
 		
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonAvatarFemale+buttonAvatarMale+'</div>';
 		
@@ -266,6 +269,7 @@ $(function() {
 		$(".button--avatar").one('click', function() {
 			event.stopPropagation();
 			playerAvatar = $(this).data().avatar;
+			$("#avatar--player").addClass("avatar--" + playerAvatar);
 			oak5();
 		});
 		
@@ -397,10 +401,18 @@ $(function() {
 		
 		// choosing a challenger
 		$(".button--avatar").on("click", function() {
+			currentGym = $(this).data().gymnumber;
+			$("#marquee").removeClass("u-hidden");
+			$("#avatar--challenger").addClass("avatar--challenger-" + currentGym); //add appropriate challenger avatar
 			$(this).addClass("animated bounceOutUp").one(ANIMATION_END, function() {
 				$(".button--avatar, #heading--challengers").not(this).addClass("animated fadeOutDown").one(ANIMATION_END, function() {
 					$("#challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp");
+					$("#marquee").addClass("marquee--drop").one(ANIMATION_END, function() {
+				        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge").one(ANIMATION_END, function() {
+				            $("#gameboard").removeClass("u-hidden").addClass("animated fadeIn");
+				        });
+				    });
 				});
 			});
 		});
