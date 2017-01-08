@@ -539,8 +539,9 @@ $(function() {
 	  }// end playerTurn()
 	  
 	  function updatePlayerPokemon() {
+	  	console.log("updatePlayerPokemon()");
 	  	//this changes player pokemon to evolved form after badges are earned
-	  	var evolutionStage = Math.floor((earnedBadges.length - 1) / 2);
+	  	var evolutionStage = Math.floor((earnedBadges.length) / 2);
 	  	playerCurrentPokemon = POKEMON[playerStarterPokemon].evolution[evolutionStage];
 	  }
 	  
@@ -787,15 +788,15 @@ $(function() {
 	  =========================================================================== */
 	  $(".gameboard__cell").click(function() {
 	  	console.log("cell clicked");
+	  	$(this).blur().prop("disabled", true);
+
 	  	var clickedCell = $(this).data().cell;
-	    // If it is player's turn, and the cell they click on has not been claimed
-	    if (gameTurn === "player" && cellValues[clickedCell] == 0) {
 	      // Update the cell's state value to 1
 	      cellValues[clickedCell] = PLAYER_VAL;
 	      // add pokemon
+	      $("#" + clickedCell).addClass("pokemon " + playerCurrentPokemon.toLowerCase());
 	
 	      finalizeMove("player");
-	    }
 	  })
 	  
 	  function switchActivePanels(activePlayer) {
@@ -870,6 +871,15 @@ $(function() {
 	  	console.log("setGameTurn("+activePlayer+")");
 	  	gameTurn = activePlayer;
 	  	switchActivePanels(activePlayer);
+	  	if (activePlayer == "player") {
+	  		for (var cell in cellValues) {
+	  			if (cellValues[cell] == 0) {
+	  				$( "#gameboard__cell--" + cell ).prop( "disabled", false ); //enable empty cells
+	  			}
+	  		}
+	  	} else {
+	  		$( ".gameboard__cell" ).prop( "disabled", true ); //disable all cells
+	  	}
 	  }
 	  
 	} // end playGame();
