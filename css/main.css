@@ -822,6 +822,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     overflow: hidden;
 }
 
+.marquee__avatar-box--active {
+    background-color: #85F444;
+}
+
 .marquee__avatar-box--player {
     right: calc(50% + 20px);
 }
@@ -850,6 +854,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     border-radius: 4px;
     box-shadow: 0 0 0 1px black, 0 0 20px 0 black, inset 0 0 10px #090909;    transform-origin: top;
     transform: rotateX(-90deg);
+    overflow: hidden;
 }
 
 .marquee__dialogue--swingHinge {
@@ -868,6 +873,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .marquee__dialogue__text--speak {
     animation: speak 200ms ease-in-out forwards, unspeak 700ms ease-in 2000ms forwards;
+}
+
+.marquee__dialogue__text--announce {
+    animation: bounceInRight 1000ms forwards, bounceOutLeft 1000ms 3000ms forwards;
+}
+
+.speak {
+  animation: speak 400ms ease-in-out forwards;
+}
+
+.unspeak {
+  animation: unspeak 700ms ease-in forwards;
 }
 
 
