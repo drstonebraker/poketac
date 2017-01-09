@@ -1001,51 +1001,51 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     animation-iteration-count: infinite;
 }
 
-.bulbasaur {
+.pokemon--bulbasaur {
     background-position-x: -81px;
 }
 
-.ivysaur {
+.pokemon--ivysaur {
     background-position-x: -159px;
 }
 
-.venusaur {
+.pokemon--venusaur {
     background-position-x: -236.5px;
 }
 
-.mega-venusaur {
+.pokemon--mega-venusaur {
     background-position-x: -314.5px;
 }
 
-.squirtle {
+.pokemon--squirtle {
     background-position-x: -392.5px;
 }
 
-.wartortle {
+.pokemon--wartortle {
     background-position-x: -470.5px;
 }
 
-.blastoise {
+.pokemon--blastoise {
     background-position-x: -548.5px;
 }
 
-.mega-blastoise {
+.pokemon--mega-blastoise {
     background-position-x: -626.5px;
 }
 
-.charmander {
+.pokemon--charmander {
     background-position-x: -704.5px;
 }
 
-.charmeleon {
+.pokemon--charmeleon {
     background-position-x: -782px;
 }
 
-.charizard {
+.pokemon--charizard {
     background-position-x: -860px;
 }
 
-.mega-charizard {
+.pokemon--mega-charizard {
     background-position-x: -938px;
 }
 

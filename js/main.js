@@ -794,7 +794,7 @@ $(function() {
 	      // Update the cell's state value to 1
 	      cellValues[clickedCell] = PLAYER_VAL;
 	      // add pokemon
-	      $("#" + clickedCell).addClass("pokemon " + playerCurrentPokemon.toLowerCase());
+	      $("#" + clickedCell).addClass("pokemon pokemon--" + playerCurrentPokemon.toLowerCase());
 	
 	      finalizeMove("player");
 	  })
