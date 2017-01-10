@@ -592,7 +592,11 @@ html {
 
 .avatar--challenger-7 {
     background-position-x: -1054px;
-} /* end challenger buttons */
+} 
+
+.button--no-outline {
+  outline: none;
+}/* end challenger buttons */
 
 /* gym badges */
 .screen-center {

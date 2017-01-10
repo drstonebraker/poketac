@@ -408,11 +408,11 @@ $(function() {
 			currentGym = $(this).data().gymnumber;
 			$("#marquee").removeClass("u-hidden");
 			$("#avatar--challenger").addClass("avatar--challenger-" + currentGym); //add appropriate challenger avatar
-			$(this).addClass("animated bounceOutUp").one(ANIMATION_END, function() {
+			$(this).addClass("animated bounceOutUp button--no-outline").one(ANIMATION_END, function() {
 				$(".button--avatar").not(this).addClass("animated fadeOutDown");
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
 					$("#challengers").hide().addClass("u-blurred");
-					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp");
+					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp button--no-outline");
 					$("#marquee").addClass("marquee--drop").one(ANIMATION_END, function() {
 				        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge").one(ANIMATION_END, function() {
 				        		if (event.animationName === "swingHinge" && event.type === "animationend") {
