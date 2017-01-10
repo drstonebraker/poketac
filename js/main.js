@@ -450,7 +450,7 @@ $(function() {
 		const CENTER = ["b2"];
 		
 		// a virtual gameboard containing values based on which cells have been played
-		var emptyBoard = {
+		var cellValues = {
 			a1: 0,
 			b1: 0,
 			c1: 0,
@@ -461,7 +461,6 @@ $(function() {
 			b3: 0,
 			c3: 0
 		};
-		var cellValues = Object.assign({}, emptyBoard);
 		var trioVariables     = {};
 		var gameTurn = "";
 		var playerCurrentPokemon = "";
@@ -523,25 +522,6 @@ $(function() {
 	    } 
 	  } // end finalizeMove()
 	  
-	  /*
-	  function playerTurn() {
-	  	console.log("playerTurn()");
-	    switchActivePanels("player");
-	    setTimeout(function() {
-	      $("#player-turn-message").removeClass("hide").addClass("bounceIn");
-	    }, 100)
-	
-	    setTimeout(function() {
-	      $("#player-turn-message").addClass("bounceOut");
-	    }, 1000)
-	
-	    setTimeout(function() {
-	      $("#player-turn-message").addClass("hide").removeClass("bounceIn").removeClass("bounceOut");
-	      gameTurn = "player";
-	    }, 1000)
-	  }// end playerTurn()
-	  */
-	  
 	  function updatePlayerPokemon() {
 	  	console.log("updatePlayerPokemon()");
 	  	//this changes player pokemon to evolved form after badges are earned
@@ -599,16 +579,6 @@ $(function() {
 	    $("#award-game-badge img").addClass("tada");
 */
 	  }
-	  
-	  /*
-	  function resetGameBoard() {
-	  	console.log("resetGameBoard()");
-	
-	    $(".cell-state").text(0);
-	    updateTrioVariables();
-	    blockedTrios = [];
-	  }
-	  */
 	  
 		function tieGameCheck() {
 			console.log("tieGameCheck()");
