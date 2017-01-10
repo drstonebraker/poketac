@@ -551,7 +551,7 @@ html {
      1px 1px 0 #111;	
     text-align: center;
     margin: 15px 0 0 0;
-    font-size: 1.2em;
+    font-size: 1.5em;
     flex-basis: 100%;
 }
 
@@ -848,7 +848,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     width: 100%;
 }
 
-.marquee__dialogue {    
+.marquee__dialogue { 
+  display: table;
     height: 42px;
     width: 90%;
     max-width: 500px;
@@ -866,13 +867,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .marquee__dialogue__text {
+  display: table-cell;
     color: #DDD;
     font-family: 'Pathway Gothic One', Helvetica, sans-serif;
-    height: 42px;
-    line-height: 42px;
     margin: 0;
     transform-origin: calc(50% + 40px) top;
     text-align: center;
+    vertical-align: middle;
 }
 
 .marquee__dialogue__text--speak {

@@ -417,6 +417,7 @@ $(function() {
 				        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge").one(ANIMATION_END, function() {
 				        		if (event.animationName === "swingHinge" && event.type === "animationend") {
 					            $("#gameboard").removeClass("u-hidden").addClass("animated fadeIn");
+					            $("#marquee__dialogue__text").flowtype({minFont : 13});
 					            playGame();
 				        		}
 				        });
