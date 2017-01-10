@@ -876,20 +876,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     vertical-align: middle;
 }
 
-.marquee__dialogue__text--speak {
-    animation: speak 200ms ease-in-out forwards, unspeak 700ms ease-in 2000ms forwards;
-}
-
-.marquee__dialogue__text--announce {
-    animation: bounceInRight 1000ms forwards, bounceOutLeft 1000ms 3000ms forwards;
-}
-
 .speak {
-  animation: speak 400ms ease-in-out forwards;
+  animation: speak 400ms ease-in-out;
 }
 
 .unspeak {
-  animation: unspeak 700ms ease-in forwards;
+  animation: unspeak 700ms ease-in;
 }
 
 

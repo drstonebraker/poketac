@@ -256,12 +256,19 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameForm+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-player-name").one('click submit', oak4);
+		$("#button-player-name").on('click submit', function() {
+			if ($("#name-input").val() == "") {
+				$("#modal-text").text("Please, tell me your name.");
+			} else {
+				playerName = $("#name-input").val();
+				oak4();
+			}
+			return false;
+		});
 	}
 	
 	function oak4() {
 		console.log("oak4");
-		playerName = $("#name-input").val();
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Welcome, "+playerName+"!  You’ll have to forgive me, but my eyes are going bad.  Can you tell me what you look like?</p>";
 		var buttonAvatarFemale = '<button type="button" class="button button--avatar button--avatar--player" id="button-player-avatar-f" data-avatar="female"><div class="button__avatar avatar avatar--female" id="button__avatar--female"></div></button>';
 		var buttonAvatarMale = '<button type="button" class="button button--avatar button--avatar--player" id="button-player-avatar-m" data-avatar="male"><div class="button__avatar avatar avatar--male" id="button__avatar--male"></div></button>';
@@ -467,7 +474,9 @@ $(function() {
 		var playerCurrentPokemon = "";
 		var playerAdvantage = "";
 		var challengerPokemon = "";
-
+		var dialogue = {};
+		var msgTimer;
+		
 		
 		beginGame();
 		
@@ -636,7 +645,8 @@ $(function() {
         default:
           return false;
 	    }
-	
+			
+			marqueeMessage(randomPick(dialogue.start), "speak");
       makeMove("challenger", randomPick(smartStartMoves));
       console.log("Making a starting move");
       return true;
@@ -668,6 +678,7 @@ $(function() {
 	    }
 	    console.log("final empty cells to choose from: "+emptyCells);
 	    if (emptyCells.length > 0) {
+	    	marqueeMessage(randomPick(dialogue[moveType]), "speak");
 	    	makeMove("challenger", randomPick(emptyCells));
 	    	console.log("making a "+moveType+" move");
 	    	return true;
@@ -684,6 +695,7 @@ $(function() {
 	    // Create an array of empty cells, and variable to hold number of empty cells
 	    var emptyCells = findEmptyCells();
 	    
+	    marqueeMessage(randomPick(dialogue.random), "speak");
 	    makeMove("challenger", randomPick(emptyCells));
 	
 	    console.log("Making a RANDOM move");
@@ -736,6 +748,7 @@ $(function() {
 	  					return false;
 	  				}
 	  			}
+	  			marqueeMessage(randomPick(dialogue.counter), "speak");
 	  			return true;
 	  		case 6: // fourth move of game (player went first)
 	  			if (cellValues[CENTER[0]] == 4) { // if player first move was corner
@@ -754,12 +767,12 @@ $(function() {
 	  							if (["c1", "c3", "r1", "r3"].indexOf(trio) != -1 && TRIO_CELLS[trio].indexOf(cornerMove) != -1 && TRIO_CELLS[trio].indexOf(element) != -1) { //if trio is an appropriate row or column and includes both element and player's corner move
 	  								for (var trio2 in TRIO_CELLS) {
 			  							if (["c1", "c3", "r1", "r3"].indexOf(trio2) != -1 && TRIO_CELLS[trio2].indexOf(edgeMove) != -1 && TRIO_CELLS[trio2].indexOf(element) != -1) { //if trio2 is an appropriate row or column and includes both element and player's edge move
-			  								return true;
+			  								return true; //returning .find callback, not aiSmartCounter()
 			  							}
 			  						}
 	  							}
 	  						}
-	  						return false;
+	  						return false; //returning .find callback, not aiSmartCounter()
 	  					});
 	  					console.log("making a type 7 counter move.  doubleBlock: "+doubleBlock);
 	  					makeMove("challenger", doubleBlock);
@@ -768,6 +781,7 @@ $(function() {
 	  				console.log("making a type 8 counter move");
 	  				makeMove("challenger", CENTER[0]);
 	  			}
+	  			marqueeMessage(randomPick(dialogue.counter), "speak");
 	  			return true;
 	  		default:
 	  			return false;
@@ -783,7 +797,7 @@ $(function() {
 	  			dupVals.push(array[i]);
 	  		}
 	  	}
-	  	console.log("doubleVales returning: "+dupVals.length == 0 ? array : dupVals)
+	  	console.log("doubleVales returning: "+dupVals.length == 0 ? array : dupVals);
 	  	return dupVals.length == 0 ? array : dupVals;
 	  }
 	  
@@ -794,15 +808,18 @@ $(function() {
 	  function aiTurnControl() {
 	  	console.log("aiTurnControl()");
 	    // Create a random amount of time between 4000ms and 8000ms
-	    var turnTimeMin = 0;
-	    var turnTimeVariation = 0;
-	    var randomTurnTime = Math.floor((Math.random() * turnTimeVariation) + turnTimeMin);
+	    var turnTimeMin = 2000;
+	    var turnTimeVariation = 4000;
+	    var randomTurnTime = randomPick([Math.floor(Math.random() * turnTimeVariation), 0]) + turnTimeMin;
 	
-	    if (randomTurnTime > 4000) {
-	      marqueeMessage("Hmmm, what should I do...", "speak");
+	    if (randomTurnTime > 3000) {
+	      setTimeout(function() {
+	        marqueeMessage(randomPick(dialogue.thinking), "speak");
+	      }, 1000)
 	    }
-	
+	    console.log("turnTime: "+ randomTurnTime)
 	    setTimeout(function () {
+	      console.log("moving: " + Date.now());
 	      aiMove(currentGym);
 	    }, randomTurnTime);
 	  } // end aiTurnControl()
@@ -839,6 +856,55 @@ $(function() {
 	  	updatePlayerPokemon();
 	  	setChallengerPokemon();
 	  	
+	  	dialogue = {
+  			thinking: [
+  				"Hmm... what should I do", 
+  				"Let me think a second",
+  				"You're better than I thought",
+  				"Let's see here...",
+  				"What do you think, " + challengerPokemon,
+  				"This is a tough one"
+  			],
+  			start: [
+  				"Let's do this, " + challengerPokemon,
+  				"Start it right, " + challengerPokemon,
+  				challengerPokemon + ", show them who's boss!",
+  				"This is going to be easy"
+  			],
+  			8: [ //win
+  				"Go for the win, " + challengerPokemon + "!",
+  				"We've got this, " + challengerPokemon,
+  				"It's over, " + playerName, 
+  				"I knew this would be easy",
+  				"It feels good to win",
+  				"Better luck next time, " + playerName + "!"
+  				],
+  			counter: [
+  				"You know what to do, " + challengerPokemon,
+  				"Remember your training, " + challengerPokemon,
+  				"Get 'em back, " + challengerPokemon,
+  				"Play smart, " + challengerPokemon
+  				],
+  			2: [ // block
+  				"Keep a sharp eye, " + challengerPokemon,
+  				"Don't let them win, " + challengerPokemon,
+  				"We need to block them!",
+  				"I see what you're doing there",
+  				"You won't win that easy, " + playerName
+  				],
+  			4: [ //setup
+  				"Think ahead, " + challengerPokemon,
+  				"I'm going to try to be sneaky",
+  				"Let's see how you handle this!"
+  				],
+  			random: [
+  				challengerPokemon + ", give it your best shot",
+  				"I'm trusting you, " + challengerPokemon,
+  				"Make it a good one, " + challengerPokemon,
+  				"Go for it, " + challengerPokemon
+  				]
+  		};
+	  	
 	  	var challengerAdvantage = playerAdvantage === "advantage" ? "a disadvantage." : "an advantage.";
 	  	
 	  	var advantageMessage = "Challenger " + CHALLENGERS[currentGym] + "'s " + challengerPokemon + " has " + challengerAdvantage;
@@ -865,8 +931,11 @@ $(function() {
 	  
 	  function marqueeMessage(message, speakOrAnnounce, callback) {
 	  	console.log("marqueeMessage("+message+", "+speakOrAnnounce+")");
+	  	console.log(Date.now());
 	  	var onClasses;
 	  	var offClasses;
+	  	$("#marquee__dialogue__text").removeClass("animated bounceInRight bounceOutLeft speak unspeak").finish();
+	  	clearTimeout(msgTimer);
 	  	
 	  	if (speakOrAnnounce === "announce") {
 	  		onClasses = "animated bounceInRight";
@@ -880,14 +949,14 @@ $(function() {
 	  			$(this).removeClass(onClasses);
 	  		});
 	  	
-	  	setTimeout(function() {
+	  	msgTimer = setTimeout(function() {
 	  		$("#marquee__dialogue__text").addClass(offClasses).one(ANIMATION_END, function(){
 	  			$(this).removeClass(offClasses).text("");
 	  			if (callback) {
 		  			callback();
 		  		}
 	  		});
-	  	}, 3000);
+	  	}, 2500);
 	  }
 	  
 	  function setGameTurn(activePlayer) {
@@ -914,20 +983,25 @@ $(function() {
 	  	console.log("makeMove("+player+", "+cell+")");
 	  	var value;
 	  	var pokemon;
+	  	var delay;
 	  	if (player === "player") {
 	  		value = PLAYER_VAL;
 	  		pokemon = playerCurrentPokemon.toLowerCase();
+	  		delay = 0;
 	  	} else if (player === "challenger") {
 	  		value = CHALLENGER_VAL;
 	  		pokemon = challengerPokemon.toLowerCase();
+	  		delay = 700; //so move is made after dialogue
 	  	}
 	  	
-	  	//update value in virtual gameboard
-	  	cellValues[cell] = value;
-	  	//add pokemon icon to visual gameboard
-	  	$("#" + cell).addClass("pokemon pokemon--wiggle pokemon--" + pokemon);
-	  	
-	  	finalizeMove(player);
+	  	setTimeout(function() {
+  	  	//update value in virtual gameboard
+  	  	cellValues[cell] = value;
+  	  	//add pokemon icon to visual gameboard
+  	  	$("#" + cell).addClass("pokemon pokemon--wiggle pokemon--" + pokemon);
+  	  	
+  	  	finalizeMove(player);
+	  	}, delay)
 	  }
 	  
 	  function randomPick(array) {
