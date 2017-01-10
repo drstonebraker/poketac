@@ -949,7 +949,7 @@ $(function() {
 	  	//update value in virtual gameboard
 	  	cellValues[cell] = value;
 	  	//add pokemon icon to visual gameboard
-	  	$("#" + cell).addClass("pokemon pokemon--" + pokemon);
+	  	$("#" + cell).addClass("pokemon pokemon--wiggle pokemon--" + pokemon);
 	  	
 	  	finalizeMove(player);
 	  }

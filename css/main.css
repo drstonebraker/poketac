@@ -998,11 +998,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
     background-size: 1290px;
     background-position-y: -275.5px;
-    animation-name: wiggle;
-    animation-duration: 3.5s; 
-    animation-timing-function: ease-in-out; 
-    animation-delay: 2s;
-    animation-iteration-count: infinite;
+}
+
+.pokemon--wiggle {
+  animation-name: wiggle;
+  animation-duration: 3.5s; 
+  animation-timing-function: ease-in-out; 
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
 }
 
 .pokemon--bulbasaur {
