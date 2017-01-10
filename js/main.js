@@ -846,13 +846,18 @@ $(function() {
 	  	
 	  	function whoGoesFirst() {
 	  		console.log("whoGoesFirst()");
+	  		var gameTurn;
 	  		if (playerAdvantage === "advantage") {
 		  		marqueeMessage("You go first!", "announce");
-		  		setGameTurn("player");
+		  		gameTurn = "player";
 		  	} else {
 		  		marqueeMessage(CHALLENGERS[currentGym] + " goes first.", "announce");
-		  		setGameTurn("challenger");
+		  		gameTurn = "challenger";
 		  	}
+		  	
+		  	setTimeout(function() {
+		  		setGameTurn(gameTurn);
+		  	}, 3000);
 	  	}
 
 	  }
