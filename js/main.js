@@ -408,10 +408,14 @@ $(function() {
 	
 	function showChallengers() {
 		console.log("showChallengers()");
-		$("#tray, #challengers").removeClass("u-blurred");
+		$("#tray").removeClass("u-blurred");
+		$("#challengers").removeClass("u-blurred").one(TRANSITION_END, function() {
+		  $( ".button--avatar" ).prop( "disabled", false ); //enable buttons
+		});
 		
 		// choosing a challenger
 		$(".button--avatar").on("click", function() {
+		  $( ".button--avatar" ).prop( "disabled", true ); //disable buttons
 			currentGym = $(this).data().gymnumber;
 			$("#marquee").removeClass("u-hidden");
 			$("#avatar--challenger").addClass("avatar--challenger-" + currentGym); //add appropriate challenger avatar
