@@ -565,18 +565,21 @@ $(function() {
 	  
     function endOfGame() {
 			console.log("endOfGame()");
+			$( ".gameboard__cell" ).prop( "disabled", true ); //disable all cells
 	    //resetGameBoard();
 	    //pokemonSelect();
 	  }
 	  
 	  function gameLossOrDraw(condition) {
 	  	console.log("gameLossOrDraw("+condition+")");
+	  	
 	    endOfGame();
 	  }
 	  
 	  function gameWin() {
 	  	console.log("gameWin()");
 	    earnedBadges.push(currentGym);
+	    endOfGame();
 /*
 	    // Show Dialogue frame
 	    $(".gym-dialogue-container").toggleClass("hide");
