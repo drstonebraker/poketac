@@ -1017,35 +1017,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-position-x: -314.5px;
 }
 
-.pokemon--squirtle {
+.pokemon--charmander {
     background-position-x: -392.5px;
 }
 
-.pokemon--wartortle {
+.pokemon--charmeleon {
     background-position-x: -470.5px;
 }
 
-.pokemon--blastoise {
+.pokemon--charizard {
     background-position-x: -548.5px;
 }
 
-.pokemon--mega-blastoise {
+.pokemon--mega-charizard {
     background-position-x: -626.5px;
 }
 
-.pokemon--charmander {
+.pokemon--squirtle {
     background-position-x: -704.5px;
 }
 
-.pokemon--charmeleon {
+.pokemon--wartortle {
     background-position-x: -782px;
 }
 
-.pokemon--charizard {
+.pokemon--blastoise {
     background-position-x: -860px;
 }
 
-.pokemon--mega-charizard {
+.pokemon--mega-blastoise {
     background-position-x: -938px;
 }
 

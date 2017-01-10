@@ -1,4 +1,5 @@
 'use strict';
+/*global $*/
 
 //detect IE
 var isIE = /*@cc_on!@*/false || !!document.documentMode;
@@ -19,7 +20,7 @@ const POKEMON = {
             "Bulbasaur",
             "Ivysaur",
             "Venusaur",
-            "Mega Venusaur"
+            "Mega-Venusaur"
             ]
     },
     "Charmander": {
@@ -30,7 +31,7 @@ const POKEMON = {
             "Charmander",
             "Charmeleon",
             "Charizard",
-            "Mega Charizard"
+            "Mega-Charizard"
             ]
     },
     "Squirtle": {
@@ -41,10 +42,10 @@ const POKEMON = {
             "Squirtle",
             "Wartortle",
             "Blastoise",
-            "Mega Blastoise"
+            "Mega-Blastoise"
             ]
     }
-}
+};
 
 //animate the logos in the opening splash modal
 function splashAnimation() {
@@ -146,14 +147,15 @@ $(function() {
     
     //load overworld background image
     new Promise(function(resolve) {
+    		var backgroundSource;
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     
         if (viewHeight > 1080) {
-            var backgroundSource = "./img/johto-kanto-map-3000x1316.jpg";
+            backgroundSource = "./img/johto-kanto-map-3000x1316.jpg";
         } else if (viewHeight > 680) {
-            var backgroundSource = "./img/johto-kanto-map-3000x1062.jpg";
+            backgroundSource = "./img/johto-kanto-map-3000x1062.jpg";
         } else {
-            var backgroundSource = "./img/johto-kanto-map-1921x680.jpg";
+            backgroundSource = "./img/johto-kanto-map-1921x680.jpg";
         }
         
         var background = document.createElement('img') ;
@@ -162,7 +164,7 @@ $(function() {
         background.className = "overworld";
         background.onload = resolve;
         $("#view").prepend(background);
-        $("#overworld").attr('alt', "A map of the Pokemon world in the background")
+        $("#overworld").attr('alt', "A map of the Pokemon world in the background");
         
     }) // then set horizontal scrolling animation
         .then(function() {
@@ -175,7 +177,7 @@ $(function() {
     		backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
     		backgroundTiming = backgroundMargin * backgroundScrollSpeed;
     		
-    		var backgroundTransition = "transform "+backgroundTiming+"ms linear"
+    		var backgroundTransition = "transform "+backgroundTiming+"ms linear";
     		var backgroundTransitionObj = {
     			transition: backgroundTransition,
     			"-webkit-transition": backgroundTransition
@@ -184,36 +186,37 @@ $(function() {
     		$("#overworld").css(backgroundTransitionObj);		
     		
     		clearInterval(animateBackground);		
-    		animateBackgroundFn()
+    		animateBackgroundFn();
     		animateBackground = window.setInterval(animateBackgroundFn, backgroundTiming * 2);
     	}
     	
     	function animateBackgroundFn(reverse) {
-    		var backgroundTranslate = "translate3d(-"+backgroundMargin+"px, 0px, 0px)"
+    		var backgroundTransform;
+    		var backgroundTranslate = "translate3d(-"+backgroundMargin+"px, 0px, 0px)";
     		if (reverse) {
-    			var backgroundTransform = {
+    			backgroundTransform = {
     				transform: "",
     				"-webkit-transform": ""
-    			}	
+    			};
     		} else {
-    			var backgroundTransform = {
+    			backgroundTransform = {
     				transform: backgroundTranslate,
     				"-webkit-transform": backgroundTranslate
-    			}	
+    			};
     		}
-    		$("#overworld").css(backgroundTransform)
+    		$("#overworld").css(backgroundTransform);
     	
     		
     		if (!reverse) {
     			setTimeout(function() {
     				animateBackgroundFn(true);	
-    			}, backgroundTiming)
+    			}, backgroundTiming);
     					
     		}
     
     	} // end animateBackgroundFn
     	
-    	updateBackgroundTiming()
+    	updateBackgroundTiming();
     	$(window).on("resize", updateBackgroundTiming);
 		    	
     	$("#view").addClass("view--gym"); // add gym background image behind pokemon world background
@@ -223,7 +226,7 @@ $(function() {
     // OAK MODAL DIALOGUES
     $("#controls").on("touchstart click", function() {
         event.stopPropagation();
-    })
+    });
     
     function oak1() {
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Well, hello there!<br>It's nice to see you dropping by!</p>";
@@ -388,7 +391,7 @@ $(function() {
 		    "transition": transitionVal,
 		    "-webkit-transition": transitionVal,
 		    "opacity": "0"
-		}
+		};
 		$("#overworld").css(cssVal).one(TRANSITION_END, function() {
 			$(this).hide();
 		});
@@ -426,15 +429,28 @@ $(function() {
 	function playGame() {
 		$("#marquee__dialogue").off(ANIMATION_END);
 		console.log("playGame()");
-		// Parameters for aiSmartMove function
+		/*Parameters for aiSmartMove function.  cellValues represents virtual gameboard with human pieces represented by the number 1, and ai pices represented by the number 4.  adding the total value in each row, column, and diagonal allows for detecting winning moves, blocking moves, etc.*/
 		const WIN   = 8;
 		const BLOCK = 2;
 		const SETUP = 4;
-		const AI_VAL = 4;
+		const CHALLENGER_VAL = 4;
 		const PLAYER_VAL = 1;
+		const TRIO_CELLS = {
+		  c1: ["a1","a2","a3"],
+  		c2: ["b1","b2","b3"],
+  		c3: ["c1","c2","c3"],
+  		r1: ["a1","b1","c1"],
+  		r2: ["a2","b2","c2"],
+  		r3: ["a3","b3","c3"],
+  		d1: ["a1","b2","c3"],
+  		d2: ["a3","b2","c1"]  
+		};
+		const EDGES = ["b1","a2","c2","b3"];
+		const CORNERS = ["a1","c1","a3","c3"];
+		const CENTER = ["b2"];
 		
 		// a virtual gameboard containing values based on which cells have been played
-		var cellValues = {
+		var emptyBoard = {
 			a1: 0,
 			b1: 0,
 			c1: 0,
@@ -445,30 +461,31 @@ $(function() {
 			b3: 0,
 			c3: 0
 		};
-		var cellValuesSandbox = Object.assign({}, cellValues);
+		var cellValues = Object.assign({}, emptyBoard);
 		var trioVariables     = {};
-		var gameTurn;
-		var playerCurrentPokemon;
-		var playerAdvantage;
-		var challengerPokemon;
-		
-		// remember to empty this on new game
-		var blockedTrios = [];
+		var gameTurn = "";
+		var playerCurrentPokemon = "";
+		var playerAdvantage = "";
+		var challengerPokemon = "";
+
 		
 		beginGame();
 		
-		  // Create an return array of all empty cells on gameBoard
-		function findEmptyCells() {
-			console.log("findEmptyCells()");
+		  // Create and return array of all empty cells on gameBoard, or in array if passed as arguemnt
+		function findEmptyCells(array) {
+			console.log("findEmptyCells("+array+")");
 		// Initialize an array to hold empty cells
 			var emptyCells = [];
+			var potentialCells = array || Object.keys(cellValues);
+			console.log("potential empty cells: "+potentialCells);
 			// Loop over each cell in gameBoard, looking for empty cells
-			for (var cell in gameBoard) {
-			    if (gameBoard[cell] == 0) {
+			for (var cell in potentialCells) {
+			    if (cellValues[potentialCells[cell]] == 0) {
 			      // Push empty cells into possiblePlays array
-			      emptyCells.push(cell);
+			      emptyCells.push(potentialCells[cell]);
 			    }
 			}
+			console.log("found empty: "+emptyCells);
 			return emptyCells;
 		}
 		
@@ -480,47 +497,33 @@ $(function() {
 	  function updateTrioVariables() {
 	  	console.log("updateTrioVariables()");
 	  	trioVariables = {
-	  		r1: cellValues.a1 + cellValues.a2 + cellValues.a3,
-	  		r2: cellValues.b1 + cellValues.b2 + cellValues.b3,
-	  		r3: cellValues.c1 + cellValues.c2 + cellValues.c3,
-	  		c1: cellValues.a1 + cellValues.b1 + cellValues.c1,
-	  		c2: cellValues.a2 + cellValues.b2 + cellValues.c2,
-	  		c3: cellValues.a3 + cellValues.b3 + cellValues.c3,
+	  		c1: cellValues.a1 + cellValues.a2 + cellValues.a3,
+	  		c2: cellValues.b1 + cellValues.b2 + cellValues.b3,
+	  		c3: cellValues.c1 + cellValues.c2 + cellValues.c3,
+	  		r1: cellValues.a1 + cellValues.b1 + cellValues.c1,
+	  		r2: cellValues.a2 + cellValues.b2 + cellValues.c2,
+	  		r3: cellValues.a3 + cellValues.b3 + cellValues.c3,
 	  		d1: cellValues.a1 + cellValues.b2 + cellValues.c3,
 	  		d2: cellValues.a3 + cellValues.b2 + cellValues.c1
-	  	}
+	  	};
+	  	console.log(trioVariables);
 	  }
 	  
     function finalizeMove(turnOwner) {
 	    console.log("finalizeMove("+turnOwner+")");
 	    // Update Trio Variables
 	    updateTrioVariables();
-	    // Check for victory
-	    if (!victoryCheck()) {
-	      // If no victory, check for a draw
-	      if (!tieGameCheck()) {
-	        // If no draw for ai turn, then pass back to player
-	        if (turnOwner == "challenger") {
-	          playerTurn();
-	        }
-	        else if (TurnOwner == "player") {
-	          // If made move changes value of trio variable to 6, add it to blockedTrios
-	          for (var trio in trioVariables) {
-	            if (trioVariables[trio] === 6 && blockedTrios.indexOf(trio) === -1) {
-	              console.log("ADDED NEW TRIO TO blockedTrios");
-	              blockedTrios.push(trio);
-	            }
-	          }
-	          // If no draw for player turn, then pass to AI
-	          gameTurn = "challenger";
-	          switchActivePanels("challenger");
-	          console.log("challenger turn");
-	          aiTurnControl();
-	        }
-	      }
-	    }
+	    // Check for victory and tie
+	    if (!victoryCheck() && !tieGameCheck()) {
+	    	if (turnOwner === "player") {
+	    		setGameTurn("challenger");
+	    	} else if (turnOwner === "challenger") {
+	    		setGameTurn("player");
+	    	}
+	    } 
 	  } // end finalizeMove()
 	  
+	  /*
 	  function playerTurn() {
 	  	console.log("playerTurn()");
 	    switchActivePanels("player");
@@ -537,12 +540,14 @@ $(function() {
 	      gameTurn = "player";
 	    }, 1000)
 	  }// end playerTurn()
+	  */
 	  
 	  function updatePlayerPokemon() {
 	  	console.log("updatePlayerPokemon()");
 	  	//this changes player pokemon to evolved form after badges are earned
 	  	var evolutionStage = Math.floor((earnedBadges.length) / 2);
 	  	playerCurrentPokemon = POKEMON[playerStarterPokemon].evolution[evolutionStage];
+	  	console.log("player pokemon is "+playerCurrentPokemon);
 	  }
 	  
 		function victoryCheck() {
@@ -568,10 +573,10 @@ $(function() {
 	    return false;
 	  } // end victoryCheck()
 	  
-		function endOfGame() {
+    function endOfGame() {
 			console.log("endOfGame()");
-	    resetGameBoard();
-	    pokemonSelect();
+	    //resetGameBoard();
+	    //pokemonSelect();
 	  }
 	  
 	  function gameLossOrDraw(condition) {
@@ -581,9 +586,8 @@ $(function() {
 	  
 	  function gameWin() {
 	  	console.log("gameWin()");
-	    badgeCount++;
-	    // Hide gameboard-cells
-	    $(".game-cells").toggleClass("hide");
+	    earnedBadges.push(currentGym);
+/*
 	    // Show Dialogue frame
 	    $(".gym-dialogue-container").toggleClass("hide");
 	    // Dialogue update from GYM leader: Nice job! You've won the "NAME OF BADGE"! Good luck on your journey!
@@ -593,26 +597,25 @@ $(function() {
 	    // Award Badge (Badge appears middle of screen, fades out, fades in at the badge case)
 	    $("#award-game-badge").removeClass("hide");
 	    $("#award-game-badge img").addClass("tada");
-	
+*/
 	  }
 	  
+	  /*
 	  function resetGameBoard() {
 	  	console.log("resetGameBoard()");
 	
 	    $(".cell-state").text(0);
-	    updateGameBoard();
-	    boardViewUpdate(gameBoard);
 	    updateTrioVariables();
 	    blockedTrios = [];
-	    //$(".cell-piece").removeClass("bounceOut")
 	  }
+	  */
 	  
 		function tieGameCheck() {
 			console.log("tieGameCheck()");
 	    // Loop over each of the cells in gameBoard
-	    for (var cell in gameBoard) {
+	    for (var cell in cellValues) {
 	      // If any of the cell's states are 0
-	      if (gameBoard[cell] == 0) {
+	      if (cellValues[cell] == 0) {
 	        console.log("Not a tie");
 	        return false;
 	      }
@@ -627,43 +630,45 @@ $(function() {
 	
 	  function aiSmartStart() {
 	  	console.log("aiSmartStart()");
+	  	var smartStartMoves;
+	  	
 	    // This determines state of the board in order to distinguish between first and second move of game
-	    var cellStateTotal = 0;
-	    for (var cell in gameBoard) {
-	      cellStateTotal += gameBoard[cell];
+	    var cellStateTotal = sumCellValues();
+	    
+	    switch (cellStateTotal) {
+	      case 1:
+	      	var edgeMove = [cellValues.b1, cellValues.a2, cellValues.c2, cellValues.b3].indexOf(1);
+	        if (cellValues.b2 == 1) { //if human player moved in middle, challenger should move in corner
+	          smartStartMoves = ["a1", "a3", "c1", "c3"];
+	        } else if (edgeMove != -1) { //if human player moved on edge
+	        	switch (edgeMove) { //move in corner next to edgeMove
+	        		case 0:
+	        			smartStartMoves = ["a1", "c1"];
+	        			break;
+	        		case 1:
+	        			smartStartMoves = ["a1", "a3"];
+	        			break;
+	        		case 2: 
+	        			smartStartMoves = ["c1", "c3"];
+	        			break;
+	        		case 3:
+	        			smartStartMoves = ["a1", "c3"];
+	        			break;
+	        	}
+	        } else { //if human player moved in corner, challenger should move in middle
+	          smartStartMoves = ["b2"];
+	        }
+	        break;
+        case 0: //if human player hasn't moved at all
+          smartStartMoves = ["a1", "a3", "b2", "c1", "c3"];
+          break;
+        default:
+          return false;
 	    }
 	
-	    // if AI is making first move of game
-	    if (cellStateTotal == 0) {
-	      //move into corner or center
-	        var smartStartMoves = ["a1", "a3", "b2", "c1", "c3"];
-	        var randomNum = Math.floor(Math.random() * (4 - 0 + 1) + 0);
-	        $("."+smartStartMoves[randomNum]).find(".cell-state").text(4);
-	        console.log("Making a starting move");
-	        finalizeMove("ai");
-	      return true;
-	    }
-	    //if AI is making second move of game (player went first)
-	    else if (cellStateTotal == 1) {
-	      //if player moved in the middle, AI should move in corner
-	      if (gameBoard.b2 == 1) {
-	          var smartStartMoves = ["a1", "a3", "c1", "c3"];
-	          var randomNum = Math.floor(Math.random() * (3 - 0 + 1) + 0);
-	
-	          $("."+smartStartMoves[randomNum]).find(".cell-state").text(4);
-	          console.log("Making a starting move");
-	          finalizeMove("ai");
-	        return true;
-	      }
-	      //if player didn't move in middle, AI should move there
-	      else {
-	          $(".b2-state").text(4);
-	          console.log("Making a starting move");
-	          finalizeMove("ai");
-	        return true;
-	      }
-	    }
-	    return false;
+      makeMove("challenger", randomPick(smartStartMoves));
+      console.log("Making a starting move");
+      return true;
 	  } // end aiSmartStart()
 	
 	
@@ -671,63 +676,33 @@ $(function() {
 	  Primary logic for AI's turn. Based off of the parameter passed to this function,
 	  the AI knows when it can WIN, BLOCK, or make a SETUP.
 	  =========================================================================== */
-	  function aiSmartMove(moveType) {
-	  	console.log("aiSmartMove("+moveType+")");
+	  function aiSmartMove(moveType, unbeatable) {
+	  	console.log("aiSmartMove("+moveType+", "+unbeatable+")");
+	  	var emptyCells = [];
 	    // Loop through each of the Trio Variables.
 	    for (var trio in trioVariables) {
 	      // If the value of the current iteration is: (8 for WIN), (2 for BLOCK), (4 for SETUP)
 	      if (trioVariables[trio] == moveType) {
 	        // Create an array of empty cells
-	        var emptyCells = findEmptyCells();
+	        console.log("money trio found: "+trio+", "+moveType);
+	        console.log(emptyCells);
+	        console.log(findEmptyCells(trio));
+	        emptyCells = emptyCells.concat(findEmptyCells(TRIO_CELLS[trio]));
+	        console.log("new array of empty cells: "+emptyCells);
 	      }
 	    }
-	
-	    /* AI begins making test moves in the empty cells, to see if any of the
-	    moves would give it a succesful WIN/BLOCK/SETUP */
-	    for (var tryMove in emptyCells) {
-	      // THE TEST: Change the current cell's state to a 4
-	      $("."+emptyCells[tryMove]+"-state").text(4);
-	
-	      // Update the virtual gameBoard
-	      updateGameBoard();
-	
-	      // Update trioVariables, based off of the current test the AI is performing.
-	      updateTrioVariables();
-	
-	      // Loop over each of the trio variables
-	      for (var trio in trioVariables) {
-	
-	        /* Based off of the current test, if the current trio variable equals...
-	         - 12 when testing for WIN
-	         - 6 when testing for BLOCK, AND the current trio hasn't already been blocked
-	         - 8 when testing for SETUP
-	         ==================================================================== */
-	        if (trioVariables[trio] === (moveType + 4) && blockedTrios.indexOf(trio) === -1) {
-	          console.log("AI would win/block/setup if it made a move on: " + emptyCells[tryMove]);
-	          $("."+emptyCells[tryMove]+"-state").text(4);
-	
-	          // If move is a BLOCK, add it to blockedTrios so AI ignores it on next BLOCK attempt
-	          if (moveType === BLOCK) {
-	            $(".ai-dialogue").text("SQUIRTLE, go for the block!");
-	            blockedTrios.push(trio);
-	          }
-	          else if (moveType === WIN) {
-	            $(".ai-dialogue").text("SQUIRTLE, finish off that POKEMON!");
-	          }
-	          else if (moveType === SETUP) {
-	            $(".ai-dialogue").text("SQUIRTLE, go for a setup!");
-	          }
-	
-	          finalizeMove("ai");
-	          return true;
-	        }
-	        // If tested play doesn't result in succesful WIN/BLOCK/SETUP, convert back to empty cell
-	        else {
-	          $("."+emptyCells[tryMove]+"-state").text(0);
-	        }
-	      }
+	    if (unbeatable) {
+	    	emptyCells = useDoubleValues(emptyCells);
+	    	console.log("making a double? "+emptyCells);
 	    }
-	    return false;
+	    console.log("final empty cells to choose from: "+emptyCells);
+	    if (emptyCells.length > 0) {
+	    	makeMove("challenger", randomPick(emptyCells));
+	    	console.log("making a "+moveType+" move");
+	    	return true;
+	    } else {
+	    	return false;
+	    }
 	  } // end aiSmartMove()
 	
 	  /* AI LOGIC - RANDOM MOVE
@@ -737,30 +712,109 @@ $(function() {
 	  	console.log("aiRandomMove()");
 	    // Create an array of empty cells, and variable to hold number of empty cells
 	    var emptyCells = findEmptyCells();
-	    var numberOfCells = emptyCells.length - 1;
+	    
+	    makeMove("challenger", randomPick(emptyCells));
 	
-	    // Create a random number between 0 and the number of empty game cells available
-	    var randomPlayNum = Math.floor(Math.random() * (numberOfCells - 0 + 1) + 0);
-	
-	    $("."+emptyCells[randomPlayNum]).find(".cell-state").text(4);
 	    console.log("Making a RANDOM move");
-	    finalizeMove("ai");
 	  }
 	  
 	  function aiMove(level) {
 	  	console.log("aiMove("+level+")");
-	  	if ([6,7].indexOf(level) && aiSmartStart()) {
-	  		return
-	  	} else if ([1,2,4,5,6,7].indexOf(level) != -1 && aiSmartMove(WIN)) {
-	  		return
-	  	} else if ([3,4,5,6,7].indexOf(level) != -1 && aiSmartMove(BLOCK)) {
-	  		return
-	  	} else if ([2,5,6,7].indexOf(level) != -1 && aiSmartMove(SETUP)) {
-	  		return
-	  	} else {
-	  		aiRandomMove();
+	  	if (
+	  		!([6,7].indexOf(level) != -1 && aiSmartStart()) && //try smartStart on appropriate ai level
+	  		!([1,2,4,5,6,7].indexOf(level) != -1 && aiSmartMove(WIN)) && //try win on appropriate ai level
+	  		!([3,4,5,6,7].indexOf(level) != -1 && aiSmartMove(BLOCK)) && //try block on appropriate ai level
+	  		!([7].indexOf(level) != -1 && aiSmartCounter()) && //unbeatable second ai move
+	  		!([7].indexOf(level) != -1 && aiSmartMove(SETUP, true)) && //make unbeatable setup move
+	  		!([2,5,6].indexOf(level) != -1 && aiSmartMove(SETUP)) //try setup on appropriate ai level
+	  		) {
+	  			aiRandomMove(); //make random move is no better move available
 	  	}
 	  } // end aiMove()
+	  
+	  function aiSmartCounter() {
+	  	console.log("aiSmartCounter()");
+	  	var cellTotal = sumCellValues();
+	  	var playerMoves = getKeysByValue(cellValues, PLAYER_VAL);
+	  	var challengerMoves = getKeysByValue(cellValues, CHALLENGER_VAL);
+	  	
+	  	switch (cellTotal) {
+	  		case 5: // third move of game (challenger went first)
+	  			if (CORNERS.indexOf(challengerMoves[0]) != -1) { //if challenger first moved in corner
+		  			if (EDGES.indexOf(playerMoves[0]) != -1) { //if player first moved in edge
+		  				console.log("making a type 1 counter move");
+		  				makeMove("challenger", CENTER[0]); //move in center
+		  			} else if (CORNERS.indexOf(playerMoves[0]) != -1) { //if player first moved in corner
+		  				console.log("making a type 2 counter move");
+		  				makeMove("challenger", randomPick(findEmptyCells(CORNERS))); //move in either free corner
+		  			} else { //if player first moved in center
+		  				//move in opposite corner from first move
+		  				if (TRIO_CELLS.d1.indexOf(challengerMoves[0]) != -1) { // if challenger first moved in a d1 corner
+		  					console.log("making a type 3 counter move");
+		  					makeMove("challenger", findEmptyCells(TRIO_CELLS.d1)[0]);
+		  				} else { //if challenger first moved in a d2 corner
+		  					console.log("making a type 3 counter move");
+		  					makeMove("challenger", findEmptyCells(TRIO_CELLS.d2)[0]);
+		  				}
+		  			}
+	  			} else { //if challenger first moved in center
+	  				if (EDGES.indexOf(playerMoves[0]) != -1) { //if player first moved in edge
+	  					console.log("making a type 4 counter move");
+	  					makeMove("challenger", randomPick(CORNERS));
+	  				} else { //if player first moved in corner
+	  					return false;
+	  				}
+	  			}
+	  			return true;
+	  		case 6: // fourth move of game (player went first)
+	  			if (cellValues[CENTER[0]] == 4) { // if player first move was corner
+	  				if (findEmptyCells(EDGES).length == 4) { //if player second move was corner
+	  					console.log("making a type 6 counter move");
+	  					makeMove("challenger", randomPick(EDGES));
+	  				} else { // if player second move was edge
+	  					var cornerMove = CORNERS.find(function(element) {
+	  						return playerMoves.indexOf(element) != -1;
+	  					});
+	  					var edgeMove = EDGES.find(function(element) {
+	  						return playerMoves.indexOf(element) != -1;
+	  					});
+	  					var doubleBlock = findEmptyCells(CORNERS).find(function(element) { //find cell that blocks both player's corner move and edge move
+	  						for (var trio in TRIO_CELLS) {
+	  							if (["c1", "c3", "r1", "r3"].indexOf(trio) != -1 && TRIO_CELLS[trio].indexOf(cornerMove) != -1 && TRIO_CELLS[trio].indexOf(element) != -1) { //if trio is an appropriate row or column and includes both element and player's corner move
+	  								for (var trio2 in TRIO_CELLS) {
+			  							if (["c1", "c3", "r1", "r3"].indexOf(trio2) != -1 && TRIO_CELLS[trio2].indexOf(edgeMove) != -1 && TRIO_CELLS[trio2].indexOf(element) != -1) { //if trio2 is an appropriate row or column and includes both element and player's edge move
+			  								return true;
+			  							}
+			  						}
+	  							}
+	  						}
+	  						return false;
+	  					});
+	  					console.log("making a type 7 counter move.  doubleBlock: "+doubleBlock);
+	  					makeMove("challenger", doubleBlock);
+	  				}
+	  			} else { //player first move was in edge
+	  				console.log("making a type 8 counter move");
+	  				makeMove("challenger", CENTER[0]);
+	  			}
+	  			return true;
+	  		default:
+	  			return false;
+	  	}
+	  } // end aiCounterMove()
+	  
+	  function useDoubleValues(array) { //takes array of cells and returns the array with only the duplicate values, else the same array if not duplicate values
+	  console.log("useDoubleValues("+array+")");
+	  	var dupVals = [];
+	  	for (var i in array) {
+	  		if (count(array, array[i]) > 1 && dupVals.indexOf(array[i]) == -1) {
+	  			console.log("double value: "+[array[i]]);
+	  			dupVals.push(array[i]);
+	  		}
+	  	}
+	  	console.log("doubleVales returning: "+dupVals.length == 0 ? array : dupVals)
+	  	return dupVals.length == 0 ? array : dupVals;
+	  }
 	  
 	  /* AI TURN Control
 	    - Calls appropriate level AI, depending upon badges earned by player.
@@ -769,16 +823,16 @@ $(function() {
 	  function aiTurnControl() {
 	  	console.log("aiTurnControl()");
 	    // Create a random amount of time between 4000ms and 8000ms
-	    var turnTimeMin = 4000;
-	    var turnTimeVariation = 4000;
+	    var turnTimeMin = 0;
+	    var turnTimeVariation = 0;
 	    var randomTurnTime = Math.floor((Math.random() * turnTimeVariation) + turnTimeMin);
 	
 	    if (randomTurnTime > 4000) {
-	      $(".ai-dialogue").text("Hmmm, what should I do...");
+	      marqueeMessage("Hmmm, what should I do...", "speak");
 	    }
 	
 	    setTimeout(function () {
-	      aiMove(badgeCount);
+	      aiMove(currentGym);
 	    }, randomTurnTime);
 	  } // end aiTurnControl()
 	  
@@ -790,14 +844,8 @@ $(function() {
 	  	console.log("cell clicked");
 	  	$(this).blur().prop("disabled", true);
 
-	  	var clickedCell = $(this).data().cell;
-	      // Update the cell's state value to 1
-	      cellValues[clickedCell] = PLAYER_VAL;
-	      // add pokemon
-	      $("#" + clickedCell).addClass("pokemon pokemon--" + playerCurrentPokemon.toLowerCase());
-	
-	      finalizeMove("player");
-	  })
+	    makeMove("player", $(this).data().cell);
+	  });
 	  
 	  function switchActivePanels(activePlayer) {
 	  	console.log("switchActivePanels("+activePlayer+")");
@@ -808,12 +856,11 @@ $(function() {
 	  function setChallengerPokemon() {
 	  	console.log("setChallengerPokemon()");
 	  	var evolutionStage = Math.floor(currentGym / 2);
-	  	if (currentGym != 7) {
-	  		playerAdvantage = Math.floor(Math.random() * 2) === 0 ? "advantage" : "disadvantage"; // coin flip
-	  	} else { // gym 7 challenger always goes first
-	  		playerAdvantage = "disadvantage";
-	  	}
+	  	
+  		playerAdvantage = Math.floor(Math.random() * 2) === 0 ? "advantage" : "disadvantage"; // coin flip
+	  	
 	  	challengerPokemon = POKEMON[POKEMON[playerStarterPokemon][playerAdvantage]].evolution[evolutionStage];
+	  	console.log("challenger pokemon is "+challengerPokemon);
 	  }
 	  
 	  function beginGame() {
@@ -871,15 +918,78 @@ $(function() {
 	  	console.log("setGameTurn("+activePlayer+")");
 	  	gameTurn = activePlayer;
 	  	switchActivePanels(activePlayer);
+	  	console.log("cellValues: "+cellValues);
 	  	if (activePlayer == "player") {
 	  		for (var cell in cellValues) {
 	  			if (cellValues[cell] == 0) {
+	  				console.log("enabling cell "+cell);
 	  				$( "#gameboard__cell--" + cell ).prop( "disabled", false ); //enable empty cells
 	  			}
 	  		}
 	  	} else {
 	  		$( ".gameboard__cell" ).prop( "disabled", true ); //disable all cells
+	  		if (activePlayer == "challenger") {
+	  		    aiTurnControl();
+	  		}
 	  	}
+	  }
+	  
+	  function makeMove(player, cell) {
+	  	console.log("makeMove("+player+", "+cell+")");
+	  	var value;
+	  	var pokemon;
+	  	if (player === "player") {
+	  		value = PLAYER_VAL;
+	  		pokemon = playerCurrentPokemon.toLowerCase();
+	  	} else if (player === "challenger") {
+	  		value = CHALLENGER_VAL;
+	  		pokemon = challengerPokemon.toLowerCase();
+	  	}
+	  	
+	  	//update value in virtual gameboard
+	  	cellValues[cell] = value;
+	  	//add pokemon icon to visual gameboard
+	  	$("#" + cell).addClass("pokemon pokemon--" + pokemon);
+	  	
+	  	finalizeMove(player);
+	  }
+	  
+	  function randomPick(array) {
+	    console.log("randomPick("+array+")");
+	  	return array[Math.floor(Math.random() * array.length)];
+	  }
+	  
+	  function count(array, element) {
+	  	console.log("count("+array+", "+element+")");
+	  	var count = 0;
+	  	for (var i in array) {
+	  		if (element == array[i]) {
+	  			count++;
+	  		}
+	  	}
+	  	console.log("count: "+count);
+	  	return count;
+	  }
+	  
+	  function sumCellValues() {
+	  	console.log("function sumCellValues()");
+	  	var sum = 0;
+	  	for (var cell in cellValues) {
+	      sum += cellValues[cell];
+	    }
+	    console.log("sum: "+sum);
+	    return sum;
+	  }
+	  
+	  function getKeysByValue(obj, val) {
+	  	console.log("getKeyByValue("+obj+", "+val+")");
+	  	var keys = [];
+	  	for( var key in obj ) {
+				if( obj[key] == val ) {
+				  keys.push(key);
+				}
+    	}
+    	return keys;
 	  }
 	  
 	} // end playGame();
@@ -890,4 +1000,4 @@ $(function() {
     $("body").one('click', oak1);//first oak dialogue screen
     
 	
-}) // end document.ready function
+}); // end document.ready function
