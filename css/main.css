@@ -397,15 +397,15 @@ html {
 .pokeball__element {
 	position: absolute;
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
-	background-size: 757px;
+	background-size: 754px;
 	width: 44px;
 	height: 44px;
 	margin-top: -22px;
-	background-position-y: -161.5px;
+	background-position-y: -161px;
 }
 
 .pokeball__ball {	
-	background-position-x: -2px;	
+	background-position-x: -1.5px;	
 	transition: transform 300ms ease;
 	z-index: 1;
 }
