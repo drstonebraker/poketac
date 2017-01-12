@@ -824,7 +824,7 @@ $(function() {
 	        marqueeMessage(randomPick(dialogue.thinking), "speak");
 	      }, 1000)
 	    }
-	    console.log("turnTime: "+ randomTurnTime)
+	    console.log("* turnTime: "+ randomTurnTime)
 	    setTimeout(function () {
 	      console.log("moving: " + Date.now());
 	      aiMove(currentGym);
@@ -941,8 +941,6 @@ $(function() {
 	  	console.log(Date.now());
 	  	var onClasses;
 	  	var offClasses;
-	  	$("#marquee__dialogue__text").removeClass("animated bounceInRight bounceOutLeft speak unspeak").finish();
-	  	clearTimeout(msgTimer);
 	  	
 	  	if (speakOrAnnounce === "announce") {
 	  		onClasses = "animated bounceInRight";
@@ -951,19 +949,26 @@ $(function() {
 	  		onClasses = "speak";
 	  		offClasses = "unspeak";
 	  	}
-
-	  	$("#marquee__dialogue__text").text(message).addClass(onClasses).one(ANIMATION_END, function(){
+      
+      console.log("* add on class: "+Date.now()+message);
+      clearTimeout(msgTimer); //cancel any previous "off" animation
+	  	$("#marquee__dialogue__text").off(ANIMATION_END).finish().removeClass("animated bounceInRight bounceOutLeft speak unspeak").text(message).addClass(onClasses).one(ANIMATION_END, function(){ //cancel any previous "off" animation before adding new one
+	  	  console.log("* remove on class: "+Date.now()+message);
 	  			$(this).removeClass(onClasses);
 	  		});
 	  	
 	  	msgTimer = setTimeout(function() {
-	  		$("#marquee__dialogue__text").addClass(offClasses).one(ANIMATION_END, function(){
+	  	  console.log("* add off class: "+Date.now()+message);
+	  		$("#marquee__dialogue__text").addClass(offClasses).one(ANIMATION_END, function() {
+	  		  console.log("* remove off class: "+Date.now()+message);
 	  			$(this).removeClass(offClasses).text("");
 	  			if (callback) {
 		  			callback();
 		  		}
 	  		});
 	  	}, 2500);
+	  	
+	  	
 	  }
 	  
 	  function setGameTurn(activePlayer) {
