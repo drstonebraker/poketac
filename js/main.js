@@ -122,6 +122,7 @@ $(function() {
     function setMobileSettings() {
         if (!isMobile) { //if this is the first time tapping the page
             document.getElementById('music').play();
+            $("#controls__toggle--music").removeClass("controls__toggle--off").attr("title", "Music Off");
             toggleSound();
         }
         
