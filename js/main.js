@@ -1076,6 +1076,14 @@ $(function() {
     	return keys;
 	  }
 	  
+	  function drawAnimation() {
+	    
+	  }
+	  
+	  function victoryAnimation() {
+	    
+	  }
+	  
 	} // end playGame();
 	
 	
