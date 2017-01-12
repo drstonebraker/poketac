@@ -398,10 +398,10 @@ html {
 	position: absolute;
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/spritesheet.png);
 	background-size: 754px;
-	width: 44px;
-	height: 44px;
+	width: 45px;
+	height: 45px;
 	margin-top: -22px;
-	background-position-y: -161px;
+	background-position-y: -160px;
 }
 
 .pokeball__ball {	
