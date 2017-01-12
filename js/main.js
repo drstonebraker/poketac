@@ -168,16 +168,36 @@ $(function() {
         
     }) // then set horizontal scrolling animation
         .then(function() {
+          
+      var bgAnimationFwd = true;
         
     	var backgroundScrollSpeed = 150;//higher number is slower
     	var backgroundTiming; //time in ms for full scroll of one direction
     	var backgroundMargin; //number of horizontal pixels to scroll each direction
+    	var backgroundMarginRight; //pixel width of right-overflow
     	
     	function updateBackgroundTiming() {	//triggered on load and resize.  also starts/restarts animation
-    		backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
+  
+    	  if (event) {
+    	    clearTimeout(animateBackground);
+    	    backgroundMarginRight = Math.floor($("#overworld").offset().left + $("#overworld").width() - document.documentElement.clientWidth); // pixel width of right-overflow of overworld
+    	    if (bgAnimationFwd) {
+      		  backgroundMargin = backgroundMarginRight;
+    	    } else {
+    	      backgroundMargin = Math.floor(-$("#overworld").offset().left); // pixel width of left-overflow of overworld
+    	    }
+    	    if (backgroundMarginRight < 0) {
+      		  backgroundMargin = 0;
+      		  bgAnimationFwd = true;
+        	}
+      		
+    	  } else {
+    	    backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
+    	  }
+    	  
     		backgroundTiming = backgroundMargin * backgroundScrollSpeed;
     		
-    		var backgroundTransition = "transform "+backgroundTiming+"ms linear";
+    		var backgroundTransition = backgroundMargin == 0 ? "" : "transform "+backgroundTiming+"ms linear";
     		var backgroundTransitionObj = {
     			transition: backgroundTransition,
     			"-webkit-transition": backgroundTransition
@@ -185,39 +205,40 @@ $(function() {
     		
     		$("#overworld").css(backgroundTransitionObj);		
     		
-    		clearInterval(animateBackground);		
     		animateBackgroundFn();
-    		animateBackground = window.setInterval(animateBackgroundFn, backgroundTiming * 2);
     	}
     	
-    	function animateBackgroundFn(reverse) {
+    	function animateBackgroundFn() {
     		var backgroundTransform;
-    		var backgroundTranslate = "translate3d(-"+backgroundMargin+"px, 0px, 0px)";
-    		if (reverse) {
+    		var backgroundTranslate;
+
+    		if (bgAnimationFwd) {
+    		  var backgroundOverflow = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
+    		  backgroundTranslate = "translate3d(-"+backgroundOverflow+"px, 0px, 0px)";
+    		  backgroundTransform = {
+    				transform: backgroundTranslate,
+    				"-webkit-transform": backgroundTranslate
+    			};
+    		} else {
     			backgroundTransform = {
     				transform: "",
     				"-webkit-transform": ""
     			};
-    		} else {
-    			backgroundTransform = {
-    				transform: backgroundTranslate,
-    				"-webkit-transform": backgroundTranslate
-    			};
     		}
     		$("#overworld").css(backgroundTransform);
     	
-    		
-    		if (!reverse) {
-    			setTimeout(function() {
-    				animateBackgroundFn(true);	
-    			}, backgroundTiming);
-    					
-    		}
+  			animateBackground = setTimeout(function() {
+  			  bgAnimationFwd = bgAnimationFwd ? false : true; //reverse direction
+  				updateBackgroundTiming();
+  			}, backgroundTiming);
     
     	} // end animateBackgroundFn
     	
     	updateBackgroundTiming();
-    	$(window).on("resize", updateBackgroundTiming);
+    	$(window).on("resize focus", updateBackgroundTiming).on("blur", function() {
+    	  $("#overworld").css({"transform": "translateX(" + $("#overworld").offset().left + "px)", "transition": ""}); // pause animation so it doesn't jump on refocus
+    	});
+    	
 		    	
     	$("#view").addClass("view--gym"); // add gym background image behind pokemon world background
 
@@ -402,7 +423,7 @@ $(function() {
 		$("#overworld").css(cssVal).one(TRANSITION_END, function() {
 			$(this).hide();
 		});
-		clearInterval(animateBackground);
+		clearTimeout(animateBackground);
 	}
 	//end Oak modal dialogues
 	
