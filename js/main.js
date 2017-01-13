@@ -245,6 +245,12 @@ $(function() {
 
     }); // end "then" attached to background image load promise
     
+    $(window).keypress(function(e) {
+        if ((e.which === 32 || e.which === 13) && document.activeElement == document.body) {
+            $("body").trigger("click"); //advance to next screen if pressing enter or space
+        }
+    });
+        
     // OAK MODAL DIALOGUES
     $("#controls").on("touchstart click", function() {
         event.stopPropagation();
@@ -577,11 +583,11 @@ $(function() {
 	        gameTurn = "";
 	        if (trioVariables[trio] === 12) {
 	          console.log("player has lost the game");
-	          gameLossOrDraw();
+	          gameLossOrDraw(trio);
 	        }
 	        else if (trioVariables[trio] === 3) {
 	          console.log("player has won the game");
-	          gameWin();
+	          gameWin(trio);
 	        }
 	        return true;
 	      }
@@ -596,15 +602,16 @@ $(function() {
 	    //pokemonSelect();
 	  }
 	  
-	  function gameLossOrDraw(condition) {
-	  	console.log("gameLossOrDraw("+condition+")");
+	  function gameLossOrDraw(trio) {
+	  	console.log("gameLossOrDraw("+trio+")");
 	  	
 	    endOfGame();
 	  }
 	  
-	  function gameWin() {
+	  function gameWin(trio) {
 	  	console.log("gameWin()");
 	    earnedBadges.push(currentGym);
+	    victoryAnimation(trio);
 	    endOfGame();
 /*
 	    // Show Dialogue frame
@@ -1032,7 +1039,9 @@ $(function() {
   	  	//update value in virtual gameboard
   	  	cellValues[cell] = value;
   	  	//add pokemon icon to visual gameboard
-  	  	$("#" + cell).addClass("pokemon pokemon--wiggle pokemon--" + pokemon);
+  	  	$("#" + cell).addClass("animated bouncePoke pokemon pokemon--" + pokemon).one(ANIMATION_END, function() {
+  	  	  $(this).removeClass("animated bouncePoke").addClass("pokemon--wiggle");
+  	  	});
   	  	
   	  	finalizeMove(player);
 	  	}, delay)
@@ -1076,13 +1085,66 @@ $(function() {
     	return keys;
 	  }
 	  
-	  function drawAnimation() {
-	    
+	  function lossOrDrawAnimation() {
+	    console.log("lossOrDrawAnimation()");
 	  }
 	  
-	  function victoryAnimation() {
+	  
+	  function victoryAnimation(trio) {
+	    console.log("victoryAnimation("+trio+")");
+	    var viewWidth = document.documentElement.clientWidth;
+	    var gradientSlowLoc = (viewWidth / 2) + (viewWidth / 10) + 100;
+	    var gradientFastLoc = gradientSlowLoc + (viewWidth / 15);
+	    var gradientFinalLoc = viewWidth + 200;
+	    var gradientSpeed0 = viewWidth * 150 / 1000 + 150;
+	    var gradientSpeed1 = 1000;
+	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
+	    var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
+	    var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
 	    
+	    $(".pokemon").one(ANIMATION_END, function() {
+	      $(".pokemon").removeClass("pokemon--wiggle");
+	    });
+	    
+	    /* doesn't work.  not sure why.
+	    for (var i=0; i < 3; i++) {
+	      $("#victory-gradient--r").queue(function(next) {
+	        $(this).css({transform: "translate(-"+gradientLocs[i]+"px)", "-webkit-transform": "translate(-"+gradientLocs[i]+"px)", "transition-duration": gradientSpeeds[i] + "ms", "-webkit-transition-duration": gradientSpeeds[i] + "ms"}).one(TRANSITION_END, next);
+	      });
+	    }
+	    */
+	    
+	    $("#victory-gradient--r")
+	      .queue(function(next) {
+	        $(this).css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function(next) {
+	        $(this).css({transform: "translate(-"+gradientFastLoc+"px)", "-webkit-transform": "translate(-"+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function(next) {
+	        $(this).css({transform: "translate(-"+gradientFinalLoc+"px)", "-webkit-transform": "translate(-"+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function() {
+	        $(this).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
+	      });
+	      
+	      $("#victory-gradient--l")
+	      .queue(function(next) {
+	        $(this).css({transform: "translate("+gradientSlowLoc+"px)", "-webkit-transform": "translate("+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function(next) {
+	        $(this).css({transform: "translate("+gradientFastLoc+"px)", "-webkit-transform": "translate("+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function(next) {
+	        $(this).css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue(function() {
+	        $(this).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
+	      });
+
+	      
 	  }
+	  
 	  
 	} // end playGame();
 	

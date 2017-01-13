@@ -449,13 +449,13 @@ html {
 }
 
 @keyframes bounceBtn {
-  from, 50%, to {
+  from, 33%, 67%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 	
 	0% {
-    opacity: 0;
+	  opacity: 0;
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
@@ -1049,6 +1049,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-position-x: -938px;
 }
 
+.bouncePoke {
+  -webkit-animation-name: bouncePoke;
+  animation-name: bouncePoke;
+  animation-duration: 300ms !important;
+}
+
+@keyframes bouncePoke {
+  from, 33%, 67%, to {
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+  
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+	
+	33% {
+    -webkit-transform: scale3d(.7, .7, .7);
+    transform: scale3d(.7, .7, .7);
+  }
+
+  67% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 @keyframes wiggle {
   5% {
     -webkit-transform: rotate3d(0, 0, 1, 15deg);
@@ -1075,6 +1108,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     transform: rotate3d(0, 0, 1, 0deg);
   }
 } /* end pokemon */
+
+.victory-gradient {
+  position: absolute;
+  top: 0px;
+  z-index: 10;
+  height: 100%;
+  width: 120px;
+  opacity: .8;
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+
+.victory-gradient--r {
+  right: -125px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */
+  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.96) 7%, rgba(255,255,255,0.96) 20%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.victory-gradient--l {
+  left: -125px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */
+  background: -moz-linear-gradient(right,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.96) 7%, rgba(255,255,255,0.96) 20%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
 
 /* UTILITY CLASSES */
 
