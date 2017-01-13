@@ -958,7 +958,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     max-width: 50vh;    
     background: rgba(25,25,25,0.95);
     border-radius: 3px;
-    overflow: hidden;
     margin: 0 auto;
     flex-direction: column;
     box-shadow: 0 0 20px 0 black;
@@ -1053,6 +1052,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   -webkit-animation-name: bouncePoke;
   animation-name: bouncePoke;
   animation-duration: 300ms !important;
+}
+
+.victoryGrow {
+  animation: victoryGrow 6000ms ease-in forwards;
+  z-index: 10;
+}
+
+.hinge {
+  animation-duration: 2000ms !important;
+}
+
+@keyframes victoryGrow {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  to {
+    -webkit-transform: scale3d(2, 2, 2);
+    transform: scale3d(2, 2, 2);
+  }
 }
 
 @keyframes bouncePoke {

@@ -389,7 +389,7 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-play").on('click', oak11);
+		$("#button-play").one('click', oak11);
 	}
 	
 	function oak11() {
@@ -1101,10 +1101,59 @@ $(function() {
 	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
 	    var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
 	    var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
+	    var $trio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2])
+	    var $queueObj = $({});
 	    
-	    $(".pokemon").one(ANIMATION_END, function() {
-	      $(".pokemon").removeClass("pokemon--wiggle");
-	    });
+	    $(".pokemon").removeClass("pokemon--wiggle"); 
+	    $("#gameboard").removeClass("animated fadeIn");
+	    
+	    
+	    $queueObj
+	      .delay(320, "victoryAnimation")
+	      .queue("victoryAnimation", function(next) {
+	         $trio.addClass("victoryGrow");
+	         
+	         setTimeout(function() {
+	           $("#gameboard").addClass("animated fadeOut").one(ANIMATION_END, function() {
+	             $(".pokemon").attr("class", "");
+	             $(this).removeClass("animated fadeOut").addClass("u-hidden");
+	           });
+	         }, 4000);
+	         next();
+	      })
+	      .delay(1000, "victoryAnimation")
+	      .queue("victoryAnimation", function(next) {
+	        console.log("hinge");
+	        $(".pokemon").not($trio).addClass("animated hinge").last().one(ANIMATION_END, next);
+	      })
+	      .queue("victoryAnimation", function(next) {
+	         $(".pokemon").not($trio).attr("class", "");
+	         $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
+	         console.log($("#victory-gradient--r").attr("style"));
+	         console.log(Date.now());
+	         console.log(event);
+	         $("#victory-gradient--l").css({transform: "translate("+gradientSlowLoc+"px)", "-webkit-transform": "translate("+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue("victoryAnimation", function(next) {
+	         $("#victory-gradient--r").css({transform: "translate(-"+gradientFastLoc+"px)", "-webkit-transform": "translate(-"+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"});
+	         console.log($("#victory-gradient--r").attr("style"));
+	         console.log(Date.now());
+	         console.log(event);
+	         $("#victory-gradient--l").css({transform: "translate("+gradientFastLoc+"px)", "-webkit-transform": "translate("+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
+	      })
+	      .queue("victoryAnimation", function(next) {
+	         $("#victory-gradient--r").css({transform: "translate(-"+gradientFinalLoc+"px)", "-webkit-transform": "translate(-"+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"});
+	         console.log($("#victory-gradient--r").attr("style"));
+	         console.log(Date.now());
+	         console.log(event);
+	         $("#victory-gradient--l").css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
+	      }); /*
+	      .queue("victoryAnimation", function() {
+	         $("#victory-gradient--r, #victory-gradient--l").css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
+	         console.log("end animation");
+	      });
+	      */
+      $queueObj.dequeue("victoryAnimation");
 	    
 	    /* doesn't work.  not sure why.
 	    for (var i=0; i < 3; i++) {
@@ -1114,6 +1163,7 @@ $(function() {
 	    }
 	    */
 	    
+	    /*
 	    $("#victory-gradient--r")
 	      .queue(function(next) {
 	        $(this).css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
@@ -1141,7 +1191,7 @@ $(function() {
 	      .queue(function() {
 	        $(this).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
 	      });
-
+        */
 	      
 	  }
 	  
