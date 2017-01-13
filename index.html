@@ -32,8 +32,56 @@
         <!-- Add your site or application content here -->
         <audio id="music" src="./sounds/music/main-theme.mp3" autoplay loop preload="auto"></audio>
         <main class="view" id="view">
+            
+            <div class="modal modal--splash" id="modal">
+            	<div class="modal__content modal__content--splash" id="modal__content--splash">
+            		<div class="ttt-logo" id="ttt-logo">
+            			<div class="ttt-logo__element ttt-logo__element--board u-hidden" id="ttt-logo__element"></div>
+            		</div>
+            		<div class="pokemon-logo u-hidden" id="pokemon-logo"></div>
+            	</div>
+            	<div class="char-tall char-tall--oak u-hidden" id="char-tall--oak"></div>
+            </div>
+            
             <section class="gamespace u-hidden" id="gamespace">
                 <div class="screen-center" id="screen-center"></div>
+                <div class="victory-gradient victory-gradient--r" id="victory-gradient--r"></div>
+                <div class="victory-gradient victory-gradient--l" id="victory-gradient--l"></div>
+                <div class="challengers u-blurred u-blurred-transition" id="challengers">
+                    <h1 class="heading heading--challengers" id="heading--challengers">Choose a Challenger</h1>
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-0" id="button--challenger-0" title="Brock (Very Easy)" disabled data-gymnumber="0">
+                            <div class="button__avatar avatar avatar--challenger-0" id="button__avatar--challenger-0"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-1" id="button--challenger-1" title="Misty (Very Easy)" disabled data-gymnumber="1">
+                            <div class="button__avatar avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">    
+                        <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" disabled data-gymnumber="2">
+                            <div class="button__avatar avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-3" id="button--challenger-3" title="Erika (Easy)"  disabled data-gymnumber="3">
+                            <div class="button__avatar avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">    
+                        <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" disabled data-gymnumber="4">
+                            <div class="button__avatar avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-5" id="button--challenger-5" title="Sabrina (Moderate)" disabled data-gymnumber="5">
+                            <div class="button__avatar avatar avatar--challenger-5" id="button__avatar--challenger-5"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-6" id="button--challenger-6" title="Blaine (Difficult)" disabled data-gymnumber="6">
+                            <div class="button__avatar avatar avatar--challenger-6" id="button__avatar--challenger-6"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-7" id="button--challenger-7" title="Giovanni (Very Difficult)" disabled data-gymnumber="7">
+                            <div class="button__avatar avatar avatar--challenger-7" id="button__avatar--challenger-7"></div>
+                        </button>
+                    </div>
+                </div><!--end challenger buttons-->
                 <div class="marquee u-hidden" id="marquee">
                     <div class="marquee__avatar-box marquee__avatar-box--player u-textured" id="marquee__avatar-box--player">
                         <div class="avatar avatar--drop-shadow" id="avatar--player"></div>
@@ -82,41 +130,6 @@
                         </button>
                     </div>
                 </div><!--end gameboard-->
-                <div class="challengers u-blurred u-blurred-transition" id="challengers">
-                    <h1 class="heading heading--challengers" id="heading--challengers">Choose a Challenger</h1>
-                    <div class="challengers__row">
-                        <button type="button" class="button button--avatar button--challenger-0" id="button--challenger-0" title="Brock (Very Easy)" disabled data-gymnumber="0">
-                            <div class="button__avatar avatar avatar--challenger-0" id="button__avatar--challenger-0"></div>
-                        </button>
-                        <button type="button" class="button button--avatar button--challenger-1" id="button--challenger-1" title="Misty (Very Easy)" disabled data-gymnumber="1">
-                            <div class="button__avatar avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
-                        </button>
-                    </div>
-                    <div class="challengers__row">    
-                        <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" disabled data-gymnumber="2">
-                            <div class="button__avatar avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
-                        </button>
-                        <button type="button" class="button button--avatar button--challenger-3" id="button--challenger-3" title="Erika (Easy)"  disabled data-gymnumber="3">
-                            <div class="button__avatar avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
-                        </button>
-                    </div>
-                    <div class="challengers__row">    
-                        <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" disabled data-gymnumber="4">
-                            <div class="button__avatar avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
-                        </button>
-                        <button type="button" class="button button--avatar button--challenger-5" id="button--challenger-5" title="Sabrina (Moderate)" disabled data-gymnumber="5">
-                            <div class="button__avatar avatar avatar--challenger-5" id="button__avatar--challenger-5"></div>
-                        </button>
-                    </div>
-                    <div class="challengers__row">
-                        <button type="button" class="button button--avatar button--challenger-6" id="button--challenger-6" title="Blaine (Difficult)" disabled data-gymnumber="6">
-                            <div class="button__avatar avatar avatar--challenger-6" id="button__avatar--challenger-6"></div>
-                        </button>
-                        <button type="button" class="button button--avatar button--challenger-7" id="button--challenger-7" title="Giovanni (Very Difficult)" disabled data-gymnumber="7">
-                            <div class="button__avatar avatar avatar--challenger-7" id="button__avatar--challenger-7"></div>
-                        </button>
-                    </div>
-                </div><!--end challenger buttons-->
                 <div class="tray-container">
                     <div class="tray u-blurred u-blurred-transition" id="tray">
                         <div class="tray__row tray__row--0">
@@ -190,20 +203,11 @@
                     </div>
                 </div><!--end badge tray-->
             </section>
-            <div class="controls u-grey-bg" id="controls">
+            
+            <aside class="controls u-grey-bg" id="controls">
                 <button type="button" class="controls__toggle controls__toggle--music" id="controls__toggle--music" title="Music Off"></button>
                 <button type="button" class="controls__toggle controls__toggle--sound" id="controls__toggle--sound" title="Sound Effects Off"></button>
-            </div>
-            
-            <div class="modal modal--splash" id="modal">
-            	<div class="modal__content modal__content--splash" id="modal__content--splash">
-            		<div class="ttt-logo" id="ttt-logo">
-            			<div class="ttt-logo__element ttt-logo__element--board u-hidden" id="ttt-logo__element"></div>
-            		</div>
-            		<div class="pokemon-logo u-hidden" id="pokemon-logo"></div>
-            	</div>
-            	<div class="char-tall char-tall--oak u-hidden" id="char-tall--oak"></div>
-            </div>
+            </aside>
         </main>
         
 
