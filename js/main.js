@@ -1039,8 +1039,8 @@ $(function() {
   	  	//update value in virtual gameboard
   	  	cellValues[cell] = value;
   	  	//add pokemon icon to visual gameboard
-  	  	$("#" + cell).addClass("animated bouncePoke pokemon pokemon--" + pokemon).one(ANIMATION_END, function() {
-  	  	  $(this).removeClass("animated bouncePoke").addClass("pokemon--wiggle");
+  	  	$("#" + cell).addClass("animated pokemon--bounce pokemon pokemon--" + pokemon).one(ANIMATION_END, function() {
+  	  	  $(this).removeClass("animated pokemon--bounce").addClass("pokemon--wiggle");
   	  	});
   	  	
   	  	finalizeMove(player);
@@ -1101,7 +1101,7 @@ $(function() {
 	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
 	    var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
 	    var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
-	    var $trio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2])
+	    var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2])
 	    var $queueObj = $({});
 	    
 	    $(".pokemon").removeClass("pokemon--wiggle"); 
@@ -1109,13 +1109,13 @@ $(function() {
 	    
 	    
 	    $queueObj
-	      .delay(320, "victoryAnimation")
+	      .delay(350, "victoryAnimation")
 	      .queue("victoryAnimation", function(next) {
-	         $trio.addClass("victoryGrow");
+	         $victoryTrio.addClass("pokemon--victoryGrow");
 	         
 	         setTimeout(function() {
 	           $("#gameboard").addClass("animated fadeOut").one(ANIMATION_END, function() {
-	             $(".pokemon").attr("class", "");
+	             //$(".pokemon").attr("class", "");
 	             $(this).removeClass("animated fadeOut").addClass("u-hidden");
 	           });
 	         }, 4000);
@@ -1123,11 +1123,22 @@ $(function() {
 	      })
 	      .delay(1000, "victoryAnimation")
 	      .queue("victoryAnimation", function(next) {
-	        console.log("hinge");
-	        $(".pokemon").not($trio).addClass("animated hinge").last().one(ANIMATION_END, next);
+	        for (var cell in cellValues) {
+	          if (TRIO_CELLS[trio].indexOf(cell) == -1) { //cell isn't in winning trio
+	            if (cellValues[cell] == PLAYER_VAL) {
+	              $("#"+cell).addClass("pokemon--rotateLeft");
+	            } else if (cellValues[cell] == CHALLENGER_VAL) {
+	               $("#"+cell).addClass("pokemon--rotateRight");
+	            }
+	            $("#pokemon-container--"+cell).addClass("pokemon-container--fadeOutDown");
+	          }
+	        }
+	        
+	        $(".pokemon").not($victoryTrio).last().one(ANIMATION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
-	         $(".pokemon").not($trio).attr("class", "");
+	         $(".pokemon").not($victoryTrio).attr("class", "");
+	         $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 	         $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 	         console.log($("#victory-gradient--r").attr("style"));
 	         console.log(Date.now());
@@ -1147,12 +1158,12 @@ $(function() {
 	         console.log(Date.now());
 	         console.log(event);
 	         $("#victory-gradient--l").css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
-	      }); /*
+	      })
 	      .queue("victoryAnimation", function() {
 	         $("#victory-gradient--r, #victory-gradient--l").css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
 	         console.log("end animation");
 	      });
-	      */
+	      
       $queueObj.dequeue("victoryAnimation");
 	    
 	    /* doesn't work.  not sure why.
@@ -1163,35 +1174,6 @@ $(function() {
 	    }
 	    */
 	    
-	    /*
-	    $("#victory-gradient--r")
-	      .queue(function(next) {
-	        $(this).css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function(next) {
-	        $(this).css({transform: "translate(-"+gradientFastLoc+"px)", "-webkit-transform": "translate(-"+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function(next) {
-	        $(this).css({transform: "translate(-"+gradientFinalLoc+"px)", "-webkit-transform": "translate(-"+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function() {
-	        $(this).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
-	      });
-	      
-	      $("#victory-gradient--l")
-	      .queue(function(next) {
-	        $(this).css({transform: "translate("+gradientSlowLoc+"px)", "-webkit-transform": "translate("+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function(next) {
-	        $(this).css({transform: "translate("+gradientFastLoc+"px)", "-webkit-transform": "translate("+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function(next) {
-	        $(this).css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
-	      })
-	      .queue(function() {
-	        $(this).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
-	      });
-        */
 	      
 	  }
 	  

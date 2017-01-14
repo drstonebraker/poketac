@@ -1048,19 +1048,63 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-position-x: -938px;
 }
 
-.bouncePoke {
+.pokemon--bounce {
   -webkit-animation-name: bouncePoke;
   animation-name: bouncePoke;
   animation-duration: 300ms !important;
 }
 
-.victoryGrow {
+.pokemon--victoryGrow {
   animation: victoryGrow 6000ms ease-in forwards;
   z-index: 10;
 }
 
-.hinge {
-  animation-duration: 2000ms !important;
+.pokemon-container {
+  display: block;
+}
+
+.pokemon--rotateLeft {
+	animation: rotateLeft 1500ms ease-out forwards;
+}
+
+.pokemon--rotateRight {
+	animation: rotateRight 1500ms ease-out forwards;
+}
+
+.pokemon-container--fadeOutDown {
+	animation: fadeOutDownPoke 1500ms ease-in forwards;
+}
+
+@keyframes rotateLeft {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+	
+  100% {
+    transform: rotate3d(0, 0, 1, -40deg);
+  }
+}
+
+@keyframes rotateRight {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+	
+  100% {
+    transform: rotate3d(0, 0, 1, 40deg);
+  }
+}
+
+@keyframes fadeOutDownPoke {
+  0% {
+    transform: translate3d(0, 0, 0);
+		opacity: 1;
+  }
+	
+  100% {
+    transform: translate3d(0, 100px, 0);
+		opacity: 0;
+  }
 }
 
 @keyframes victoryGrow {
