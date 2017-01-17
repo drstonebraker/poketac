@@ -611,7 +611,7 @@ $(function() {
 	  function gameWin(trio) {
 	  	console.log("gameWin()");
 	    earnedBadges.push(currentGym);
-	    victoryAnimation(trio);
+	    victoryAnimation(trio, true);
 	    endOfGame();
 /*
 	    // Show Dialogue frame
@@ -1090,7 +1090,7 @@ $(function() {
 	  }
 	  
 	  
-	  function victoryAnimation(trio) {
+	  function victoryAnimation(trio, gradients) {
 	    console.log("victoryAnimation("+trio+")");
 	    var viewWidth = document.documentElement.clientWidth;
 	    var gradientSlowLoc = (viewWidth / 2) + (viewWidth / 10) + 100;
@@ -1139,6 +1139,13 @@ $(function() {
 	      .queue("victoryAnimation", function(next) {
 	         $(".pokemon").not($victoryTrio).attr("class", "");
 	         $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
+	         if (gradients) {
+	           next();
+	         } else {
+	           $queueObj.clearQueue("victoryAnimation");
+	         }
+	      })
+	      .queue("victoryAnimation", function(next) {
 	         $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 	         console.log($("#victory-gradient--r").attr("style"));
 	         console.log(Date.now());
@@ -1173,9 +1180,7 @@ $(function() {
 	      });
 	    }
 	    */
-	    
-	      
-	  }
+	  } //end victoryAnimation(trio)
 	  
 	  
 	} // end playGame();
