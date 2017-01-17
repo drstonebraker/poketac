@@ -1099,9 +1099,9 @@ $(function() {
 	    var gradientSpeed0 = viewWidth * 150 / 1000 + 150;
 	    var gradientSpeed1 = 1000;
 	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
-	    var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
-	    var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
-	    var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2])
+	    //var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
+	    //var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
+	    var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2]);
 	    var $queueObj = $({});
 	    
 	    $(".pokemon").removeClass("pokemon--wiggle"); 
