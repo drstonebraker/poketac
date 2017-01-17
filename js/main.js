@@ -1099,6 +1099,8 @@ $(function() {
 	    var gradientSpeed0 = viewWidth * 150 / 1000 + 150;
 	    var gradientSpeed1 = 1000;
 	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
+	    var wordartDelay = gradientSpeed0 / gradientSlowLoc * ((viewWidth - 230) / 2 + 125);
+	    var wordartSpeed = gradientSpeed0 / gradientSlowLoc * 230;
 	    //var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
 	    //var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
 	    var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2]);
@@ -1146,6 +1148,9 @@ $(function() {
 	         }
 	      })
 	      .queue("victoryAnimation", function(next) {
+	        $("#game-end-wordart__element--victory, #game-end-wordart").removeClass("u-hidden");
+	        $(".victory-container").css({"transition-delay": wordartDelay + "ms", "transition-duration": wordartSpeed + "ms"}).addClass("victory-container--showing");
+	        
 	         $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 	         console.log($("#victory-gradient--r").attr("style"));
 	         console.log(Date.now());
