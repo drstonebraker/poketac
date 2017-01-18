@@ -79,7 +79,6 @@ function splashAnimation() {
 $(function() {
   var isMobile = false;
   var playerName;
-  function getPlayerName() {return playerName}
 	var playerAvatar;
 	var playerStarterPokemon;
 	var playerType;
@@ -541,6 +540,7 @@ $(function() {
 			$("#avatar--challenger").addClass("avatar--challenger-" + currentGym); //add appropriate challenger avatar
 			$(".button--avatar").off("click");
 			$(this).addClass("animated bounceOutUp button--no-outline").one(ANIMATION_END, function() {
+			  console.log("now fadeoutdown buttons");
 			  $(this).off(ANIMATION_END);
 				$(".button--avatar").not(this).addClass("animated fadeOutDown");
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
@@ -948,9 +948,9 @@ $(function() {
 	    if (randomTurnTime > 3000) {
 	      setTimeout(function() {
 	        marqueeMessage(randomPick(dialogue.thinking), "speak");
-	      }, 1000)
+	      }, 1000);
 	    }
-	    console.log("* turnTime: "+ randomTurnTime)
+	    console.log("* turnTime: "+ randomTurnTime);
 	    setTimeout(function () {
 	      console.log("moving: " + Date.now());
 	      aiMove(currentGym);
