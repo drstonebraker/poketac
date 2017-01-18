@@ -778,6 +778,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .badge__icon--big:hover, .badge__icon--big:focus {
   cursor: grab;
+  cursor: -webkit-grab;
   /*
   transition: transform 500ms ease;
   transform: translateZ(0) scale(1.4); 
@@ -787,6 +788,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .badge__icon--big:active {
   cursor: grabbing;
+  cursor: -webkit-grabbing;
   transition: all 50ms ease-in;
 }
 

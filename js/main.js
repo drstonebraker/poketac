@@ -10,7 +10,6 @@ if (isIE) {
 const TRANSITION_END = "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
 
-const CHALLENGERS = ["Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni"];
 const POKEMON = {
     "Bulbasaur": {
         type: "grass",
@@ -80,12 +79,105 @@ function splashAnimation() {
 $(function() {
   var isMobile = false;
   var playerName;
+  function getPlayerName() {return playerName}
 	var playerAvatar;
 	var playerStarterPokemon;
 	var playerType;
 	var currentGym;
 	var earnedBadges = [];
 	var animateBackground; //a setInterval function
+	const CHALLENGERS = function() {
+	  return {
+      0: {
+        name: "Brock",
+        victoryMessages: [
+          "Wow. That went fast.",
+          "You're really good at this game!",
+          "Here, take this BOULDER BADGE",
+          "You deserve it!"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      1: {
+        name: "Misty",
+        victoryMessages: [
+          "What, no way!",
+          "That's not fair!",
+          "Can't we do a rematch?",
+          "Oh well. Here's your CASCADE BADGE"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      2: {
+        name: "Lt. Surge",
+        victoryMessages: [
+          "Oh boy!",
+          "You are one tough cookie!",
+          "But I'll bet you just got lucky",
+          "Luck or not, this THUNDER BADGE is yours"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      3: {
+        name: "Erika",
+        victoryMessages: [
+          "Hey, good for you!",
+          "You won! Congratulations",
+          "You must have trained hard for this",
+          "Let me give you this RAINBOW BADGE"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      4: {
+        name: "Koga",
+        victoryMessages: [
+          "You came out of nowhere!",
+          "I couldn't outmaneuver you, " + playerName,
+          "You're on your way to becoming a true master",
+          "This SOUL BADGE will show what you're capable of"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      5: {
+        name: "Sabrina",
+        victoryMessages: [
+          "I underestimated you, " + playerName,
+          "I'm going to have to meditate on what went wrong",
+          "I see more victories in your future",
+          "Take this MARSH BADGE with you as you go"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      6: {
+        name: "Blaine",
+        victoryMessages: [
+          "HAHA, we have a winner!",
+          "Riddle me this:",
+          "What do winners win?",
+          "A VOLCANO BADGE, that's what!"
+          ],
+        tieMessages: [],
+        lossMessages: []
+      },
+      7: {
+        name: "Giovanni",
+        victoryMessages: [
+          "No. It isn't possible",
+          "How!? I never lose!",
+          "The is the end of me",
+          "..."
+          ],
+        tieMessages: [],
+        lossMessages: []
+      }
+    }
+	}
 	
     // Music and sound effects settings
     var soundEffectsOn = true;
@@ -943,7 +1035,7 @@ $(function() {
 	  	
 	  	var challengerAdvantage = playerAdvantage === "advantage" ? "a disadvantage." : "an advantage.";
 	  	
-	  	var advantageMessage = "Challenger " + CHALLENGERS[currentGym] + "'s " + challengerPokemon + " has " + challengerAdvantage;
+	  	var advantageMessage = "Challenger " + CHALLENGERS()[currentGym].name + "'s " + challengerPokemon + " has " + challengerAdvantage;
 	  	
 	  	marqueeMessage(advantageMessage, "announce", whoGoesFirst);
 	  	
@@ -954,7 +1046,7 @@ $(function() {
 		  		marqueeMessage("You go first!", "announce");
 		  		gameTurn = "player";
 		  	} else {
-		  		marqueeMessage(CHALLENGERS[currentGym] + " goes first.", "announce");
+		  		marqueeMessage(CHALLENGERS()[currentGym].name + " goes first.", "announce");
 		  		gameTurn = "challenger";
 		  	}
 		  	
@@ -1099,8 +1191,8 @@ $(function() {
 	    var gradientSpeed0 = viewWidth * 150 / 1000 + 150;
 	    var gradientSpeed1 = 1000;
 	    var gradientSpeed2 = viewWidth * 40 / 1000 + 150;
-	    var wordartDelay = gradientSpeed0 / gradientSlowLoc * ((viewWidth - 230) / 2 + 125);
-	    var wordartSpeed = gradientSpeed0 / gradientSlowLoc * 230;
+	    //var wordartDelay = gradientSpeed0 / gradientSlowLoc * ((viewWidth - 230) / 2 + 125);
+	    //var wordartSpeed = gradientSpeed0 / gradientSlowLoc * 230;
 	    //var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
 	    //var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
 	    var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2]);
@@ -1149,7 +1241,7 @@ $(function() {
 	      })
 	      .queue("victoryAnimation", function(next) {
 	        $("#game-end-wordart__element--victory, #game-end-wordart").removeClass("u-hidden");
-	        $(".victory-container").css({"transition-delay": wordartDelay + "ms", "transition-duration": wordartSpeed + "ms"}).addClass("victory-container--showing");
+	        $(".victory-container").css({"transition-duration": gradientSpeed0 + "ms"}).addClass("victory-container--showing");
 	        
 	         $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 	         console.log($("#victory-gradient--r").attr("style"));
@@ -1171,9 +1263,25 @@ $(function() {
 	         console.log(event);
 	         $("#victory-gradient--l").css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
 	      })
-	      .queue("victoryAnimation", function() {
+	      .queue("victoryAnimation", function(next) {
 	         $("#victory-gradient--r, #victory-gradient--l").css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
-	         console.log("end animation");
+	         $("#game-end-wordart__element--victory").addClass("animated fadeOutDown").one(ANIMATION_END, next);
+	      })
+	      .queue("victoryAnimation", function(next) {
+	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown");
+	         $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
+	         next();
+	      })
+	      .delay(500, "victoryAnimation")
+	      .queue("victoryAnimation", function() {
+	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown");
+	         $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
+	         if (earnedBadges.indexOf(currentGym) == -1) {
+	            victoryDialogue();
+	         } else {
+	           endGame();
+	         }
+	        
 	      });
 	      
       $queueObj.dequeue("victoryAnimation");
@@ -1187,8 +1295,105 @@ $(function() {
 	    */
 	  } //end victoryAnimation(trio)
 	  
+	  function victoryDialogue() {
+	    console.log("victoryDialogue()");
+	    
+	    marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[0], "speak", function() {
+	      marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[1], "speak", function() {
+  	      marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[2], "speak", function() {
+    	      marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[3], "speak", awardBadge);
+  	      });
+	      });
+	    });
+	  }
+	  
+	  function awardBadge() {
+      earnedBadges.push(currentGym);
+    
+      var badgeTopPosition = $("#badge__icon--" + currentGym).offset().top;
+        var centerTopPosition = $('.screen-center').offset().top;
+        var badgeLeftPosition = $("#badge__icon--" + currentGym).offset().left;
+        var centerLeftPosition = $('.screen-center').offset().left;
+    
+        var awardBadgeCss = {
+          top: centerTopPosition - badgeTopPosition - 15, //15 is half the screen-center width
+          left: centerLeftPosition - badgeLeftPosition - 15,
+          transform: "",
+          animation: "",
+        };
+    
+      var unAwardBadgeCss = {
+        top: "",
+        left: "",
+        animation: "",
+        transform: "",
+        transition: "transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+      }
+      
+      var translateValue = "translate3d("+awardBadgeCss.left+"px, "+awardBadgeCss.top+"px, 0px)"
+        
+      var transformBadge = {
+        top: "",
+        left: "",
+        animation: "none",
+        transform: translateValue + " scale(4.5)",
+      }
+      
+      var bigBadgeActive = {
+        transition: "all 50ms ease-in",
+        transform: translateValue + " scale(4.5)",
+      }
+      
+      function bigBadgeHoverFn() {
+        $(this).one(ANIMATION_END, function() {
+          $(this).css(transformBadge);
+        });
+      }
+      
+      function bigBadgeUnhoverFn() {
+        if ($(this).hasClass("badge__icon--big")) {
+          $(this).css(awardBadgeCss);
+        }
+      }
+      
+    function badgeWon(badgeNum) {
+    $("img", "#badge__icon--" + badgeNum).addClass("u-invisible");
+    $("#badge__icon--" + badgeNum).removeClass("u-invisible");
+    $("#badge__shimmer--" + badgeNum).addClass("u-invisible");
+    
+    
+    
+    $("#badge__icon--" + badgeNum).css(awardBadgeCss).addClass("animated zoomInDown badge__icon--big").one(ANIMATION_END, function() {
+      $("#badge__icon--" + badgeNum).removeClass("animated zoomInDown").addClass("badge__icon--hang").mouseenter( bigBadgeHoverFn ).mouseleave( bigBadgeUnhoverFn ).one("mousedown", function() {    $(this).css(bigBadgeActive).removeClass("badge__icon--big badge__icon--hang");
+      }).one("mouseup", function() {
+        $(this).css(unAwardBadgeCss).one(TRANSITION_END, function() {
+          $("img", ".badge__icon").removeClass("u-invisible");
+          $(".badge__shimmer").removeClass("u-invisible");
+    
+          badgeShimmer(currentGym);
+          setTimeout(function() {
+            endGame();
+          }, 1000);
+        });
+      });
+    });
+    
+    }
+    
+    badgeWon(currentGym);
+    } //end awardBadge()
 	  
 	} // end playGame();
+	
+	/*this function moves the gradient image across the badge to create the shimmer*/
+  function badgeShimmer(badgeNum){
+    $("#badge__icon--" + badgeNum + " > span").stop();
+     $("#badge__icon--" + badgeNum + " > span").css('background-position', '-40px -40px').animate({'background-position': '38px 38px'}, 450);
+  }
+  
+  $(".badge__screen").mouseenter(function() {
+    badgeShimmer($(this).data().badgenumber);
+  });
 	
 	
     
