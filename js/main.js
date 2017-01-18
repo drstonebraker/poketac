@@ -544,7 +544,7 @@ $(function() {
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
 					$("#challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp button--no-outline");
-					$("#marquee").addClass("marquee--drop").one(ANIMATION_END, function() {
+					$("#marquee").addClass("marquee--drop").one(TRANSITION_END, function() {
 				        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge").one(ANIMATION_END, function() {
 				        		if (event.animationName === "swingHinge" && event.type === "animationend") {
 					            $("#gameboard").removeClass("u-hidden").addClass("animated fadeIn");
@@ -1384,6 +1384,14 @@ $(function() {
     } //end awardBadge()
 	  
 	} // end playGame();
+	
+	function endGame() {
+	  console.log("endGame()");
+	  $("#marquee").removeClass("marquee--drop").one(TRANSITION_END, function() {
+	    
+	  });
+	  
+	}
 	
 	/*this function moves the gradient image across the badge to create the shimmer*/
   function badgeShimmer(badgeNum){

@@ -811,10 +811,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     perspective: 600px;
     perspective-origin: 50% 66px;
     transform: translate3d(0px,-70px, 0px);
+    transition: transform 150ms cubic-bezier(.5,.1,.9,.5);
 }
 
 .marquee--drop {
-    animation: drop 150ms cubic-bezier(.5,.1,.9,.5) forwards;
+    transform: translate3d(0px, 0px, 0px);
+    /*animation: drop 150ms cubic-bezier(.5,.1,.9,.5) forwards;*/
 }
 
 .marquee__avatar-box {
