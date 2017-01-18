@@ -467,7 +467,7 @@ $(function() {
 	
 	function oak9() {
 		console.log("oak9");
-		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to players who can beat them.  See if you can collect all eight!</p>";
+		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to players who can beat them.  With enough badges, you might even see your pokemon evolve. See if you can collect all eight!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 		
 		$("#modal__content--oak").replaceWith(modalContentOak);
