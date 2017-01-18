@@ -1404,6 +1404,7 @@ $(function() {
 	    $("#marquee__dialogue").removeClass("marquee__dialogue--swingHinge");
 	    $("#marquee").addClass("u-hidden");
 	    $(".gameboard__cell").off("click");
+	    $("#avatar--challenger").removeClass("avatar--challenger-" + currentGym);
 	    $("#challengers").show();
 	    showChallengers();
 	  });
