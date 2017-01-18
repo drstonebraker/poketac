@@ -68,7 +68,7 @@ function splashAnimation() {
     
     		setTimeout(function() {
     			$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one(ANIMATION_END, function() {
-    				$(this).removeClass("animated rubberBand");
+    				$(this).removeClass("animated rubberBand").off(ANIMATION_END);
     			});
     		}, animationInterval * 4);
     
@@ -102,7 +102,7 @@ $(function() {
       1: {
         name: "Misty",
         victoryMessages: [
-          "What, no way!",
+          "What? No way!",
           "That's not fair!",
           "Can't we do a rematch?",
           "Oh well. Here's your CASCADE BADGE"
@@ -125,7 +125,7 @@ $(function() {
         name: "Erika",
         victoryMessages: [
           "Hey, good for you!",
-          "You won! Congratulations",
+          "You won! Congratulations!",
           "You must have trained hard for this",
           "Let me give you this RAINBOW BADGE"
           ],
@@ -489,7 +489,7 @@ $(function() {
 		//exit oak modal and enter gamespace
 		$("#gamespace").removeClass("u-hidden");
 	    $("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
-    		$(this).removeClass("animated bounceBtn");
+    		$(this).removeClass("animated bounceBtn").off(ANIMATION_END);
     		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Good luck!</p>";
 			var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
 			
@@ -497,7 +497,7 @@ $(function() {
     		
     		setTimeout(function() {
     			$("#modal").addClass("animated bounceOutDownCenter").one(ANIMATION_END, function() {
-    				$(this).hide().removeClass("animated bounceOutDownCenter");
+    				$(this).hide().removeClass("animated bounceOutDownCenter").off(ANIMATION_END);
     				showChallengers();
     			});
     		}, 1000);
@@ -520,7 +520,7 @@ $(function() {
 		    "opacity": "0"
 		};
 		$("#overworld").css(cssVal).one(TRANSITION_END, function() {
-			$(this).hide();
+			$(this).hide().off(TRANSITION_END);
 		});
 		clearTimeout(animateBackground);
 	}
@@ -539,20 +539,25 @@ $(function() {
 			currentGym = $(this).data().gymnumber;
 			$("#marquee").removeClass("u-hidden");
 			$("#avatar--challenger").addClass("avatar--challenger-" + currentGym); //add appropriate challenger avatar
+			$(".button--avatar").off("click");
 			$(this).addClass("animated bounceOutUp button--no-outline").one(ANIMATION_END, function() {
+			  $(this).off(ANIMATION_END);
 				$(".button--avatar").not(this).addClass("animated fadeOutDown");
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
+				  $(this).off(ANIMATION_END);
 					$("#challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp button--no-outline");
 					$("#marquee").addClass("marquee--drop").one(TRANSITION_END, function() {
-				        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge").one(ANIMATION_END, function() {
-				        		if (event.animationName === "swingHinge" && event.type === "animationend") {
-					            $("#gameboard").removeClass("u-hidden").addClass("animated fadeIn");
-					            $("#marquee__dialogue__text").flowtype({minFont : 13});
-					            playGame();
-				        		}
-				        });
-				    });
+            $(this).off(TRANSITION_END);
+		        $("#marquee__dialogue").addClass("marquee__dialogue--swingHinge");
+		        console.log("****************************");
+		        console.log(event);
+		        setTimeout(function() {
+		            $("#gameboard").removeClass("u-hidden").addClass("animated fadeIn");
+		            $("#marquee__dialogue__text").flowtype({minFont : 13});
+		            playGame();
+		        },1000);
+          });
 				});
 			});
 		});
@@ -593,6 +598,7 @@ $(function() {
 			b3: 0,
 			c3: 0
 		};
+		console.log(cellValues);
 		var trioVariables     = {};
 		var gameTurn = "";
 		var playerCurrentPokemon = "";
@@ -672,7 +678,7 @@ $(function() {
 	      if (trioVariables[trio] === 3 || trioVariables[trio] === 12) {
 	        console.log("We have a winner!");
 	
-	        gameTurn = "";
+	        setGameTurn("");
 	        if (trioVariables[trio] === 12) {
 	          console.log("player has lost the game");
 	          gameLossOrDraw(trio);
@@ -702,7 +708,6 @@ $(function() {
 	  
 	  function gameWin(trio) {
 	  	console.log("gameWin()");
-	    earnedBadges.push(currentGym);
 	    victoryAnimation(trio, true);
 	    endOfGame();
 /*
@@ -956,7 +961,7 @@ $(function() {
 	  /* PLAYER TURN
 	    - Handler and logic for player's cell clicks
 	  =========================================================================== */
-	  $(".gameboard__cell").click(function() {
+	  $(".gameboard__cell").on("click", function() {
 	  	console.log("cell clicked");
 	  	$(this).blur().prop("disabled", true);
 
@@ -983,6 +988,7 @@ $(function() {
 	  	console.log("beginGame()");
 	  	updatePlayerPokemon();
 	  	setChallengerPokemon();
+	  	updateTrioVariables();
 	  	
 	  	dialogue = {
   			thinking: [
@@ -1052,6 +1058,7 @@ $(function() {
 		  	
 		  	setTimeout(function() {
 		  		setGameTurn(gameTurn);
+		  		$("#gameboard").removeClass("animated fadeIn");
 		  	}, 3000);
 	  	}
 
@@ -1075,7 +1082,7 @@ $(function() {
       clearTimeout(msgTimer); //cancel any previous "off" animation
 	  	$("#marquee__dialogue__text").off(ANIMATION_END).finish().removeClass("animated bounceInRight bounceOutLeft speak unspeak").text(message).addClass(onClasses).one(ANIMATION_END, function(){ //cancel any previous "off" animation before adding new one
 	  	  console.log("* remove on class: "+Date.now()+message);
-	  			$(this).removeClass(onClasses);
+	  			$(this).removeClass(onClasses).off(ANIMATION_END);
 	  		});
 	  	
 	  	msgTimer = setTimeout(function() {
@@ -1108,6 +1115,8 @@ $(function() {
 	  		$( ".gameboard__cell" ).prop( "disabled", true ); //disable all cells
 	  		if (activePlayer == "challenger") {
 	  		    aiTurnControl();
+	  		} else {
+	  		  $(".marquee__avatar-box").removeClass("marquee__avatar-box--active");//remove green indicator on avatars
 	  		}
 	  	}
 	  }
@@ -1132,7 +1141,7 @@ $(function() {
   	  	cellValues[cell] = value;
   	  	//add pokemon icon to visual gameboard
   	  	$("#" + cell).addClass("animated pokemon--bounce pokemon pokemon--" + pokemon).one(ANIMATION_END, function() {
-  	  	  $(this).removeClass("animated pokemon--bounce").addClass("pokemon--wiggle");
+  	  	  $(this).removeClass("animated pokemon--bounce").addClass("pokemon--wiggle").off(ANIMATION_END);
   	  	});
   	  	
   	  	finalizeMove(player);
@@ -1199,8 +1208,6 @@ $(function() {
 	    var $queueObj = $({});
 	    
 	    $(".pokemon").removeClass("pokemon--wiggle"); 
-	    $("#gameboard").removeClass("animated fadeIn");
-	    
 	    
 	    $queueObj
 	      .delay(350, "victoryAnimation")
@@ -1209,8 +1216,8 @@ $(function() {
 	         
 	         setTimeout(function() {
 	           $("#gameboard").addClass("animated fadeOut").one(ANIMATION_END, function() {
-	             //$(".pokemon").attr("class", "");
-	             $(this).removeClass("animated fadeOut").addClass("u-hidden");
+	             $(".pokemon").attr("class", "");
+	             $(this).removeClass("animated fadeOut").addClass("u-hidden").off(ANIMATION_END);
 	           });
 	         }, 4000);
 	         next();
@@ -1231,6 +1238,7 @@ $(function() {
 	        $(".pokemon").not($victoryTrio).last().one(ANIMATION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
+	         $(".pokemon").not($victoryTrio).last().off(ANIMATION_END);
 	         $(".pokemon").not($victoryTrio).attr("class", "");
 	         $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 	         if (gradients) {
@@ -1254,21 +1262,21 @@ $(function() {
 	         console.log($("#victory-gradient--r").attr("style"));
 	         console.log(Date.now());
 	         console.log(event);
-	         $("#victory-gradient--l").css({transform: "translate("+gradientFastLoc+"px)", "-webkit-transform": "translate("+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
+	         $("#victory-gradient--l").off(TRANSITION_END).css({transform: "translate("+gradientFastLoc+"px)", "-webkit-transform": "translate("+gradientFastLoc+"px)", "transition-duration": gradientSpeed1 + "ms", "-webkit-transition-duration": gradientSpeed1 + "ms"}).one(TRANSITION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
 	         $("#victory-gradient--r").css({transform: "translate(-"+gradientFinalLoc+"px)", "-webkit-transform": "translate(-"+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"});
 	         console.log($("#victory-gradient--r").attr("style"));
 	         console.log(Date.now());
 	         console.log(event);
-	         $("#victory-gradient--l").css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
+	         $("#victory-gradient--l").off(TRANSITION_END).css({transform: "translate("+gradientFinalLoc+"px)", "-webkit-transform": "translate("+gradientFinalLoc+"px)", "transition-duration": gradientSpeed2 + "ms", "-webkit-transition-duration": gradientSpeed2 + "ms"}).one(TRANSITION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
-	         $("#victory-gradient--r, #victory-gradient--l").css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
+	         $("#victory-gradient--r, #victory-gradient--l").off(TRANSITION_END).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
 	         $("#game-end-wordart__element--victory").addClass("animated fadeOutDown").one(ANIMATION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
-	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown");
+	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown").off(ANIMATION_END);
 	         $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
 	         next();
 	      })
@@ -1276,6 +1284,9 @@ $(function() {
 	      .queue("victoryAnimation", function() {
 	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown");
 	         $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
+	         console.log("badge earned?: "+ (earnedBadges.indexOf(currentGym) == -1));
+	         console.log("earnedBadges: "+earnedBadges);
+	         console.log("gym: "+currentGym);
 	         if (earnedBadges.indexOf(currentGym) == -1) {
 	            victoryDialogue();
 	         } else {
@@ -1327,7 +1338,7 @@ $(function() {
         left: "",
         animation: "",
         transform: "",
-        transition: "transform 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+        transition: "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       }
       
       var translateValue = "translate3d("+awardBadgeCss.left+"px, "+awardBadgeCss.top+"px, 0px)"
@@ -1346,7 +1357,7 @@ $(function() {
       
       function bigBadgeHoverFn() {
         $(this).one(ANIMATION_END, function() {
-          $(this).css(transformBadge);
+          $(this).css(transformBadge).off(ANIMATION_END);
         });
       }
       
@@ -1364,9 +1375,10 @@ $(function() {
     
     
     $("#badge__icon--" + badgeNum).css(awardBadgeCss).addClass("animated zoomInDown badge__icon--big").one(ANIMATION_END, function() {
-      $("#badge__icon--" + badgeNum).removeClass("animated zoomInDown").addClass("badge__icon--hang").mouseenter( bigBadgeHoverFn ).mouseleave( bigBadgeUnhoverFn ).one("mousedown", function() {    $(this).css(bigBadgeActive).removeClass("badge__icon--big badge__icon--hang");
+      $(this).off(ANIMATION_END).removeClass("animated zoomInDown").addClass("badge__icon--hang").mouseenter( bigBadgeHoverFn ).mouseleave( bigBadgeUnhoverFn ).one("mousedown", function() {    $(this).css(bigBadgeActive).removeClass("badge__icon--big badge__icon--hang").off("mousedown");
       }).one("mouseup", function() {
-        $(this).css(unAwardBadgeCss).one(TRANSITION_END, function() {
+        $(this).off("mouseup").css(unAwardBadgeCss).one(TRANSITION_END, function() {
+          $(this).off(TRANSITION_END);
           $("img", ".badge__icon").removeClass("u-invisible");
           $(".badge__shimmer").removeClass("u-invisible");
     
@@ -1388,7 +1400,12 @@ $(function() {
 	function endGame() {
 	  console.log("endGame()");
 	  $("#marquee").removeClass("marquee--drop").one(TRANSITION_END, function() {
-	    
+	    $(this).off(TRANSITION_END);
+	    $("#marquee__dialogue").removeClass("marquee__dialogue--swingHinge");
+	    $("#marquee").addClass("u-hidden");
+	    $(".gameboard__cell").off("click");
+	    $("#challengers").show();
+	    showChallengers();
 	  });
 	  
 	}
