@@ -668,8 +668,8 @@ $(function() {
 			for (var trio in trioVariables) {
 				// If the current property's value is 3 or 12
 				if (trioVariables[trio] === 3 || trioVariables[trio] === 12) {
-					console.log("We have a winner!");
-	
+					console.log("We have a winner!")
+					
 					setGameTurn("");
 					if (trioVariables[trio] === 12) {
 						console.log("player has lost the game");
@@ -725,6 +725,7 @@ $(function() {
 					return false;
 				}
 			}
+			setGameTurn("");
 			console.log("We have a tie");
 			gameLostOrTied("tied");
 			return true;
@@ -1181,7 +1182,6 @@ $(function() {
 		function fadeOutGameboard() {
 			console.log("fadeOutGameboard()");
 			$("#gameboard").addClass("animated fadeOut").one(ANIMATION_END, function() {
-				$(".pokemon").attr("class", "");
 				$(this).removeClass("animated fadeOut").addClass("u-hidden").off(ANIMATION_END);
 			});
 		}
@@ -1202,7 +1202,7 @@ $(function() {
 					}
 					next();
 				})
-				.delay(1000, "lostOrTiedAnimation")
+				.delay(1500, "lostOrTiedAnimation")
 				.queue("lostOrTiedAnimation", function(next) {
 					if (lostOrTied != "lost") {
 						for (var cell in cellValues) {
@@ -1461,6 +1461,7 @@ $(function() {
 		$("#marquee").removeClass("marquee--drop").one(TRANSITION_END, function() {
 			$(this).off(TRANSITION_END);
 			$("#marquee__dialogue").removeClass("marquee__dialogue--swingHinge");
+			$(".pokemon, .pokemon--rotateRight").attr("class", "");
 			$("#marquee").addClass("u-hidden");
 			$(".gameboard__cell").off("click");
 			$("#avatar--challenger").removeClass("avatar--challenger-" + currentGym);
