@@ -715,7 +715,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .badge__shimmer {
   display: block;
-  position: inherited;
+  position: inherit;
 
 background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 23%, rgba(255,255,255,0.9) 49%, rgba(255,255,255,0.87) 54%, rgba(255,255,255,0) 57%, rgba(255,255,255,0) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1 );
@@ -1256,7 +1256,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	right: 0px;
 }
 
-.game-end-wordart__element--tie {
+.game-end-wordart__element--tied {
 	display: inline-block;
 }
 

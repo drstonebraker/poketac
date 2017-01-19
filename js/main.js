@@ -681,7 +681,7 @@ $(function() {
 	        setGameTurn("");
 	        if (trioVariables[trio] === 12) {
 	          console.log("player has lost the game");
-	          gameLossOrDraw(trio);
+	          gameLostOrTied("lost", trio);
 	        }
 	        else if (trioVariables[trio] === 3) {
 	          console.log("player has won the game");
@@ -700,9 +700,9 @@ $(function() {
 	    //pokemonSelect();
 	  }
 	  
-	  function gameLossOrDraw(trio) {
-	  	console.log("gameLossOrDraw("+trio+")");
-	  	
+	  function gameLostOrTied(lostOrTied, trio) {
+	  	console.log("gameLostOrTied("+lostOrTied+", "+trio+")");
+	  	lostOrTiedAnimation(lostOrTied, trio);
 	    endOfGame();
 	  }
 	  
@@ -734,7 +734,7 @@ $(function() {
 	      }
 	    }
 	    console.log("We have a tie");
-	    gameLossOrDraw();
+	    gameLostOrTied("tied");
 	    return true;
 	  }
 	
@@ -1186,13 +1186,60 @@ $(function() {
     	return keys;
 	  }
 	  
-	  function lossOrDrawAnimation() {
-	    console.log("lossOrDrawAnimation()");
+	  function fadeOutGameboard() {
+	    console.log("fadeOutGameboard()");
+	    $("#gameboard").addClass("animated fadeOut").one(ANIMATION_END, function() {
+        $(".pokemon").attr("class", "");
+        $(this).removeClass("animated fadeOut").addClass("u-hidden").off(ANIMATION_END);
+      });
+	  }
+	  
+	  function lostOrTiedAnimation(lostOrTied, trio) {
+	    console.log("lostOrTiedAnimation("+lostOrTied+", "+trio+")");
+	    
+	    var $queueObj = $({});
+	    
+	    $(".pokemon").removeClass("pokemon--wiggle"); 
+	    $("#game-end-wordart").removeClass("u-hidden");
+	    
+	    $queueObj
+	      .delay(350, "lostOrTiedAnimation")
+	      .queue("lostOrTiedAnimation", function(next) {
+	        var wordLength = $("#game-end-wordart__element--"+lostOrTied+" > .letter-container").length;
+	        var delay = 100;
+	        
+	        $("#game-end-wordart__element--"+lostOrTied+" .letter__element").each(function(i, e) {
+	          console.log("index: "+i);
+	          setTimeout(function() {
+	            console.log("setTimeout index: "+i);
+	            console.log($(e));
+              $(e).removeClass("u-hidden").addClass("wordart__element--bounceInOut").one(ANIMATION_END, function() {
+                $(this).removeClass("wordart__element--bounceInOut").addClass("u-hidden").off(ANIMATION_END);
+              });
+            }, delay * i, e);
+	        });
+	        /*
+          function lostOrTiedWordartAnimation(lostOrTied, index, delay) {
+            console.log("lostOrTiedWordartAnimation("+lostOrTied+", "+index+", "+delay+")");
+            setTimeout(function() {
+              $("#"+lostOrTied+"__element--"+index).removeClass("u-hidden").addClass("wordart__element--bounceInOut").one(ANIMATION_END, function() {
+                $(this).removeClass("wordart__element--bounceInOut").addClass("u-hidden").off(ANIMATION_END);
+              });
+              if (index < 7) {
+                lostOrTiedWordartAnimation(lostOrTied, index + 1, delay + initialDelay );
+              }
+            }, delay);
+          }*/
+	        setTimeout(fadeOutGameboard, 4000);
+	         //next();
+	      });
+	      
+	      $queueObj.dequeue("lostOrTiedAnimation");
 	  }
 	  
 	  
-	  function victoryAnimation(trio, gradients) {
-	    console.log("victoryAnimation("+trio+")");
+	  function victoryAnimation(trio, gameWon) {
+	    console.log("victoryAnimation("+trio+", "+gameWon+")");
 	    var viewWidth = document.documentElement.clientWidth;
 	    var gradientSlowLoc = (viewWidth / 2) + (viewWidth / 10) + 100;
 	    var gradientFastLoc = gradientSlowLoc + (viewWidth / 15);
@@ -1241,7 +1288,7 @@ $(function() {
 	         $(".pokemon").not($victoryTrio).last().off(ANIMATION_END);
 	         $(".pokemon").not($victoryTrio).attr("class", "");
 	         $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
-	         if (gradients) {
+	         if (gameWon) {
 	           next();
 	         } else {
 	           $queueObj.clearQueue("victoryAnimation");
@@ -1273,6 +1320,10 @@ $(function() {
 	      })
 	      .queue("victoryAnimation", function(next) {
 	         $("#victory-gradient--r, #victory-gradient--l").off(TRANSITION_END).css({transform: "", "-webkit-transform": "", "transition-duration": "", "-webkit-transition-duration": ""});
+	         next();
+	      })
+	      .delay(1000, "victoryAnimation")
+	      .queue("victoryAnimation", function(next) {
 	         $("#game-end-wordart__element--victory").addClass("animated fadeOutDown").one(ANIMATION_END, next);
 	      })
 	      .queue("victoryAnimation", function(next) {
@@ -1282,17 +1333,14 @@ $(function() {
 	      })
 	      .delay(500, "victoryAnimation")
 	      .queue("victoryAnimation", function() {
-	         $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown");
-	         $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
-	         console.log("badge earned?: "+ (earnedBadges.indexOf(currentGym) == -1));
-	         console.log("earnedBadges: "+earnedBadges);
-	         console.log("gym: "+currentGym);
-	         if (earnedBadges.indexOf(currentGym) == -1) {
-	            victoryDialogue();
-	         } else {
-	           endGame();
-	         }
-	        
+          console.log("badge earned?: "+ (earnedBadges.indexOf(currentGym) == -1));
+          console.log("earnedBadges: "+earnedBadges);
+          console.log("gym: "+currentGym);
+          if (earnedBadges.indexOf(currentGym) == -1) {
+            victoryDialogue();
+          } else {
+           endGame();
+          }
 	      });
 	      
       $queueObj.dequeue("victoryAnimation");
