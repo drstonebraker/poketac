@@ -85,6 +85,7 @@ $(function() {
 	var currentGym;
 	var earnedBadges = [];
 	var animateBackground; //a setInterval function
+	var recenterBigBadge; //a setTimeout function
 	const CHALLENGERS = function() {
 		return {
 			0: {
@@ -1300,6 +1301,7 @@ $(function() {
 					 $(".pokemon").not($victoryTrio).attr("class", "");
 					 $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 					 if (gameWon) {
+					   $("#badge__btn--" + currentGym).css("transform", awardBadgeCss().transformHangUp); //prepare bigbadge for awarding
 						 next();
 					 } else {
 						 $queueObj.clearQueue("victoryAnimation");
@@ -1388,8 +1390,6 @@ $(function() {
 				transform: "",
 				transition: "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
 			};
-			
-			$("#badge__btn--" + currentGym).css("transform", awardBadgeCssObj.transformHangUp);
 			
 			function badgeHangFn() {
 		    $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangDown);
@@ -1491,9 +1491,9 @@ $(function() {
 		var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
 		var centerLeftPosition = $('#screen-center').offset().left;
 		
-		var translateTop = centerTopPosition - badgeTopPosition - 15; //15 is half the screen-center width
-		var translateLeft = centerLeftPosition - badgeLeftPosition - 15; //15 is half the screen-center width
-
+		var translateTop = centerTopPosition - badgeTopPosition;
+		var translateLeft = centerLeftPosition - badgeLeftPosition; 
+		
 		var result = {
 		  "translateLeft": translateLeft,
 		  "translateTop": translateTop,
@@ -1509,7 +1509,11 @@ $(function() {
 	
 	$(window).on("resize", function() {
 	  if ($(".badge__icon--big").length > 0) {
-		  $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangUp);
+	    clearTimeout(recenterBigBadge);
+		  $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "transition": ""});
+		  recenterBigBadge = setTimeout(function() {
+		    $(".badge__icon--big").closest(".badge__btn").css({transition: "transform 1500ms ease-in-out"});
+		  }, 20);
 	  }
 	});
 	

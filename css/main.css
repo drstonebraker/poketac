@@ -793,7 +793,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .badge__btn:active > .badge__icon--big {
   cursor: grabbing;
   cursor: -webkit-grabbing;
-  transform: scale(4.2); 
+  transform: scale(4.0); 
 }
 /*
 .badge__icon--hang {  
