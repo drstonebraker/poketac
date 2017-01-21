@@ -668,7 +668,7 @@ $(function() {
 			for (var trio in trioVariables) {
 				// If the current property's value is 3 or 12
 				if (trioVariables[trio] === 3 || trioVariables[trio] === 12) {
-					console.log("We have a winner!")
+					console.log("We have a winner!");
 					
 					setGameTurn("");
 					if (trioVariables[trio] === 12) {
@@ -1138,7 +1138,7 @@ $(function() {
 				});
 				
 				finalizeMove(player);
-			}, delay)
+			}, delay);
 		}
 		
 		function randomPick(array) {
@@ -1222,6 +1222,7 @@ $(function() {
 						next();
 					}
 				})
+				.delay(1000, "lostOrTiedAnimation")
 				.queue("lostOrTiedAnimation", function(next) {
 				  
 					var delay = 100;
@@ -1379,76 +1380,78 @@ $(function() {
 		
 		function awardBadge() {
 			earnedBadges.push(currentGym);
-		
-			var badgeTopPosition = $("#badge__icon--" + currentGym).offset().top;
-				var centerTopPosition = $('.screen-center').offset().top;
-				var badgeLeftPosition = $("#badge__icon--" + currentGym).offset().left;
-				var centerLeftPosition = $('.screen-center').offset().left;
-		
-				var awardBadgeCss = {
-					top: centerTopPosition - badgeTopPosition - 15, //15 is half the screen-center width
-					left: centerLeftPosition - badgeLeftPosition - 15,
-					transform: "",
-					animation: "",
-				};
-		
+      var badgeHang; //a setInterval function
+      var badgeHangReverse; //a setTimeout function
+			var awardBadgeCssObj = awardBadgeCss();
+
 			var unAwardBadgeCss = {
-				top: "",
-				left: "",
-				animation: "",
 				transform: "",
 				transition: "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-			}
+			};
 			
-			var translateValue = "translate3d("+awardBadgeCss.left+"px, "+awardBadgeCss.top+"px, 0px)"
-				
-			var transformBadge = {
-				top: "",
-				left: "",
-				animation: "none",
-				transform: translateValue + " scale(4.5)",
-			}
+			$("#badge__btn--" + currentGym).css("transform", awardBadgeCssObj.transformHangUp);
 			
-			var bigBadgeActive = {
-				transition: "all 50ms ease-in",
-				transform: translateValue + " scale(4.5)",
+			function badgeHangFn() {
+		    $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangDown);
+		    badgeHangReverse = setTimeout (function() {
+		      $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangUp);
+		    }, 1500);
 			}
+				/*
+			var transformBadge = function() {
+				return {
+					animation: "none",
+					transform: awardBadgeCss().transform + " scale(4.45)",
+				};
+			};
+			*/
+			
+			/*
+			var bigBadgeActive = function () {
+  			return {
+  				transition: "",
+  				transform: awardBadgeCss().transform + " scale(4.5)",
+  			};
+			};
 			
 			function bigBadgeHoverFn() {
 				$(this).one(ANIMATION_END, function() {
-					$(this).css(transformBadge).off(ANIMATION_END);
+					$(this).css(transformBadge()).off(ANIMATION_END);
 				});
 			}
 			
 			function bigBadgeUnhoverFn() {
 				if ($(this).hasClass("badge__icon--big")) {
-					$(this).css(awardBadgeCss);
+					$(this).css(awardBadgeCss());
 				}
 			}
+			*/
 			
 		function badgeWon(badgeNum) {
-		$("img", "#badge__icon--" + badgeNum).addClass("u-invisible");
-		$("#badge__icon--" + badgeNum).removeClass("u-invisible");
-		$("#badge__shimmer--" + badgeNum).addClass("u-invisible");
-		
-		
-		
-		$("#badge__icon--" + badgeNum).css(awardBadgeCss).addClass("animated zoomInDown badge__icon--big").one(ANIMATION_END, function() {
-			$(this).off(ANIMATION_END).removeClass("animated zoomInDown").addClass("badge__icon--hang").mouseenter( bigBadgeHoverFn ).mouseleave( bigBadgeUnhoverFn ).one("mousedown", function() {    $(this).css(bigBadgeActive).removeClass("badge__icon--big badge__icon--hang").off("mousedown");
-			}).one("mouseup", function() {
-				$(this).off("mouseup").css(unAwardBadgeCss).one(TRANSITION_END, function() {
-					$(this).off(TRANSITION_END);
-					$("img", ".badge__icon").removeClass("u-invisible");
-					$(".badge__shimmer").removeClass("u-invisible");
-		
-					badgeShimmer(currentGym);
-					setTimeout(function() {
-						endGame();
-					}, 1000);
-				});
-			});
-		});
-		
+  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").addClass("badge__icon--big");
+  		
+  		$("#badge__btn--" + badgeNum).addClass("animated zoomInDown").one(ANIMATION_END, function() {
+  			$(this).off(ANIMATION_END).attr( "disabled", false ).removeClass("animated zoomInDown").css({"transition": "transform 1500ms ease-in-out"}).on( "mouseenter", function() {
+  			  clearInterval(badgeHang);
+        	clearTimeout(badgeHangReverse);
+        	$(this).css({"transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out"});
+  			}).on("mouseleave", function() {
+  			  $(this).css({"transform": awardBadgeCss().transformHangUp}).one("transitionend", function() {
+            	$(this).off("transitionend").css({"transition": "transform 1500ms ease-in-out"});
+            	badgeHangFn();
+    			    badgeHang = setInterval(badgeHangFn, 3000);
+          	});
+  			}).one("click", function() {
+  			  $(this).off("click").attr("disabled", true).css(unAwardBadgeCss).children(".badge__icon--big").css(unAwardBadgeCss).removeClass("badge__icon--big").one(TRANSITION_END, function() {
+      					$(this).off(TRANSITION_END).children(".badge__shimmer").removeClass("u-invisible");
+      		
+      					badgeShimmer(currentGym);
+      					setTimeout(endGame, 1000);
+      				});
+  			});
+  			badgeHangFn();
+  			badgeHang = setInterval(badgeHangFn, 3000);
+  			});
 		}
 		
 		badgeWon(currentGym);
@@ -1479,6 +1482,35 @@ $(function() {
 	
 	$(".badge__screen").mouseenter(function() {
 		badgeShimmer($(this).data().badgenumber);
+	});
+				
+	function awardBadgeCss() {
+		console.log("awardBadgeCss()");
+		var badgeTopPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().top;
+		var centerTopPosition = $('#screen-center').offset().top;
+		var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
+		var centerLeftPosition = $('#screen-center').offset().left;
+		
+		var translateTop = centerTopPosition - badgeTopPosition - 15; //15 is half the screen-center width
+		var translateLeft = centerLeftPosition - badgeLeftPosition - 15; //15 is half the screen-center width
+
+		var result = {
+		  "translateLeft": translateLeft,
+		  "translateTop": translateTop,
+		  transformHangUp: "translate3d("+translateLeft+"px, "+(translateTop - 8)+"px, 0px)",
+		  transformHangDown: "translate3d("+translateLeft+"px, "+(translateTop + 8)+"px, 0px)",
+			transformCenter: "translate3d("+translateLeft+"px, "+translateTop+"px, 0px)",
+		};
+		
+		console.log(result);
+		return result;
+	}
+	
+	
+	$(window).on("resize", function() {
+	  if ($(".badge__icon--big").length > 0) {
+		  $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangUp);
+	  }
 	});
 	
 	

@@ -101,10 +101,8 @@ html {
 }
 
 .animated {
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }
 
 .view {
@@ -116,7 +114,10 @@ html {
 }
 
 .view--gym {
-    background: url(../img/gym.png) no-repeat center bottom fixed;
+    background: url(../img/gym.png) no-repeat center bottom fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -134,19 +135,13 @@ html {
     right: 0px;
     z-index: 10;
     border-radius: 4px 0 0 4px;
-    -webkit-transition: -webkit-transform 80ms ease;
-    transition: -webkit-transform 80ms ease;
     transition: transform 80ms ease;
-    transition: transform 80ms ease, -webkit-transform 80ms ease;
-    -webkit-transform: scale(0.4);
-            transform: scale(0.4);
-    -webkit-transform-origin: top right;
-            transform-origin: top right;
+    transform: scale(0.4);
+    transform-origin: top right;
 }
 
 .controls:hover {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
 }
 
 .controls::before {
@@ -158,8 +153,7 @@ html {
     left: 0px;
     top: -18px;
     z-index: 10;
-    -webkit-transform: skewY(-25deg);
-            transform: skewY(-25deg);
+    transform: skewY(-25deg);
     border-radius: 10px 0 0 0;
 }
 
@@ -172,8 +166,7 @@ html {
     right: 0px;
     bottom: -18px;
     z-index: 10;
-    -webkit-transform: skewY(25deg);
-            transform: skewY(25deg);
+    transform: skewY(25deg);
     border-radius: 0 0 0 10px;
 }
 
@@ -223,8 +216,7 @@ html {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate3d(-50%, -50%, 0px);
-	        transform: translate3d(-50%, -50%, 0px);
+	transform: translate3d(-50%, -50%, 0px);
 	background-color: #FFEAA0;
 	background-image: url(../img/dimension-poke.png);
 	border: 3px solid #FF891D;
@@ -346,10 +338,8 @@ html {
 .button--green {
 	background-color: #85F444;
 	border: 2px solid #6EC637;
-	-webkit-animation-duration: 20ms;
-	        animation-duration: 20ms;
-	-webkit-animation-iteration-count: 1;
-	        animation-iteration-count: 1;
+	animation-duration: 20ms;
+	animation-iteration-count: 1;
 }
 
 /* oak4 */
@@ -359,7 +349,6 @@ html {
 	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke-grey.png);
 	padding: 0;
 	border-radius: 18px;
-	-webkit-transition: all 50ms ease;
 	transition: all 50ms ease;
 	margin: 2px 8px;
 }
@@ -372,8 +361,7 @@ html {
 
 .button--avatar:hover > .button__avatar, 
 .button--avatar:focus > .button__avatar{
-		-webkit-transform: scale(1.2);
-		        transform: scale(1.2);
+		transform: scale(1.2);
 }
 
 .avatar {
@@ -385,10 +373,7 @@ html {
 
 .button__avatar {
 	border-radius: 18px;  
-	-webkit-transition: -webkit-transform 50ms ease;  
-	transition: -webkit-transform 50ms ease;  
-	transition: transform 50ms ease;  
-	transition: transform 50ms ease, -webkit-transform 50ms ease;
+	transition: transform 50ms ease;
 }
 
 .avatar--female {
@@ -421,34 +406,25 @@ html {
 
 .pokeball__ball {	
 	background-position-x: -1.5px;	
-	-webkit-transition: -webkit-transform 300ms ease;	
-	transition: -webkit-transform 300ms ease;	
-	transition: transform 300ms ease;	
-	transition: transform 300ms ease, -webkit-transform 300ms ease;
+	transition: transform 300ms ease;
 	z-index: 1;
 }
 
 .pokeball:hover > .pokeball__ball, 
 .pokeball:focus > .pokeball__ball, 
 .pokeball--focus > .pokeball__ball {
-	-webkit-transform: translateX(-22px) rotate(-1rad);
-	        transform: translateX(-22px) rotate(-1rad);
+	transform: translateX(-22px) rotate(-1rad);
 }
 
 .pokeball:hover > .pokeball__pokemon, 
 .pokeball:focus > .pokeball__pokemon, 
 .pokeball--focus > .pokeball__pokemon {
-	-webkit-transform: scale(1.2) translateX(7px);
-	        transform: scale(1.2) translateX(7px);
+	transform: scale(1.2) translateX(7px);
 }
 
 .pokeball__pokemon {
-	-webkit-transition: -webkit-transform 140ms ease 100ms;
-	transition: -webkit-transform 140ms ease 100ms;
 	transition: transform 140ms ease 100ms;
-	transition: transform 140ms ease 100ms, -webkit-transform 140ms ease 100ms;
-	-webkit-transform-origin: left;
-	        transform-origin: left;
+	transform-origin: left;
 	z-index: 0;
 }
 
@@ -469,37 +445,7 @@ html {
 .bounceBtn {
   -webkit-animation-name: bounceBtn;
   animation-name: bounceBtn;
-  -webkit-animation-duration: 250ms !important;
-          animation-duration: 250ms !important;
-}
-
-@-webkit-keyframes bounceBtn {
-  from, 33%, 67%, to {
-    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
-	
-	0% {
-	  opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-
-  33% {
-    -webkit-transform: scale3d(.7, .7, .7);
-    transform: scale3d(.7, .7, .7);
-  }
-
-  67% {
-    -webkit-transform: scale3d(1.2, 1.2, 1.2);
-    transform: scale3d(1.2, 1.2, 1.2);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
+  animation-duration: 250ms !important;
 }
 
 @keyframes bounceBtn {
@@ -584,15 +530,11 @@ html {
 /* challenger buttons */
 
 .challengers {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     position: relative;
     height: calc(100vh - 122px);
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    justify-content: space-around;
+    flex-wrap: wrap;
     padding: 0 10%;
     max-width: 540px;
     margin: 0 auto;
@@ -610,22 +552,14 @@ html {
     text-align: center;
     margin: 15px 0 0 0;
     font-size: 1.5em;
-    -ms-flex-preferred-size: 100%;
-        flex-basis: 100%;
+    flex-basis: 100%;
 }
 
 .challengers__row {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: space-around;
+    flex-grow: 1;
+    align-items: center;
 }
 
 .avatar--challenger-0 {
@@ -660,19 +594,18 @@ html {
     background-position-x: -1054px;
 } 
 
-.button--no-outline {
+.button--no-outline:focus {
   outline: none;
 }/* end challenger buttons */
 
 /* gym badges */
 .screen-center {
-  width: 30px;
-  height: 30px;
+  width: 49px;
+  height: 49px;
   position: absolute;
   top: 50%;
   left: 50%; 
-  -webkit-transform: translate(-50%, -50%); 
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .tray-container {
@@ -683,14 +616,9 @@ html {
 }
 
 .tray {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   background: #111;
   border-radius: 10%;
   border: 1px solid white;
@@ -704,17 +632,10 @@ html {
 }
 
 .tray__row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
   height: 50px;
   width: 240px;
   max-width: 300px;
@@ -725,15 +646,14 @@ html {
   position: relative;   
   height:49px;
   width:49px;
-  border-radius: 50%;
 }
 
 .badge__dot {
   display: block;
   position: absolute;
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+75&1+0,0+50,0+75 */ /* FF3.6-15 */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+75&1+0,0+50,0+75 */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 75%); /* FF3.6-15 */
 background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%,rgba(255,255,255,0) 75%); /* Chrome10-25,Safari5.1-6 */
-background: -webkit-radial-gradient(center ellipse,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%,rgba(255,255,255,0) 75%);
 background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%,rgba(255,255,255,0) 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   opacity: .5;
@@ -745,11 +665,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   
 }
 
+.badge__btn {
+  padding: 0;
+  position: relative;
+  background: none;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 2px;
+  height:45px;
+  width: 45px;
+  z-index: 1;
+}
+
 .badge__icon {
   display: inline-block;
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0px;
+  left: 0px;
   height:45px;
   width: 45px;
   box-sizing: border-box;
@@ -795,8 +727,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .badge__shimmer {
   display: block;
   position: inherit;
-
-background: -webkit-linear-gradient(315deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 23%, rgba(255,255,255,0.9) 49%, rgba(255,255,255,0.87) 54%, rgba(255,255,255,0) 57%, rgba(255,255,255,0) 100%);
 
 background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 23%, rgba(255,255,255,0.9) 49%, rgba(255,255,255,0.87) 54%, rgba(255,255,255,0) 57%, rgba(255,255,255,0) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1 );
@@ -849,53 +779,53 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   background-position-x: -351.5px; 
 }
 
-.badge__icon--big{
-    -webkit-transform: scale(3.6);
-            transform: scale(3.6);
+.badge__icon--big {
+  transform: scale(3.8);
+  transition: transform 80ms ease-in-out;
 }
 
+.badge__btn:hover > .badge__icon--big, .badge__btn:focus > .badge__icon--big {
+  cursor: grab;
+  cursor: -webkit-grab;
+  transform: scale(4.6);
+}
+
+.badge__btn:active > .badge__icon--big {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(4.2); 
+}
+/*
 .badge__icon--hang {  
-  -webkit-animation: hang 3s ease-in-out infinite;  
-          animation: hang 3s ease-in-out infinite;
+  animation: hang 3s ease-in-out infinite;
 }
+*/
 
+/*
 .badge__icon--big:hover, .badge__icon--big:focus {
   cursor: grab;
   cursor: -webkit-grab;
-  /*
-  transition: transform 500ms ease;
-  transform: translateZ(0) scale(1.4); 
-  */
-  -webkit-animation: scale 70ms ease;
-          animation: scale 70ms ease;
+  animation: scale 70ms ease;
 }
 
 .badge__icon--big:active {
   cursor: grabbing;
   cursor: -webkit-grabbing;
-  -webkit-transition: all 50ms ease-in;
   transition: all 50ms ease-in;
 }
+*/
 
-@-webkit-keyframes hang {
-  0%, 100% {-webkit-transform: translate3d(0, -8px, 0) scale(3.6);transform: translate3d(0, -8px, 0) scale(3.6)}
-  50% {-webkit-transform: translate3d(0, 8px, 0) scale(3.6);transform: translate3d(0, 8px, 0) scale(3.6)}
-}
-
+/*
 @keyframes hang {
-  0%, 100% {-webkit-transform: translate3d(0, -8px, 0) scale(3.6);transform: translate3d(0, -8px, 0) scale(3.6)}
-  50% {-webkit-transform: translate3d(0, 8px, 0) scale(3.6);transform: translate3d(0, 8px, 0) scale(3.6)}
+  0%, 100% {transform: translate3d(0, -8px, 0) scale(3.6)}
+  50% {transform: translate3d(0, 8px, 0) scale(3.6)}
 }
-
-@-webkit-keyframes scale {
-  from {-webkit-transform: scale(3.6);transform: scale(3.6)}
-  to {-webkit-transform: scale(4.5);transform: scale(4.5)}
-}
-
+*/
+/*
 @keyframes scale {
-  from {-webkit-transform: scale(3.6);transform: scale(3.6)}
-  to {-webkit-transform: scale(4.5);transform: scale(4.5)}
-} /* end gym badges */
+  from {transform: scale(3.6)}
+  to {transform: scale(4.5)}
+}*/ /* end gym badges */
 
 /* marquee: avatars and challenger dialogue */
 .marquee {
@@ -903,21 +833,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     top: 0px;
     left: 0px;
     right: 0px;
-    -webkit-perspective: 600px;
-            perspective: 600px;
-    -webkit-perspective-origin: 50% 66px;
-            perspective-origin: 50% 66px;
-    -webkit-transform: translate3d(0px,-70px, 0px);
-            transform: translate3d(0px,-70px, 0px);
-    -webkit-transition: -webkit-transform 150ms cubic-bezier(.5,.1,.9,.5);
-    transition: -webkit-transform 150ms cubic-bezier(.5,.1,.9,.5);
+    perspective: 600px;
+    perspective-origin: 50% 66px;
+    transform: translate3d(0px,-70px, 0px);
     transition: transform 150ms cubic-bezier(.5,.1,.9,.5);
-    transition: transform 150ms cubic-bezier(.5,.1,.9,.5), -webkit-transform 150ms cubic-bezier(.5,.1,.9,.5);
 }
 
 .marquee--drop {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-            transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
     /*animation: drop 150ms cubic-bezier(.5,.1,.9,.5) forwards;*/
 }
 
@@ -945,8 +868,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 } 
 
 .avatar--drop-shadow {
-    -webkit-filter: drop-shadow(16px 16px 10px black);
-            filter: drop-shadow(16px 16px 10px black);
+    filter: drop-shadow(16px 16px 10px black);
 }
 
 .marquee__dialogue-container {
@@ -964,15 +886,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-color: #444;
     border: 1px solid white;
     border-radius: 4px;
-    box-shadow: 0 0 0 1px black, 0 0 20px 0 black, inset 0 0 10px #090909;    -webkit-transform-origin: top;    transform-origin: top;
-    -webkit-transform: rotateX(-90deg);
-            transform: rotateX(-90deg);
+    box-shadow: 0 0 0 1px black, 0 0 20px 0 black, inset 0 0 10px #090909;    transform-origin: top;
+    transform: rotateX(-90deg);
     overflow: hidden;
 }
 
 .marquee__dialogue--swingHinge {
-    -webkit-animation: swingHinge 1000ms ease-in-out forwards;
-            animation: swingHinge 1000ms ease-in-out forwards;
+    animation: swingHinge 1000ms ease-in-out forwards;
 }
 
 .marquee__dialogue__text {
@@ -980,178 +900,87 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     color: #DDD;
     font-family: 'Pathway Gothic One', Helvetica, sans-serif;
     margin: 0;
-    -webkit-transform-origin: calc(50% + 40px) top;
-            transform-origin: calc(50% + 40px) top;
+    transform-origin: calc(50% + 40px) top;
     text-align: center;
     vertical-align: middle;
 }
 
 .speak {
-  -webkit-animation: speak 400ms ease-in-out;
-          animation: speak 400ms ease-in-out;
+  animation: speak 400ms ease-in-out;
 }
 
 .unspeak {
-  -webkit-animation: unspeak 700ms ease-in;
-          animation: unspeak 700ms ease-in;
-}
-
-
-@-webkit-keyframes speak {
-    from {
-        -webkit-transform: translate3d(30px, -10px, 0px) scale(.5);
-                transform: translate3d(30px, -10px, 0px) scale(.5);
-        opacity: .2;
-    }
-    
-    to {
-        -webkit-transform: translate3d(0px, 0px, 0px) scale(1);
-                transform: translate3d(0px, 0px, 0px) scale(1);
-        opacity: 1;
-    }    
+  animation: unspeak 700ms ease-in;
 }
 
 
 @keyframes speak {
     from {
-        -webkit-transform: translate3d(30px, -10px, 0px) scale(.5);
-                transform: translate3d(30px, -10px, 0px) scale(.5);
+        transform: translate3d(30px, -10px, 0px) scale(.5);
         opacity: .2;
     }
     
     to {
-        -webkit-transform: translate3d(0px, 0px, 0px) scale(1);
-                transform: translate3d(0px, 0px, 0px) scale(1);
+        transform: translate3d(0px, 0px, 0px) scale(1);
         opacity: 1;
-    }    
-}
-
-@-webkit-keyframes unspeak {
-    from {
-        -webkit-transform: translate3d(0px, 0px, 0px);
-                transform: translate3d(0px, 0px, 0px);
-        opacity: 1;
-    }
-    
-    to {
-        -webkit-transform: translate3d(0px, 20px, 0px);
-                transform: translate3d(0px, 20px, 0px);
-        opacity: 0;
     }    
 }
 
 @keyframes unspeak {
     from {
-        -webkit-transform: translate3d(0px, 0px, 0px);
-                transform: translate3d(0px, 0px, 0px);
+        transform: translate3d(0px, 0px, 0px);
         opacity: 1;
     }
     
     to {
-        -webkit-transform: translate3d(0px, 20px, 0px);
-                transform: translate3d(0px, 20px, 0px);
+        transform: translate3d(0px, 20px, 0px);
         opacity: 0;
     }    
 }
 
-@-webkit-keyframes drop {
-    from {
-        -webkit-transform: translate3d(0px,-70px, 0px);
-                transform: translate3d(0px,-70px, 0px);
-    }
-    
-    to {
-        -webkit-transform: translate3d(0px, 0px, 0px);
-                transform: translate3d(0px, 0px, 0px);
-    }
-}
-
 @keyframes drop {
     from {
-        -webkit-transform: translate3d(0px,-70px, 0px);
-                transform: translate3d(0px,-70px, 0px);
+        transform: translate3d(0px,-70px, 0px);
     }
     
     to {
-        -webkit-transform: translate3d(0px, 0px, 0px);
-                transform: translate3d(0px, 0px, 0px);
+        transform: translate3d(0px, 0px, 0px);
     }
-}
-
-@-webkit-keyframes swingHinge {
-  0% {
-    -webkit-transform: rotateX(-90deg);
-            transform: rotateX(-90deg);
-  }
-    
-  20% {
-    -webkit-transform: rotateX(40deg);
-            transform: rotateX(40deg);
-  }
-
-  40% {
-    -webkit-transform: rotateX(-15deg);
-            transform: rotateX(-15deg);
-  }
-
-  60% {
-    -webkit-transform: rotateX(8deg);
-            transform: rotateX(8deg);
-  }
-
-  80% {
-    -webkit-transform: rotateX(-3deg);
-            transform: rotateX(-3deg);
-  }
-
-  to {
-    -webkit-transform: rotateX(0deg);
-            transform: rotateX(0deg);
-  }
 }
 
 @keyframes swingHinge {
   0% {
-    -webkit-transform: rotateX(-90deg);
-            transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
   }
     
   20% {
-    -webkit-transform: rotateX(40deg);
-            transform: rotateX(40deg);
+    transform: rotateX(40deg);
   }
 
   40% {
-    -webkit-transform: rotateX(-15deg);
-            transform: rotateX(-15deg);
+    transform: rotateX(-15deg);
   }
 
   60% {
-    -webkit-transform: rotateX(8deg);
-            transform: rotateX(8deg);
+    transform: rotateX(8deg);
   }
 
   80% {
-    -webkit-transform: rotateX(-3deg);
-            transform: rotateX(-3deg);
+    transform: rotateX(-3deg);
   }
 
   to {
-    -webkit-transform: rotateX(0deg);
-            transform: rotateX(0deg);
+    transform: rotateX(0deg);
   }
 } /* end marquee */
 
 /* gameboard */
 .gameboard {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     position: absolute;
     left: 50%;
     top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     height: 74vw;
     width: 74vw;
     max-height: 50vh;
@@ -1159,20 +988,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background: rgba(25,25,25,0.95);
     border-radius: 3px;
     margin: 0 auto;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     box-shadow: 0 0 20px 0 black;
 }
 
 .gameboard__row {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    flex-grow: 1;
     margin: 1px 0;
 }
 
@@ -1181,9 +1003,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     padding: 0;
     color: white;
     border: 1px solid black;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    flex-grow: 1;
     margin: 0 1px;
     box-shadow: 0 0 0 1px #CCC, inset 0 0 13px #090909;
 } /* end gameboard */
@@ -1202,16 +1022,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .pokemon--wiggle {
-  -webkit-animation-name: wiggle;
-          animation-name: wiggle;
-  -webkit-animation-duration: 3.5s;
-          animation-duration: 3.5s; 
-  -webkit-animation-timing-function: ease-in-out; 
-          animation-timing-function: ease-in-out; 
-  -webkit-animation-delay: 2s; 
-          animation-delay: 2s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-name: wiggle;
+  animation-duration: 3.5s; 
+  animation-timing-function: ease-in-out; 
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
 }
 
 .pokemon--bulbasaur {
@@ -1265,13 +1080,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .pokemon--bounce {
   -webkit-animation-name: bouncePoke;
   animation-name: bouncePoke;
-  -webkit-animation-duration: 300ms !important;
-          animation-duration: 300ms !important;
+  animation-duration: 300ms !important;
 }
 
 .pokemon--victoryGrow {
-  -webkit-animation: victoryGrow 6000ms ease-in forwards;
-          animation: victoryGrow 6000ms ease-in forwards;
+  animation: victoryGrow 6000ms ease-in forwards;
   z-index: 10;
 }
 
@@ -1280,105 +1093,46 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .pokemon--rotateLeft {
-	-webkit-animation: rotateLeft 1500ms ease-out forwards;
-	        animation: rotateLeft 1500ms ease-out forwards;
+	animation: rotateLeft 1500ms ease-out forwards;
 }
 
 .pokemon--rotateRight {
-	-webkit-animation: rotateRight 1500ms ease-out forwards;
-	        animation: rotateRight 1500ms ease-out forwards;
+	animation: rotateRight 1500ms ease-out forwards;
 }
 
 .pokemon-container--fadeOutDown {
-	-webkit-animation: fadeOutDownPoke 1500ms ease-in forwards;
-	        animation: fadeOutDownPoke 1500ms ease-in forwards;
-}
-
-@-webkit-keyframes rotateLeft {
-  0% {
-    -webkit-transform: rotate3d(0, 0, 1, 0deg);
-            transform: rotate3d(0, 0, 1, 0deg);
-  }
-	
-  100% {
-    -webkit-transform: rotate3d(0, 0, 1, -40deg);
-            transform: rotate3d(0, 0, 1, -40deg);
-  }
+	animation: fadeOutDownPoke 1500ms ease-in forwards;
 }
 
 @keyframes rotateLeft {
   0% {
-    -webkit-transform: rotate3d(0, 0, 1, 0deg);
-            transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 	
   100% {
-    -webkit-transform: rotate3d(0, 0, 1, -40deg);
-            transform: rotate3d(0, 0, 1, -40deg);
-  }
-}
-
-@-webkit-keyframes rotateRight {
-  0% {
-    -webkit-transform: rotate3d(0, 0, 1, 0deg);
-            transform: rotate3d(0, 0, 1, 0deg);
-  }
-	
-  100% {
-    -webkit-transform: rotate3d(0, 0, 1, 40deg);
-            transform: rotate3d(0, 0, 1, 40deg);
+    transform: rotate3d(0, 0, 1, -40deg);
   }
 }
 
 @keyframes rotateRight {
   0% {
-    -webkit-transform: rotate3d(0, 0, 1, 0deg);
-            transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 	
   100% {
-    -webkit-transform: rotate3d(0, 0, 1, 40deg);
-            transform: rotate3d(0, 0, 1, 40deg);
-  }
-}
-
-@-webkit-keyframes fadeOutDownPoke {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-		opacity: 1;
-  }
-	
-  100% {
-    -webkit-transform: translate3d(0, 100px, 0);
-            transform: translate3d(0, 100px, 0);
-		opacity: 0;
+    transform: rotate3d(0, 0, 1, 40deg);
   }
 }
 
 @keyframes fadeOutDownPoke {
   0% {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 		opacity: 1;
   }
 	
   100% {
-    -webkit-transform: translate3d(0, 100px, 0);
-            transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
 		opacity: 0;
-  }
-}
-
-@-webkit-keyframes victoryGrow {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-
-  to {
-    -webkit-transform: scale3d(2, 2, 2);
-    transform: scale3d(2, 2, 2);
   }
 }
 
@@ -1391,33 +1145,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   to {
     -webkit-transform: scale3d(2, 2, 2);
     transform: scale3d(2, 2, 2);
-  }
-}
-
-@-webkit-keyframes bouncePoke {
-  from, 33%, 67%, to {
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-  }
-  
-  0% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-	
-	33% {
-    -webkit-transform: scale3d(.7, .7, .7);
-    transform: scale3d(.7, .7, .7);
-  }
-
-  67% {
-    -webkit-transform: scale3d(1.1, 1.1, 1.1);
-    transform: scale3d(1.1, 1.1, 1.1);
-  }
-
-  to {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -1445,33 +1172,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   to {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
-  }
-}
-
-@-webkit-keyframes wiggle {
-  5% {
-    -webkit-transform: rotate3d(0, 0, 1, 15deg);
-    transform: rotate3d(0, 0, 1, 10deg);
-  }
-
-  10% {
-    -webkit-transform: rotate3d(0, 0, 1, -8deg);
-    transform: rotate3d(0, 0, 1, -10deg);
-  }
-
-  15% {
-    -webkit-transform: rotate3d(0, 0, 1, 5deg);
-    transform: rotate3d(0, 0, 1, 5deg);
-  }
-
-  20% {
-    -webkit-transform: rotate3d(0, 0, 1, -5deg);
-    transform: rotate3d(0, 0, 1, -5deg);
-  }
-
-  25%, 100% {
-    -webkit-transform: rotate3d(0, 0, 1, 0deg);
-    transform: rotate3d(0, 0, 1, 0deg);
   }
 }
 
@@ -1510,24 +1210,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   height: 100%;
   width: 120px;
   opacity: .8;
-  -webkit-transition-property: -webkit-transform;
-  transition-property: -webkit-transform;
   transition-property: transform;
-  transition-property: transform, -webkit-transform;
-  -webkit-transition-timing-function: linear;
-          transition-timing-function: linear;
+  transition-timing-function: linear;
 }
 
 .victory-gradient--r {
   right: -125px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */ /* FF3.6-15 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */
+  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.96) 7%, rgba(255,255,255,0.96) 20%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .victory-gradient--l {
   left: -125px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */ /* FF3.6-15 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0.96+7,0.96+20,0+100 */
+  background: -moz-linear-gradient(right,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.96) 7%, rgba(255,255,255,0.96) 20%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 7%,rgba(255,255,255,0.96) 20%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }/* end victory gradients */
@@ -1552,10 +1250,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	position: absolute;
 	width: 0px;
 	height: 35px;
-	-webkit-transition-property: width;
 	transition-property: width;
-	-webkit-transition-timing-function: linear;
-	        transition-timing-function: linear;
+	transition-timing-function: linear;
 	overflow: hidden;
 }
 
@@ -1679,115 +1375,51 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .wordart__element--bounceInOut {
-	-webkit-animation: bounceInOut 6000ms forwards;
-	        animation: bounceInOut 6000ms forwards;
-}
-
-@-webkit-keyframes bounceInOut {
-	0%, 30%, 60%, 75%, 100% {
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
-	}
-	
-	15%, 45% {
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
-	}
-	
-  0% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg)
-	}
-	
-  15% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
-	}
-	
-	30% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
-	}
-	
-	45% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0);
-		        transform: translate3d(0, 0px, 0);
-	}
-	
-	60% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, -5px, 0);
-		        transform: translate3d(0, -5px, 0);
-	}
-	
-	75% {
-		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0);
-		        transform: translate3d(0, 0px, 0);
-	}
-	
-	100% {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 50px, 0);
-		        transform: translate3d(0, 50px, 0);
-	}
+	animation: bounceInOut 6000ms forwards;
 }
 
 @keyframes bounceInOut {
 	0%, 30%, 60%, 75%, 100% {
-		-webkit-animation-timing-function: ease-in;
-		        animation-timing-function: ease-in;
+		animation-timing-function: ease-in;
 	}
 	
 	15%, 45% {
-		-webkit-animation-timing-function: ease-out;
-		        animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
 	}
 	
   0% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg)
+		transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg)
 	}
 	
   15% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
+		transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
 	}
 	
 	30% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
-		        transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
+		transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
 	}
 	
 	45% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0);
-		        transform: translate3d(0, 0px, 0);
+		transform: translate3d(0, 0px, 0);
 	}
 	
 	60% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, -5px, 0);
-		        transform: translate3d(0, -5px, 0);
+		transform: translate3d(0, -5px, 0);
 	}
 	
 	75% {
 		opacity: 1;
-		-webkit-transform: translate3d(0, 0px, 0);
-		        transform: translate3d(0, 0px, 0);
+		transform: translate3d(0, 0px, 0);
 	}
 	
 	100% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 50px, 0);
-		        transform: translate3d(0, 50px, 0);
+		transform: translate3d(0, 50px, 0);
 	}
 }
 
@@ -1807,16 +1439,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .u-blurred {
-    -webkit-filter: blur(80px);
-            filter: blur(80px);
+    filter: blur(80px);
     opacity: 0;
 }
 
 .u-blurred-transition {
-    -webkit-transition: opacity 50ms ease, -webkit-filter 700ms ease;
-    transition: opacity 50ms ease, -webkit-filter 700ms ease;
     transition: filter 700ms ease, opacity 50ms ease;
-    transition: filter 700ms ease, opacity 50ms ease, -webkit-filter 700ms ease;
 }
 
 .u-textured {
