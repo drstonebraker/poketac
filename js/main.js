@@ -600,10 +600,14 @@ $(function() {
 		var dialogue = {};
 		var msgTimer;
 		var zoomInDownObj = {
-		  transition0: "all 600ms cubic-bezier(0.550, 0.055, 0.675, 0.190)",
-		  transition1: "all 400ms cubic-bezier(0.175, 0.885, 0.320, 1)",
-		  scale0: "scale3d(.1, .1, .1)",
-		  scale1: "scale3d(1, 1, 1)",
+		  transitionTranslate0: "all 600ms cubic-bezier(0.550, 0.055, 0.675, 0.190)",
+		  transitionTranslate1: "all 400ms cubic-bezier(0.175, 0.885, 0.320, 1)",
+		  transitionScale0: "transform 25ms linear",
+		  transitionScale1: "transform 575ms cubic-bezier(0.550, 0.055, 0.675, 0.190)",
+		  transitionScale2: "transform 400ms cubic-bezier(0.175, 0.885, 0.320, 1)",
+		  scale0: "scale3d(4, 4, 4)",
+		  scale1: "scale3d(.1, .1, .1)",
+		  scale2: "scale3d(1, 1, 1)",
 		  translate0: "translate3d("+(awardBadgeCss().translateLeft + 100)+"px, "+(awardBadgeCss().translateTop - 300)+"px, 0px)",
 		  translate1: "translate3d("+(awardBadgeCss().translateLeft + 20)+"px, "+(awardBadgeCss().translateTop + 40)+"px, 0px)"
 		};
@@ -1435,10 +1439,13 @@ $(function() {
 			*/
 			
 		function badgeWon(badgeNum) {
-  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transition0, transform: zoomInDownObj.scale1}).closest(".badge__btn").css({transition: zoomInDownObj.transition0, transform: zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
+  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transitionScale0, transform: zoomInDownObj.scale1}).one(TRANSITION_END, function() {
+  		  event.stopPropagation();
+  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionScale1, transform: zoomInDownObj.scale2});
+  		}).closest(".badge__btn").css({transition: zoomInDownObj.transitionTranslate0, transform: zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
   		  
   		  $(this).children(".badge__icon").addClass("badge__icon--big").css({transition: zoomInDownObj.transition1, transform: ""});
-  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transition1, transform: awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
+  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionTranslate1, transform: awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
   		      if (event.srcElement == $(this)[0] && event.elapsedTime < 0.6) {
   		        
       		    $(this).children(".badge__icon").css({transition: ""});
