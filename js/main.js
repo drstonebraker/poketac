@@ -1201,7 +1201,7 @@ $(function() {
 			var $queueObj = $({});
 			
 			$(".pokemon").removeClass("pokemon--wiggle"); 
-			$("#game-end-wordart").removeClass("u-hidden");
+			$("#game-end-wordart, #game-end-wordart__element--" + lostOrTied).removeClass("u-hidden");
 			
 			$queueObj
 				.delay(350, "lostOrTiedAnimation")
@@ -1247,7 +1247,7 @@ $(function() {
 						}, delay * i, e);
 					}).last().one(ANIMATION_END, function() {
 						$(this).off(ANIMATION_END);
-						$("#game-end-wordart").addClass("u-hidden");
+						$("#game-end-wordart, #game-end-wordart__element--" + lostOrTied).addClass("u-hidden");
 					});
 					
 					next();
