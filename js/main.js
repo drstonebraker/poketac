@@ -1317,7 +1317,7 @@ $(function() {
 				})
 				.queue("victoryAnimation", function(next) {
 					$("#game-end-wordart__element--victory, #game-end-wordart").removeClass("u-hidden");
-					$(".victory-container").css({"transition-duration": gradientSpeed0 + "ms"}).addClass("victory-container--showing");
+					$(".victory-container").css({"transition-duration": gradientSpeed0 + "ms", "transition-delay": (gradientSpeed0 / 2) + "ms"}).addClass("victory-container--showing");
 					
 					 $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 					 console.log($("#victory-gradient--r").attr("style"));
