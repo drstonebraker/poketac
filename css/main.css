@@ -133,7 +133,7 @@ html {
     height: 65px;
     top: 30px;
     right: 0px;
-    z-index: 10;
+    z-index: 100;
     border-radius: 4px 0 0 4px;
     transition: transform 80ms ease;
     transform: scale(0.4);
@@ -351,6 +351,7 @@ html {
 	border-radius: 18px;
 	transition: all 50ms ease;
 	margin: 2px 8px;
+	z-index: 10;
 }
 
 .button--avatar:hover,
@@ -837,6 +838,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     perspective-origin: 50% 66px;
     transform: translate3d(0px,-70px, 0px);
     transition: transform 150ms cubic-bezier(.5,.1,.9,.5);
+    z-index: 20;
 }
 
 .marquee--drop {
@@ -1206,7 +1208,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .victory-gradient {
   position: absolute;
   top: 0px;
-  z-index: 10;
+  z-index: 500;
   height: 100%;
   width: 120px;
   opacity: .8;

@@ -599,6 +599,14 @@ $(function() {
 		var challengerPokemon = "";
 		var dialogue = {};
 		var msgTimer;
+		var zoomInDownObj = {
+		  transition0: "all 600ms cubic-bezier(0.550, 0.055, 0.675, 0.190)",
+		  transition1: "all 400ms cubic-bezier(0.175, 0.885, 0.320, 1)",
+		  scale0: "scale3d(.1, .1, .1)",
+		  scale1: "scale3d(1, 1, 1)",
+		  translate0: "translate3d("+(awardBadgeCss().translateLeft + 100)+"px, "+(awardBadgeCss().translateTop - 300)+"px, 0px)",
+		  translate1: "translate3d("+(awardBadgeCss().translateLeft + 20)+"px, "+(awardBadgeCss().translateTop + 40)+"px, 0px)"
+		};
 		
 		
 		beginGame();
@@ -988,7 +996,7 @@ $(function() {
 				thinking: [
 					"Hmm... what should I do", 
 					"Let me think a second",
-					"You're better than I thought",
+					"You may be better than I thought",
 					"Let's see here...",
 					"What do you think, " + challengerPokemon,
 					"This is a tough one"
@@ -1301,7 +1309,7 @@ $(function() {
 					 $(".pokemon").not($victoryTrio).attr("class", "");
 					 $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 					 if (gameWon) {
-					   $("#badge__btn--" + currentGym).css("transform", awardBadgeCss().transformHangUp); //prepare bigbadge for awarding
+					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0}); //prepare bigbadge for awarding
 						 next();
 					 } else {
 						 $queueObj.clearQueue("victoryAnimation");
@@ -1384,7 +1392,6 @@ $(function() {
 			earnedBadges.push(currentGym);
       var badgeHang; //a setInterval function
       var badgeHangReverse; //a setTimeout function
-			var awardBadgeCssObj = awardBadgeCss();
 
 			var unAwardBadgeCss = {
 				transform: "",
@@ -1428,30 +1435,36 @@ $(function() {
 			*/
 			
 		function badgeWon(badgeNum) {
-  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").addClass("badge__icon--big");
-  		
-  		$("#badge__btn--" + badgeNum).addClass("animated zoomInDown").one(ANIMATION_END, function() {
-  			$(this).off(ANIMATION_END).attr( "disabled", false ).removeClass("animated zoomInDown").css({"transition": "transform 1500ms ease-in-out"}).on( "mouseenter", function() {
-  			  clearInterval(badgeHang);
-        	clearTimeout(badgeHangReverse);
-        	$(this).css({"transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out"});
-  			}).on("mouseleave", function() {
-  			  $(this).css({"transform": awardBadgeCss().transformHangUp}).one("transitionend", function() {
-            	$(this).off("transitionend").css({"transition": "transform 1500ms ease-in-out"});
-            	badgeHangFn();
-    			    badgeHang = setInterval(badgeHangFn, 3000);
-          	});
-  			}).one("click", function() {
-  			  $(this).off("click").attr("disabled", true).css(unAwardBadgeCss).children(".badge__icon--big").css(unAwardBadgeCss).removeClass("badge__icon--big").one(TRANSITION_END, function() {
-      					$(this).off(TRANSITION_END).children(".badge__shimmer").removeClass("u-invisible");
-      		
-      					badgeShimmer(currentGym);
-      					setTimeout(endGame, 1000);
-      				});
-  			});
-  			badgeHangFn();
-  			badgeHang = setInterval(badgeHangFn, 3000);
-  			});
+  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transition0, transform: zoomInDownObj.scale1}).closest(".badge__btn").css({transition: zoomInDownObj.transition0, transform: zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
+  		  
+  		  $(this).children(".badge__icon").addClass("badge__icon--big").css({transition: zoomInDownObj.transition1, transform: ""});
+  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transition1, transform: awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
+  		      if (event.srcElement == $(this)[0] && event.elapsedTime < 0.6) {
+  		        
+      		    $(this).children(".badge__icon").css({transition: ""});
+      		    $(this).off(TRANSITION_END).attr( "disabled", false ).css({"transition": "transform 1500ms ease-in-out"}).on( "mouseenter", function() {
+        			  clearInterval(badgeHang);
+              	clearTimeout(badgeHangReverse);
+              	$(this).css({"transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out"});
+        			}).on("mouseleave", function() {
+        			  $(this).css({"transform": awardBadgeCss().transformHangUp}).one("transitionend", function() {
+                  	$(this).off("transitionend").css({"transition": "transform 1500ms ease-in-out"});
+                  	badgeHangFn();
+          			    badgeHang = setInterval(badgeHangFn, 3000);
+                	});
+        			}).one("click", function() {
+        			  $(this).off("click").attr("disabled", true).css(unAwardBadgeCss).children(".badge__icon--big").css(unAwardBadgeCss).removeClass("badge__icon--big").one(TRANSITION_END, function() {
+            					$(this).off(TRANSITION_END).children(".badge__shimmer").removeClass("u-invisible");
+            		
+            					badgeShimmer(currentGym);
+            					setTimeout(endGame, 1000);
+            				});
+        			});
+        			badgeHangFn();
+        			badgeHang = setInterval(badgeHangFn, 3000);
+  		      }
+      	  });
+  		  });
 		}
 		
 		badgeWon(currentGym);
@@ -1485,7 +1498,6 @@ $(function() {
 	});
 				
 	function awardBadgeCss() {
-		console.log("awardBadgeCss()");
 		var badgeTopPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().top;
 		var centerTopPosition = $('#screen-center').offset().top;
 		var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
@@ -1502,7 +1514,6 @@ $(function() {
 			transformCenter: "translate3d("+translateLeft+"px, "+translateTop+"px, 0px)",
 		};
 		
-		console.log(result);
 		return result;
 	}
 	
