@@ -285,7 +285,9 @@ $(function() {
 				var backgroundTransition = backgroundMargin == 0 ? "" : "transform "+backgroundTiming+"ms linear";
 				var backgroundTransitionObj = {
 					transition: backgroundTransition,
-					"-webkit-transition": backgroundTransition
+					"-webkit-transition": "-webkit-" + backgroundTransition, 
+					"transition": "-webkit-" + backgroundTransition, 
+					"transition": backgroundTransition + ", -webkit-" + backgroundTransition, 
 				};
 				
 				$("#overworld").css(backgroundTransitionObj);		
@@ -321,7 +323,8 @@ $(function() {
 			
 			updateBackgroundTiming();
 			$(window).on("resize focus", updateBackgroundTiming).on("blur", function() {
-				$("#overworld").css({"transform": "translateX(" + $("#overworld").offset().left + "px)", "transition": ""}); // pause animation so it doesn't jump on refocus
+			  
+				$("#overworld").css({"transform": "translateX(" + $("#overworld").offset().left + "px)", "-webkit-transform": "translateX(" + $("#overworld").offset().left + "px)", "transition": "", "-webkit-transition": ""}); // pause animation so it doesn't jump on refocus
 			});
 			
 					
@@ -508,7 +511,9 @@ $(function() {
 				"transform-origin": originVal + "px center",
 				"-webkit-transform-origin": originVal + "px center",
 				"transition": transitionVal,
-				"-webkit-transition": transitionVal,
+				"-webkit-transition": "-webkit-" + transitionVal,
+				"transition": "-webkit-" + transitionVal,
+				"transition": "transform "+transitionDuration+"ms "+transitionEasing + ", -webkit-" + transitionVal,
 				"opacity": "0"
 		};
 		$("#overworld").css(cssVal).one(TRANSITION_END, function() {
@@ -1313,7 +1318,7 @@ $(function() {
 					 $(".pokemon").not($victoryTrio).attr("class", "");
 					 $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 					 if (gameWon) {
-					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0}); //prepare bigbadge for awarding
+					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0, "-webkit-transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0, "-webkit-transform": zoomInDownObj.scale0}); //prepare bigbadge for awarding
 						 next();
 					 } else {
 						 $queueObj.clearQueue("victoryAnimation");
@@ -1321,7 +1326,15 @@ $(function() {
 				})
 				.queue("victoryAnimation", function(next) {
 					$("#game-end-wordart__element--victory, #game-end-wordart").removeClass("u-hidden");
-					$(".victory-container").css({"transition-duration": gradientSpeed0 + "ms", "transition-delay": (gradientSpeed0 / 2) + "ms"}).addClass("victory-container--showing");
+					var durationVal = gradientSpeed0 + "ms";
+					var delayVal = (gradientSpeed0 / 2) + "ms";
+					var gradientCssObj = {
+					  "transition-duration": durationVal, 
+					  "-webkit-transition-duration": durationVal, 
+					  "transition-delay": delayVal,
+					  "-webkit-transition-delay": delayVal,
+					};
+					$(".victory-container").css(gradientCssObj).addClass("victory-container--showing");
 					
 					 $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 					 console.log($("#victory-gradient--r").attr("style"));
@@ -1354,7 +1367,7 @@ $(function() {
 				})
 				.queue("victoryAnimation", function(next) {
 					 $("#game-end-wordart__element--victory, #game-end-wordart").addClass("u-hidden").removeClass("animated fadeOutDown").off(ANIMATION_END);
-					 $(".victory-container").css({"transition-duration": ""}).removeClass("victory-container--showing");
+					 $(".victory-container").css({"transition-duration": "", "-webkit-transition-duration": ""}).removeClass("victory-container--showing");
 					 next();
 				})
 				.delay(500, "victoryAnimation")
@@ -1399,63 +1412,38 @@ $(function() {
 
 			var unAwardBadgeCss = {
 				transform: "",
+				"-webkit-transform": "",
 				transition: "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+				"-webkit-transition": "-webkit-transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+				"transition": "-webkit-transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+				"transition": "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275), -webkit-transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)"
 			};
 			
 			function badgeHangFn() {
-		    $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangDown);
+		    $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangDown, "-webkit-transform": awardBadgeCss().transformHangDown});
 		    badgeHangReverse = setTimeout (function() {
-		      $(".badge__icon--big").closest(".badge__btn").css("transform", awardBadgeCss().transformHangUp);
+		      $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp});
 		    }, 1500);
 			}
-				/*
-			var transformBadge = function() {
-				return {
-					animation: "none",
-					transform: awardBadgeCss().transform + " scale(4.45)",
-				};
-			};
-			*/
-			
-			/*
-			var bigBadgeActive = function () {
-  			return {
-  				transition: "",
-  				transform: awardBadgeCss().transform + " scale(4.5)",
-  			};
-			};
-			
-			function bigBadgeHoverFn() {
-				$(this).one(ANIMATION_END, function() {
-					$(this).css(transformBadge()).off(ANIMATION_END);
-				});
-			}
-			
-			function bigBadgeUnhoverFn() {
-				if ($(this).hasClass("badge__icon--big")) {
-					$(this).css(awardBadgeCss());
-				}
-			}
-			*/
 			
 		function badgeWon(badgeNum) {
-  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transitionScale0, transform: zoomInDownObj.scale1}).one(TRANSITION_END, function() {
+  		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transitionScale0, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale0, "transition": "-webkit-" + zoomInDownObj.transitionScale0, "transition": zoomInDownObj.transitionScale0 + ", -webkit-" + zoomInDownObj.transitionScale0, transform: zoomInDownObj.scale1, "-webkit-transform": zoomInDownObj.scale1}).one(TRANSITION_END, function() {
   		  event.stopPropagation();
-  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionScale1, transform: zoomInDownObj.scale2});
-  		}).closest(".badge__btn").css({transition: zoomInDownObj.transitionTranslate0, transform: zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
+  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionScale1, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale1, "transition": "-webkit-" + zoomInDownObj.transitionScale1, "transition": zoomInDownObj.transitionScale1 + ", -webkit-" + zoomInDownObj.transitionScale1, transform: zoomInDownObj.scale2, "-webkit-transform": zoomInDownObj.scale2});
+  		}).closest(".badge__btn").css({transition: zoomInDownObj.transitionTranslate0, "-webkit-transition": zoomInDownObj.transitionTranslate0, transform: zoomInDownObj.translate1, "-webkit-transform": zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
   		  
-  		  $(this).children(".badge__icon").addClass("badge__icon--big").css({transition: zoomInDownObj.transition1, transform: ""});
-  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionTranslate1, transform: awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
+  		  $(this).children(".badge__icon").addClass("badge__icon--big").css({transition: zoomInDownObj.transitionScale2, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale2, "transition": "-webkit-" + zoomInDownObj.transitionScale2, "transition": zoomInDownObj.transitionScale2 + ", -webkit-" + zoomInDownObj.transitionScale2, transform: "", "-webkit-transform": ""});
+  		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionTranslate1, "-webkit-transition": zoomInDownObj.transitionTranslate1, transform: awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
   		      if (event.srcElement == $(this)[0] && event.elapsedTime < 0.6) {
   		        
-      		    $(this).children(".badge__icon").css({transition: ""});
-      		    $(this).off(TRANSITION_END).attr( "disabled", false ).css({"transition": "transform 1500ms ease-in-out"}).on( "mouseenter", function() {
+      		    $(this).children(".badge__icon").css({transition: "", "-webkit-transition": ""});
+      		    $(this).off(TRANSITION_END).attr( "disabled", false ).css({"transition": "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"}).on( "mouseenter", function() {
         			  clearInterval(badgeHang);
               	clearTimeout(badgeHangReverse);
-              	$(this).css({"transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out"});
+              	$(this).css({"transform": awardBadgeCss().transformCenter, "-webkit-transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out", "-webkit-transition": "-webkit-transform 80ms ease-in-out", "transition": "-webkit-transform 80ms ease-in-out", "transition": "transform 80ms ease-in-out, -webkit-transform 80ms ease-in-out"});
         			}).on("mouseleave", function() {
-        			  $(this).css({"transform": awardBadgeCss().transformHangUp}).one("transitionend", function() {
-                  	$(this).off("transitionend").css({"transition": "transform 1500ms ease-in-out"});
+        			  $(this).css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp}).one(TRANSITION_END, function() {
+                  	$(this).off(TRANSITION_END).css({"transition": "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"});
                   	badgeHangFn();
           			    badgeHang = setInterval(badgeHangFn, 3000);
                 	});
@@ -1528,9 +1516,9 @@ $(function() {
 	$(window).on("resize", function() {
 	  if ($(".badge__icon--big").length > 0) {
 	    clearTimeout(recenterBigBadge);
-		  $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "transition": ""});
+		  $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp, "transition": "", "-webkit-transition": ""});
 		  recenterBigBadge = setTimeout(function() {
-		    $(".badge__icon--big").closest(".badge__btn").css({transition: "transform 1500ms ease-in-out"});
+		    $(".badge__icon--big").closest(".badge__btn").css({transition: "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"});
 		  }, 20);
 	  }
 	});

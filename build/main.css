@@ -132,7 +132,7 @@ html {
     height: 65px;
     top: 30px;
     right: 0px;
-    z-index: 10;
+    z-index: 100;
     border-radius: 4px 0 0 4px;
     -webkit-transition: -webkit-transform 80ms ease;
     transition: -webkit-transform 80ms ease;
@@ -362,6 +362,7 @@ html {
 	-webkit-transition: all 50ms ease;
 	transition: all 50ms ease;
 	margin: 2px 8px;
+	z-index: 10;
 }
 
 .button--avatar:hover,
@@ -601,7 +602,7 @@ html {
 .heading--challengers {
     display: block;
     color: white;
-    font-family: 'Pathway Gothic One', Helvetica, sans-serif;
+    font-family: 'Quicksand', Helvetica, sans-serif;
     text-shadow:
    -1px -1px 0 #111,  
     1px -1px 0 #111,
@@ -660,14 +661,14 @@ html {
     background-position-x: -1054px;
 } 
 
-.button--no-outline {
+.button--no-outline:focus {
   outline: none;
 }/* end challenger buttons */
 
 /* gym badges */
 .screen-center {
-  width: 30px;
-  height: 30px;
+  width: 49px;
+  height: 49px;
   position: absolute;
   top: 50%;
   left: 50%; 
@@ -725,7 +726,6 @@ html {
   position: relative;   
   height:49px;
   width:49px;
-  border-radius: 50%;
 }
 
 .badge__dot {
@@ -745,11 +745,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   
 }
 
+.badge__btn {
+  padding: 0;
+  position: relative;
+  background: none;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 2px;
+  height:45px;
+  width: 45px;
+  z-index: 1;
+}
+
 .badge__icon {
   display: inline-block;
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 0px;
+  left: 0px;
   height:45px;
   width: 45px;
   box-sizing: border-box;
@@ -849,53 +861,59 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   background-position-x: -351.5px; 
 }
 
-.badge__icon--big{
-    -webkit-transform: scale(3.6);
-            transform: scale(3.6);
+.badge__icon--big {
+  -webkit-transform: scale(3.8);
+          transform: scale(3.8);
+  -webkit-transition: -webkit-transform 80ms ease-in-out;
+  transition: -webkit-transform 80ms ease-in-out;
+  transition: transform 80ms ease-in-out;
+  transition: transform 80ms ease-in-out, -webkit-transform 80ms ease-in-out;
 }
 
+.badge__btn:hover > .badge__icon--big, .badge__btn:focus > .badge__icon--big {
+  cursor: grab;
+  cursor: -webkit-grab;
+  -webkit-transform: scale(4.6);
+          transform: scale(4.6);
+}
+
+.badge__btn:active > .badge__icon--big {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  -webkit-transform: scale(4.0);
+          transform: scale(4.0); 
+}
+/*
 .badge__icon--hang {  
-  -webkit-animation: hang 3s ease-in-out infinite;  
-          animation: hang 3s ease-in-out infinite;
+  animation: hang 3s ease-in-out infinite;
 }
+*/
 
+/*
 .badge__icon--big:hover, .badge__icon--big:focus {
   cursor: grab;
   cursor: -webkit-grab;
-  /*
-  transition: transform 500ms ease;
-  transform: translateZ(0) scale(1.4); 
-  */
-  -webkit-animation: scale 70ms ease;
-          animation: scale 70ms ease;
+  animation: scale 70ms ease;
 }
 
 .badge__icon--big:active {
   cursor: grabbing;
   cursor: -webkit-grabbing;
-  -webkit-transition: all 50ms ease-in;
   transition: all 50ms ease-in;
 }
+*/
 
-@-webkit-keyframes hang {
-  0%, 100% {-webkit-transform: translate3d(0, -8px, 0) scale(3.6);transform: translate3d(0, -8px, 0) scale(3.6)}
-  50% {-webkit-transform: translate3d(0, 8px, 0) scale(3.6);transform: translate3d(0, 8px, 0) scale(3.6)}
-}
-
+/*
 @keyframes hang {
-  0%, 100% {-webkit-transform: translate3d(0, -8px, 0) scale(3.6);transform: translate3d(0, -8px, 0) scale(3.6)}
-  50% {-webkit-transform: translate3d(0, 8px, 0) scale(3.6);transform: translate3d(0, 8px, 0) scale(3.6)}
+  0%, 100% {transform: translate3d(0, -8px, 0) scale(3.6)}
+  50% {transform: translate3d(0, 8px, 0) scale(3.6)}
 }
-
-@-webkit-keyframes scale {
-  from {-webkit-transform: scale(3.6);transform: scale(3.6)}
-  to {-webkit-transform: scale(4.5);transform: scale(4.5)}
-}
-
+*/
+/*
 @keyframes scale {
-  from {-webkit-transform: scale(3.6);transform: scale(3.6)}
-  to {-webkit-transform: scale(4.5);transform: scale(4.5)}
-} /* end gym badges */
+  from {transform: scale(3.6)}
+  to {transform: scale(4.5)}
+}*/ /* end gym badges */
 
 /* marquee: avatars and challenger dialogue */
 .marquee {
@@ -913,6 +931,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     transition: -webkit-transform 150ms cubic-bezier(.5,.1,.9,.5);
     transition: transform 150ms cubic-bezier(.5,.1,.9,.5);
     transition: transform 150ms cubic-bezier(.5,.1,.9,.5), -webkit-transform 150ms cubic-bezier(.5,.1,.9,.5);
+    z-index: 20;
 }
 
 .marquee--drop {
@@ -1506,7 +1525,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .victory-gradient {
   position: absolute;
   top: 0px;
-  z-index: 10;
+  z-index: 500;
   height: 100%;
   width: 120px;
   opacity: .8;
