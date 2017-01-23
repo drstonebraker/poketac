@@ -1318,7 +1318,10 @@ $(function() {
 					 $(".pokemon").not($victoryTrio).attr("class", "");
 					 $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
 					 if (gameWon) {
-					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0, "-webkit-transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0, "-webkit-transform": zoomInDownObj.scale0}); //prepare bigbadge for awarding
+					   if (earnedBadges.indexOf(currentGym) == -1) { //if gym's badge has not already been awarded
+					      //prepare bigbadge for awarding
+  					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0, "-webkit-transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0, "-webkit-transform": zoomInDownObj.scale0}); 
+					   }
 						 next();
 					 } else {
 						 $queueObj.clearQueue("victoryAnimation");

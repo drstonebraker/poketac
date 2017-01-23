@@ -757,6 +757,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   z-index: 1;
 }
 
+.badge__btn:focus {
+  outline: none;
+}
+
 .badge__icon {
   display: inline-block;
   position: absolute;
