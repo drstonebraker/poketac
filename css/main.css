@@ -356,7 +356,7 @@ html {
 .button--avatar {
 	display: inline-block;
 	background-color: #222;
-	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke-grey.png);
+	background-image: url("../img/dimension-poke-grey.png");
 	padding: 0;
 	border-radius: 18px;
 	-webkit-transition: all 50ms ease;
@@ -368,7 +368,7 @@ html {
 .button--avatar:hover,
 .button--avatar:focus {
 	background-color: #6EC637;
-	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe/img/dimension-poke.png);
+	background-image: url("../img/dimension-poke.png");
 }
 
 .button--avatar:hover > .button__avatar, 
@@ -771,7 +771,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   box-sizing: border-box;
   overflow: hidden;
   z-index: 1;
-  background: url(https://preview.c9users.io/dsto/tic-tac-toe//img/spritesheet.png) 0 0 no-repeat;
+  background: url("../img/spritesheet.png") 0 0 no-repeat;
   background-size: 406px;
   background-position-y: -111px;
 }
@@ -828,7 +828,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   position: inherited;
   height: 49px;
   width: 49px;
-  background: url(https://preview.c9users.io/dsto/tic-tac-toe//img/spritesheet.png) 0 0 no-repeat;
+  background: url("../img/spritesheet.png") 0 0 no-repeat;
   background-size: 405px;
   background-position-y: -158.5px; 
 }
@@ -1786,7 +1786,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .u-wordart {
 	display: block;
 	position: absolute;
-	background-image: url(https://preview.c9users.io/dsto/tic-tac-toe//img/spritesheet.png);
+	background-image: url("../img/spritesheet.png");
 	background-size: 734px;
 	background-position-y: -374px;
 	height: 35px;
