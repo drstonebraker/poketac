@@ -63,20 +63,20 @@ function splashAnimation() {
 		}
 		i++;
 	}
-		
+
 		setTimeout(function() {
 		  //begin animation
 			$("#ttt-logo__element").slideDown(animationInterval / 4, function() {
-		
+
 				animateTicTacToe = window.setInterval(animateTicTacToeFn, animationInterval);
-		    
+
 		    //finish animation with Pokemon logo rubberband
 				setTimeout(function() {
 					$('#pokemon-logo').removeClass('u-hidden').addClass('animated rubberBand').one(ANIMATION_END, function() {
 						$(this).removeClass("animated rubberBand").off(ANIMATION_END);
 					});
 				}, animationInterval * 4);
-		
+
 			});
 		}, animationInterval * 2);
 }
@@ -176,7 +176,7 @@ $(function() {
 			}
 		};
 	};
-	
+
 		// Music and sound effects settings
 		var soundEffectsOn = true;
 		function toggleSound() {
@@ -192,7 +192,7 @@ $(function() {
 					}
 			}
 		}
-		
+
 		//set music toggle functionality
 		function toggleMusic() {
 				var music =document.getElementById('music');
@@ -210,40 +210,40 @@ $(function() {
 		}
 		$("#controls__toggle--music").click(toggleMusic);
 		$("#controls__toggle--sound").click(toggleSound);
-		
+
 		function setMobileSettings() {
 				if (!isMobile) { //if this is the first time tapping the page
 						document.getElementById('music').play(); //play music
 						$("#controls__toggle--music").removeClass("controls__toggle--off").attr("title", "Music Off");
 						toggleSound(); //turn off sound effects
 				}
-				
+
 				isMobile = true;
-				
+
 				//force full screen in mobile browser
 				var el = document.documentElement,
 					rfs = el.requestFullscreen
 						|| el.webkitRequestFullScreen
 						|| el.mozRequestFullScreen
-						|| el.msRequestFullscreen 
+						|| el.msRequestFullscreen
 				;
-		
+
 				rfs.call(el);
-				
+
 				//lock portrait orientation on mobile
 				screen.orientation.lock("portrait");
 				screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
 				screen.lockOrientationUniversal("portrait");
 		}
-		
+
 		// for mobile, activate music, set fullscreen, lock portrait orientation
 		$('body').on("touchstart", setMobileSettings);
-		
+
 		//load overworld background image
 		new Promise(function(resolve) {
 				var backgroundSource;
 				var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-		    
+
 		    //use different resolution overworld image based on screen size
 				if (viewHeight > 1080) {
 						backgroundSource = "./img/johto-kanto-map-3000x1316.jpg";
@@ -252,7 +252,7 @@ $(function() {
 				} else {
 						backgroundSource = "./img/johto-kanto-map-1921x680.jpg";
 				}
-				
+
 				var background = document.createElement('img');
 				background.src = backgroundSource;
 				background.id = "overworld";
@@ -260,23 +260,23 @@ $(function() {
 				background.onload = resolve; //wait for image to load before animating it
 				$("#view").prepend(background);
 				$("#overworld").attr('alt', "A map of the Pokemon world in the background");
-				
+
 		}) // then set horizontal scrolling animation
 				.then(function() {
-					
+
 			var bgAnimationFwd = true; //for toggling direction
-				
+
 			var backgroundScrollSpeed = 150; //higher number is slower
 			var backgroundTiming; //time in ms for full scroll of one direction
 			var backgroundMargin; //number of horizontal pixels to scroll each direction
 			var backgroundMarginRight; //pixel width of right-overflow
-			
+
 			function updateBackgroundTiming() {	//triggered on load and resize.  also starts/restarts animation
-	
+
 				if (event) { //if this function was triggered by window resize (or focus)
 					clearTimeout(animateBackground); //important for when updateBackgroundTiming is triggered on window resize
 					backgroundMarginRight = Math.floor($("#overworld").offset().left + $("#overworld").width() - document.documentElement.clientWidth); // pixel width of right-overflow of overworld
-					
+
 					if (bgAnimationFwd) {
 						backgroundMargin = backgroundMarginRight;
 					} else {
@@ -287,27 +287,27 @@ $(function() {
 						backgroundMargin = 0;
 						bgAnimationFwd = true;
 					}
-					
+
 				} else { //function is running on first load of page
 					backgroundMargin = Math.floor($("#overworld").width() - document.documentElement.clientWidth);
 				}
-				
+
 				backgroundTiming = backgroundMargin * backgroundScrollSpeed;
-				
+
 				//transition values with vendor prefixes
 				var backgroundTransition = backgroundMargin == 0 ? "" : "transform "+backgroundTiming+"ms linear";
 				var backgroundTransitionObj = {
 					transition: backgroundTransition,
-					"-webkit-transition": backgroundTransition ? "-webkit-" + backgroundTransition : "", 
-					"transition": backgroundTransition ? "-webkit-" + backgroundTransition : "", 
-					"transition": backgroundTransition ? backgroundTransition + ", -webkit-" + backgroundTransition : "", 
+					"-webkit-transition": backgroundTransition ? "-webkit-" + backgroundTransition : "",
+					"transition": backgroundTransition ? "-webkit-" + backgroundTransition : "",
+					"transition": backgroundTransition ? backgroundTransition + ", -webkit-" + backgroundTransition : "",
 				};
-				
-				$("#overworld").css(backgroundTransitionObj);		
-				
+
+				$("#overworld").css(backgroundTransitionObj);
+
 				animateBackgroundFn();
 			}
-			
+
 			function animateBackgroundFn() {
 				var backgroundTransform; //object for applying css properties
 				var backgroundTranslate; //string containing transform value
@@ -327,57 +327,57 @@ $(function() {
 				}
 				//translate overworld appropriate number of pixels to the left, or back to original position
 				$("#overworld").css(backgroundTransform);
-			
+
 				animateBackground = setTimeout(function() {
 					bgAnimationFwd = bgAnimationFwd ? false : true; //reverse direction
 					updateBackgroundTiming();
 				}, backgroundTiming);
-		
+
 			} // end animateBackgroundFn
-			
+
 			updateBackgroundTiming();
-			
+
 			$(window).on("resize focus", updateBackgroundTiming).on("blur", function() {
 			  // pause animation so it doesn't jump on refocus
-				$("#overworld").css({"transform": "translateX(" + $("#overworld").offset().left + "px)", "-webkit-transform": "translateX(" + $("#overworld").offset().left + "px)", "transition": "", "-webkit-transition": ""}); 
+				$("#overworld").css({"transform": "translateX(" + $("#overworld").offset().left + "px)", "-webkit-transform": "translateX(" + $("#overworld").offset().left + "px)", "transition": "", "-webkit-transition": ""});
 			});
-			
-					
+
+
 			$("#view").addClass("view--gym"); // add gym background image behind pokemon world background
 
 		}); // end "then" attached to background image load promise
-		
+
 		$(window).keypress(function(e) {
 				if ((e.which === 32 || e.which === 13) && document.activeElement == document.body) { //on spacebar or enter
 						$("body").trigger("click"); //advance to next screen
 				}
 		});
-				
+
 		// OAK MODAL DIALOGUES
 		$("#controls").on("touchstart click", function() {
 		  //don't advance screen when clicking toggle controls
 				event.stopPropagation();
 		});
-		
+
 		function oak1() {
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Well, hello there!<br>It's nice to see you dropping by!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#char-tall--oak").removeClass("u-hidden");
 		$("#modal").removeClass('modal--splash');
 		$("#modal__content--splash").replaceWith(modalContentOak);
 		$("body").one('click', oak2);
 	}
-	
+
 	function oak2() {
 		console.log("oak2");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>We’ve just discovered a new pastime here in the Pokemon world.  It’s all the rage.  They call it Tic-Tac-Toe!<br>That’s why you’re here, isn’t it?</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak3);
 	}
-	
+
 	function oak3() {
 		console.log("oak3");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>But look at me getting ahead of myself.  I’ve forgotten my manners!  I’m Professor Oak.<br>And you are...?</p>";
@@ -385,7 +385,7 @@ $(function() {
 		var nameBtn = '<button type="submit" class="button button--green" id="button-player-name">OK</button>';
 		var nameForm = "<form id='nameForm'>"+nameInput+nameBtn+"</form>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameForm+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("#button-player-name").on('click submit', function() {
 			if ($("#name-input").val() == "") {
@@ -397,15 +397,15 @@ $(function() {
 			return false;
 		});
 	}
-	
+
 	function oak4() {
 		console.log("oak4");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Welcome, "+playerName+"!  You’ll have to forgive me, but my eyes are going bad.  Can you tell me what you look like?</p>";
 		var buttonAvatarFemale = '<button type="button" class="button button--avatar button--avatar--player" id="button-player-avatar-f" data-avatar="female"><div class="button__avatar avatar avatar--female" id="button__avatar--female"></div></button>';
 		var buttonAvatarMale = '<button type="button" class="button button--avatar button--avatar--player" id="button-player-avatar-m" data-avatar="male"><div class="button__avatar avatar avatar--male" id="button__avatar--male"></div></button>';
-		
+
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonAvatarFemale+buttonAvatarMale+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$(".button--avatar--player").one('click', function() {
 			event.stopPropagation(); //prevent advancing two screens
@@ -413,37 +413,37 @@ $(function() {
 			$("#avatar--player").addClass("avatar--" + playerAvatar);
 			oak5();
 		});
-		
+
 		return false; //prevent default submit behavior on name input
 	}
-	
+
 	function oak5() {
 		console.log("oak5");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>You look like a confident young trainer, you say?  Wonderful!  You’ll need that confidence in your challenges.</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak6);
 	}
-	
+
 	function oak6() {
 		console.log("oak6");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Before you play, you’ll need a pokemon.<br>I have three right here you can choose from!</p>";
 		var pokeball0 = '<button type="button" data-pokemon="Bulbasaur" class="pokeball" id="pokeball--0"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--0" id="pokeball__pokemon--0"></div></button>';
 		var pokeball1 = '<button type="button" data-pokemon="Charmander" class="pokeball" id="pokeball--1"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--1" id="pokeball__pokemon--1"></div></button>';
 		var pokeball2 = '<button type="button" data-pokemon="Squirtle" class="pokeball" id="pokeball--2"><div class="pokeball__element pokeball__ball"></div><div class="pokeball__element pokeball__pokemon pokeball__pokemon--2" id="pokeball__pokemon--2"></div></button>';
-		
+
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+pokeball0+pokeball1+pokeball2+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		
+
 		function choosePokemon() {
 				event.stopPropagation(); //prevent advancing screens
 			playerStarterPokemon = $(this).data().pokemon;
 			playerType = POKEMON[playerStarterPokemon].type;
 			oak7();
 		}
-		
+
 		if (isMobile) { //on mobile, first open the pokeball before triggering choosePokemon()
 				$(".pokeball").on('touchstart', function() {
 						var isFocused = $(this).hasClass("pokeball--focus");
@@ -457,44 +457,44 @@ $(function() {
 				$(".pokeball").one('click', choosePokemon);
 		}
 	}
-	
+
 	function oak7() {
 		console.log("oak7");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>So you chose a "+playerStarterPokemon+"!<br><br>Because "+playerStarterPokemon+" is "+playerType+"-type, you’ll have an advantage against "+POKEMON[POKEMON[playerStarterPokemon].advantage].type+"-type pokemon, but a disadvantage against "+POKEMON[POKEMON[playerStarterPokemon].disadvantage].type+"-type pokemon.</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak8);
 	}
-	
+
 	function oak8() {
 		console.log("oak8");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>There are eight different gym leaders you can challenge.<br><br>Some of them are tougher than others!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak9);
 	}
-	
+
 	function oak9() {
 		console.log("oak9");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Some gym leaders also offer unique badges to players who can beat them.  With enough badges, you might even see your pokemon evolve. See if you can collect all eight!</p>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("body").one('click', oak10);
 	}
-	
+
 	function oak10() {
 		console.log("oak10");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>Are you ready to play?</p>";
 		var buttonPlay = '<button type="button" class="button button--green" id="button-play">Ready!</button>';
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
-		
+
 		$("#modal__content--oak").replaceWith(modalContentOak);
 		$("#button-play").one('click', oak11);
 	}
-	
+
 	function oak11() {
 		console.log("oak11");
 		//enter gamespace
@@ -503,9 +503,9 @@ $(function() {
 				$(this).removeClass("animated bounceBtn").off(ANIMATION_END);
 				var text = "<p class='modal-text modal-text--oak' id='modal-text'>Good luck!</p>";
 			var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
-			
+
 			$("#modal__content--oak").replaceWith(modalContentOak);
-				
+
 				setTimeout(function() {
 				  //exit oak modal
 					$("#modal").addClass("animated bounceOutDownCenter").one(ANIMATION_END, function() {
@@ -514,7 +514,7 @@ $(function() {
 					});
 				}, 1000);
 			});
-			
+
 			//zoom into overworld
 			var transitionDuration = 700;
 			var transitionEasing = "cubic-bezier(.9,0,.96,.5)";
@@ -539,14 +539,14 @@ $(function() {
 		clearTimeout(animateBackground);
 	}
 	//end Oak modal dialogues
-	
+
 	function showChallengers() {
 		console.log("showChallengers()");
 		$("#tray").removeClass("u-blurred");
 		$("#challengers").removeClass("u-blurred").one(TRANSITION_END, function() {
 			$( ".button--avatar" ).prop( "disabled", false ); //enable buttons
 		});
-		
+
 		// choosing a challenger
 		$(".button--avatar").on("click", function() {
 			$( ".button--avatar" ).prop( "disabled", true ); //disable buttons
@@ -557,11 +557,11 @@ $(function() {
 			$(this).addClass("animated bounceOutUp button--no-outline").one(ANIMATION_END, function() {
 				$(this).off(ANIMATION_END);
 				//fadeoutdown all other challenger buttons and heading
-				$(".button--avatar").not(this).addClass("animated fadeOutDown"); 
+				$(".button--avatar").not(this).addClass("animated fadeOutDown");
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
 					$(this).off(ANIMATION_END);
 					//prepare for showing again after next game
-					$("#challengers").hide().addClass("u-blurred"); 
+					$("#challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp button--no-outline");
 					$("#marquee").addClass("marquee--drop").one(TRANSITION_END, function() {
 						$(this).off(TRANSITION_END);
@@ -577,7 +577,7 @@ $(function() {
 			});
 		});
 	} //end showChallengers
-	
+
 	function playGame() {
 		$("#marquee__dialogue").off(ANIMATION_END);
 		console.log("playGame()");
@@ -585,13 +585,13 @@ $(function() {
 		const WIN   = 8;
 		const BLOCK = 2;
 		const SETUP = 4;
-		
+
     //values that get placed in cellValues
 		const CHALLENGER_VAL = 4;
 		const PLAYER_VAL = 1;
-		
+
 		//defines which cells belong to which trios: trios are columns, rows, and diagonals that can contain winning sets
-		const TRIO_CELLS = { 
+		const TRIO_CELLS = {
 			c1: ["a1","a2","a3"],
 			c2: ["b1","b2","b3"],
 			c3: ["c1","c2","c3"],
@@ -599,14 +599,14 @@ $(function() {
 			r2: ["a2","b2","c2"],
 			r3: ["a3","b3","c3"],
 			d1: ["a1","b2","c3"],
-			d2: ["a3","b2","c1"]  
+			d2: ["a3","b2","c1"]
 		};
-		
+
 		//defines different kinds of cells, used for aiSmartCounter()
 		const EDGES = ["b1","a2","c2","b3"];
 		const CORNERS = ["a1","c1","a3","c3"];
 		const CENTER = ["b2"];
-		
+
 		// a virtual gameboard containing values based on which cells have been played
 		var cellValues = {
 			a1: 0,
@@ -639,10 +639,10 @@ $(function() {
 		  translate0: "translate3d("+(awardBadgeCss().translateLeft + 100)+"px, "+(awardBadgeCss().translateTop - 300)+"px, 0px)",
 		  translate1: "translate3d("+(awardBadgeCss().translateLeft + 20)+"px, "+(awardBadgeCss().translateTop + 40)+"px, 0px)"
 		};
-		
-		
+
+
 		beginGame();
-		
+
 	  /*******************************************************
 	  FUNCTIONS FOR BEGINNING THE GAME
 	  *******************************************************/
@@ -651,10 +651,10 @@ $(function() {
 			updatePlayerPokemon();
 			setChallengerPokemon();
 			updateTrioVariables();
-			
+
 			dialogue = {
 				thinking: [
-					"Hmm... what should I do", 
+					"Hmm... what should I do",
 					"Let me think a second",
 					"You may be better than I thought",
 					"Let's see here...",
@@ -670,7 +670,7 @@ $(function() {
 				8: [ //win
 					"Go for the win, " + challengerPokemon + "!",
 					"We've got this, " + challengerPokemon,
-					"It's over, " + playerName, 
+					"It's over, " + playerName,
 					"I knew this would be easy",
 					"It feels good to win",
 					"Better luck next time, " + playerName + "!"
@@ -700,13 +700,13 @@ $(function() {
 					"Go for it, " + challengerPokemon
 					]
 			};
-			
+
 			var challengerAdvantage = playerAdvantage === "advantage" ? "a disadvantage." : "an advantage.";
-			
+
 			var advantageMessage = "Challenger " + CHALLENGERS()[currentGym].name + "'s " + challengerPokemon + " has " + challengerAdvantage;
-			
+
 			marqueeMessage(advantageMessage, "announce", whoGoesFirst);
-			
+
 			function whoGoesFirst() {
 				console.log("whoGoesFirst()");
 				var gameTurn;
@@ -717,7 +717,7 @@ $(function() {
 					marqueeMessage(CHALLENGERS()[currentGym].name + " goes first.", "announce");
 					gameTurn = "challenger";
 				}
-				
+
 				setTimeout(function() {
 					setGameTurn(gameTurn);
 					$("#gameboard").removeClass("animated fadeIn");
@@ -725,7 +725,7 @@ $(function() {
 			}
 
 		}//end beginGame
-		
+
 		//sets player pokemon on a new game
 		function updatePlayerPokemon() {
 			console.log("updatePlayerPokemon()");
@@ -734,18 +734,18 @@ $(function() {
 			playerCurrentPokemon = POKEMON[playerStarterPokemon].evolution[evolutionStage]; //player pokemon should evolve to new stage after every 2 badges earned
 			console.log("player pokemon is "+playerCurrentPokemon);
 		}
-		
+
 		//sets Challenger's pokemon on new game
 		function setChallengerPokemon() {
 			console.log("setChallengerPokemon()");
 			var evolutionStage = Math.floor(currentGym / 2);
-			
+
 			playerAdvantage = Math.floor(Math.random() * 2) === 0 ? "advantage" : "disadvantage"; // coin flip
-			
+
 			challengerPokemon = POKEMON[POKEMON[playerStarterPokemon][playerAdvantage]].evolution[evolutionStage];
 			console.log("challenger pokemon is "+challengerPokemon);
 		}
-		
+
 		function setGameTurn(activePlayer) {
 			console.log("setGameTurn("+activePlayer+")");
 			gameTurn = activePlayer;
@@ -767,31 +767,31 @@ $(function() {
 				}
 			}
 		}//end setGameTurn()
-		
-		
+
+
 	  /*******************************************************
 	  FUNCTIONS FOR AI LOGIC AND MAKING A MOVE
 	  *******************************************************/
-		
+
 	  /* PLAYER TURN
 			- Handler for player's cell clicks
 		=========================================================================== */
 		$(".gameboard__cell").on("click", function() {
 			console.log("cell clicked");
 			$(this).blur().prop("disabled", true); //immediately disable any additional clicks
-      
+
       //player makes move in clicked cell
 			makeMove("player", $(this).data().cell);
 		});
-	
+
 	/*AI SmartStart This function gets AI to make optimal first moves */
 		function aiSmartStart() {
 			console.log("aiSmartStart()");
 			var smartStartMoves;
-			
+
 			// This determines state of the board in order to distinguish between first and second move of game
 			var cellStateTotal = sumCellValues();
-			
+
 			switch (cellStateTotal) {
 				case 1: //player went first
 					var edgeMove = [cellValues.b1, cellValues.a2, cellValues.c2, cellValues.b3].indexOf(1);
@@ -805,7 +805,7 @@ $(function() {
 							case 1:
 								smartStartMoves = ["a1", "a3"];
 								break;
-							case 2: 
+							case 2:
 								smartStartMoves = ["c1", "c3"];
 								break;
 							case 3:
@@ -822,14 +822,14 @@ $(function() {
 				default:
 					return false; //cannot make a starting move
 			}
-			
+
 			marqueeMessage(randomPick(dialogue.start), "speak"); //challenger says something about making a starting move
 			makeMove("challenger", randomPick(smartStartMoves)); //challenger makes one of the available smart starting moves
 			console.log("Making a starting move");
 			return true; //made a starting move
 		} // end aiSmartStart()
-	
-	
+
+
 		/* AI SMART MOVE
 		Primary logic for AI's turn in appropriate difficulty levels. Based off of the parameter passed to this function,
 		the AI knows when it can WIN, BLOCK, or make a SETUP.
@@ -845,7 +845,7 @@ $(function() {
 					console.log("money trio found: "+trio+", "+moveType);
 					console.log(moveOptions);
 					console.log(findEmptyCells(trio));
-					moveOptions = moveOptions.concat(findEmptyCells(TRIO_CELLS[trio])); 
+					moveOptions = moveOptions.concat(findEmptyCells(TRIO_CELLS[trio]));
 					console.log("new array of empty cells: "+moveOptions);
 				}
 			}
@@ -863,7 +863,7 @@ $(function() {
 				return false; //challenger could not make a moveType move
 			}
 		} // end aiSmartMove()
-	
+
 		/* AI LOGIC - RANDOM MOVE
 		Makes a random play on board, based on number of available empty cells.
 		=========================================================================== */
@@ -871,10 +871,10 @@ $(function() {
 			console.log("aiRandomMove()");
 			// Create an array of empty cells
 			var emptyCells = findEmptyCells();
-			
+
 			marqueeMessage(randomPick(dialogue.random), "speak"); //challenger says something about making a random move
 			makeMove("challenger", randomPick(emptyCells)); //challenger makes a random move
-	
+
 			console.log("Making a RANDOM move");
 		}
 
@@ -886,7 +886,7 @@ $(function() {
 			var cellTotal = sumCellValues();
 			var playerMoves = getKeysByValue(cellValues, PLAYER_VAL); //cells player has moved in
 			var challengerMoves = getKeysByValue(cellValues, CHALLENGER_VAL); //cells challenger has moved in
-			
+
 			switch (cellTotal) {
 				case 5: // third move of game (challenger went first)
 					if (CORNERS.indexOf(challengerMoves[0]) != -1) { //if challenger first moved in corner
@@ -953,9 +953,9 @@ $(function() {
 					return false;
 			}
 		} // end aiCounterMove()
-		
+
 		//takes array of cells and returns the array with only the duplicate values, else the same array if not duplicate values.  used for making unbeatable setup moves.
-		function useDoubleValues(array) { 
+		function useDoubleValues(array) {
 		  console.log("useDoubleValues("+array+")");
 			var dupVals = [];
 			for (var i in array) {
@@ -969,8 +969,8 @@ $(function() {
 			console.log("doubleVales returning: "+dupVals.length == 0 ? array : dupVals);
 			return dupVals.length == 0 ? array : dupVals; //return original array if no dupVals, otherwise return array of only duplicate values
 		}
-		
-				
+
+
 		//this function chooses which AI logic functions to use to make challenger move, based on AI difficulty
 		function aiMove(level) {
 			console.log("aiMove("+level+")");
@@ -985,18 +985,18 @@ $(function() {
 					aiRandomMove(); //make random move if no better move available
 			}
 		} // end aiMove()
-		
+
 		/* AI TURN Control
 			- Controls the amount of time that AI delays to make turn, to simulate thinking
 		=========================================================================== */
 		function aiTurnControl() {
 			console.log("aiTurnControl()");
-			
+
 			var turnTimeMin = 2000;
 			var turnTimeVariation = 4000;
 			// choose minimum turn time on 50% of turns, else create a random amount of time between 2000ms and 6000ms
 			var randomTurnTime = randomPick([Math.floor(Math.random() * turnTimeVariation), 0]) + turnTimeMin;
-	
+
 			if (randomTurnTime > 3000) { //if turn time is longer than 3000ms
 				setTimeout(function() {
 					marqueeMessage(randomPick(dialogue.thinking), "speak"); //challenger says something about having to think
@@ -1005,18 +1005,18 @@ $(function() {
 			console.log("* turnTime: "+ randomTurnTime);
 			setTimeout(function () {//begin AI logic after delay
 				console.log("moving: " + Date.now());
-				
+
 				aiMove(currentGym);
 			}, randomTurnTime);
 		} // end aiTurnControl()
-		
+
 		//function that actually makes a move in a cell once the cell is chosen
 		function makeMove(mover, cell) {
 			console.log("makeMove("+mover+", "+cell+")");
 			var value; //value to add to cellValues
 			var pokemon; //pokemon image to use
 			var delay; //delay before move is made
-			
+
 			if (mover === "player") {
 				value = PLAYER_VAL;
 				pokemon = playerCurrentPokemon.toLowerCase();
@@ -1026,7 +1026,7 @@ $(function() {
 				pokemon = challengerPokemon.toLowerCase();
 				delay = 700; //so move is made after dialogue
 			}
-			
+
 			setTimeout(function() {
 				//update value in virtual gameboard
 				cellValues[cell] = value;
@@ -1034,11 +1034,11 @@ $(function() {
 				$("#" + cell).addClass("animated pokemon--bounce pokemon pokemon--" + pokemon).one(ANIMATION_END, function() {
 					$(this).removeClass("animated pokemon--bounce").addClass("pokemon--wiggle").off(ANIMATION_END);
 				});
-				
+
 				finalizeMove(mover); //check victory, etc
 			}, delay);
 		}//end makeMove()
-		
+
 		//checks for victory or tie after every move, and calls function to pass turn to next player
 		function finalizeMove(turnOwner) {
 			console.log("finalizeMove("+turnOwner+")");
@@ -1055,7 +1055,7 @@ $(function() {
 			  $( ".gameboard__cell" ).prop( "disabled", true ); //disable all cells
 			}
 		} // end finalizeMove()
-		
+
 		function victoryCheck() {
 			console.log("victoryCheck()");
 			// Loop over each of the trio variables
@@ -1063,9 +1063,9 @@ $(function() {
 				// If the current property's value is 3 (player won) or 12 (challenger won)
 				if (trioVariables[trio] === 3 || trioVariables[trio] === 12) {
 					console.log("We have a winner!");
-					
+
 					setGameTurn(""); // no one's turn
-					
+
 					if (trioVariables[trio] === 12) {
 						console.log("player has lost the game");
 						lostOrTiedAnimation("lost", trio);
@@ -1079,7 +1079,7 @@ $(function() {
 			}
 			return false;
 		} // end victoryCheck()
-		
+
 		function tieGameCheck() {
 			console.log("tieGameCheck()");
 			// Loop over each of the cells in gameBoard
@@ -1100,7 +1100,7 @@ $(function() {
     /*******************************************************
 	  UTILITY FUNCTIONS
 	  *******************************************************/
-	  
+
 	  // Create and return array of all empty cells on gameBoard, or in specific array (like a trio) if passed as argument
 		function findEmptyCells(array) {
 			console.log("findEmptyCells("+array+")");
@@ -1118,7 +1118,7 @@ $(function() {
 			console.log("found empty: "+emptyCells);
 			return emptyCells;
 		}//end findEmptyCells()
-		
+
     //trioVariables represents current state of each row, column, and diagonal.  used in finalizeMove() before checking for victory or tie
 		function updateTrioVariables() {
 			console.log("updateTrioVariables()");
@@ -1134,20 +1134,20 @@ $(function() {
 			};
 			console.log(trioVariables);
 		}//end updateTrioVariables()
-		
+
 		//switches green background to indicate who's move it is
 		function switchActivePanels(activePlayer) {
 			console.log("switchActivePanels("+activePlayer+")");
 			$(".marquee__avatar-box").removeClass("marquee__avatar-box--active");
 			$("#marquee__avatar-box--" + activePlayer).addClass("marquee__avatar-box--active");
 		}//end switchActivePanels()
-		
+
 		//picks a random value from an array
 		function randomPick(array) {
 			console.log("randomPick("+array+")");
 			return array[Math.floor(Math.random() * array.length)];
 		}// end randomPick()
-		
+
 		//counts how many of a given value exist in an array
 		function count(array, element) {
 			console.log("count("+array+", "+element+")");
@@ -1160,7 +1160,7 @@ $(function() {
 			console.log("count: "+count);
 			return count;
 		}//end count()
-		
+
 		//returns the sum of all values in cellValues.  used for determining how many moves have been made
 		function sumCellValues() {
 			console.log("function sumCellValues()");
@@ -1171,7 +1171,7 @@ $(function() {
 			console.log("sum: "+sum);
 			return sum;
 		}//end sumCellValues()
-		
+
 		//returns an array of all keys in obj whose value is val
 		function getKeysByValue(obj, val) {
 			console.log("getKeyByValue("+obj+", "+val+")");
@@ -1183,18 +1183,18 @@ $(function() {
 			}
 			return keys;
 		}// end getKeysByValue()
-		
+
 		/*******************************************************
 	  GAME ANIMATION FUNCTIONS
 	  *******************************************************/
-		
+
 		//places text (message) in the display box below avatars in game.  speakOrAnnounce determines how the text is animated
 		function marqueeMessage(message, speakOrAnnounce, callback) {
 			console.log("marqueeMessage("+message+", "+speakOrAnnounce+")");
 			console.log(Date.now());
 			var onClasses;
 			var offClasses;
-			
+
 			if (speakOrAnnounce === "announce") {
 				onClasses = "animated bounceInRight";
 				offClasses = "animated bounceOutLeft";
@@ -1202,26 +1202,26 @@ $(function() {
 				onClasses = "speak";
 				offClasses = "unspeak";
 			}
-			
+
 			console.log("* add on class: "+Date.now()+message);
-			
+
 			//cancel any previous "off" animation before adding new message
-			clearTimeout(msgTimer); 
+			clearTimeout(msgTimer);
 			$("#marquee__dialogue__text").off(ANIMATION_END).finish().removeClass("animated bounceInRight bounceOutLeft speak unspeak")
 			//add new text and animate it
-			.text(message).addClass(onClasses).one(ANIMATION_END, function(){ 
+			.text(message).addClass(onClasses).one(ANIMATION_END, function(){
 				console.log("* remove on class: "+Date.now()+message);
 					$(this).removeClass(onClasses).off(ANIMATION_END);
 				});
-				
-				
+
+
 			//animate text exit after 2500ms
 			msgTimer = setTimeout(function() {
 				console.log("* add off class: "+Date.now()+message);
 				$("#marquee__dialogue__text").addClass(offClasses).one(ANIMATION_END, function() {
 					console.log("* remove off class: "+Date.now()+message);
 					$(this).removeClass(offClasses).text("");
-					
+
 					//run callback function after text has exited
 					if (callback) {
 						callback();
@@ -1229,7 +1229,7 @@ $(function() {
 				});
 			}, 2500);
 		}// end marqueeMessage()
-		
+
 		//fades gameboard
 		function fadeOutGameboard() {
 			console.log("fadeOutGameboard()");
@@ -1237,18 +1237,18 @@ $(function() {
 				$(this).removeClass("animated fadeOut").addClass("u-hidden").off(ANIMATION_END);
 			});
 		}//end fadeOutGameboard()
-		
+
 		//game over animation on lost ot tied game
 		function lostOrTiedAnimation(lostOrTied, trio) {
 			console.log("lostOrTiedAnimation("+lostOrTied+", "+trio+")");
-			
+
 			var $queueObj = $({}); //empty jquery object to hold jquery queue of functions
-			
+
 			//pokemon stop wiggling
-			$(".pokemon").removeClass("pokemon--wiggle"); 
+			$(".pokemon").removeClass("pokemon--wiggle");
 			//appropriate wordart container element displayed in DOM
 			$("#game-end-wordart, #game-end-wordart__element--" + lostOrTied).removeClass("u-hidden");
-			
+
 			$queueObj
 				.delay(350, "lostOrTiedAnimation")
 				.queue("lostOrTiedAnimation", function(next) {
@@ -1286,9 +1286,9 @@ $(function() {
 				})
 				.delay(1000, "lostOrTiedAnimation")
 				.queue("lostOrTiedAnimation", function(next) {
-				  
+
 					var delay = 100; //100ms between each appearing letter in the wordart
-					
+
 					//schedule animation for each letter
 					$("#game-end-wordart__element--"+lostOrTied+" .letter__element").each(function(i, e) {
 						console.log("index: "+i);
@@ -1303,7 +1303,7 @@ $(function() {
 						$(this).off(ANIMATION_END);
 						$("#game-end-wordart, #game-end-wordart__element--" + lostOrTied).addClass("u-hidden");
 					});
-					
+
 					next();
 				})
 				.delay(2000, "lostOrTiedAnimation")
@@ -1316,11 +1316,11 @@ $(function() {
 				  //challenger comments on outcome
 					marqueeMessage(CHALLENGERS()[currentGym].lostOrTiedMessage, "speak", endGame);
 				});
-				
+
 				//trigger queued animation
 				$queueObj.dequeue("lostOrTiedAnimation");
 		}//end lostOrTiedAnimation()
-		
+
 		//game over animation on player victory
 		function victoryAnimation(trio, gameWon) {
 			console.log("victoryAnimation("+trio+", "+gameWon+")");
@@ -1333,16 +1333,16 @@ $(function() {
 			var gradientSpeed2 = viewWidth * 40 / 1000 + 150;//time gradient spends in final fast move
 			//var wordartDelay = gradientSpeed0 / gradientSlowLoc * ((viewWidth - 230) / 2 + 125);
 			//var wordartSpeed = gradientSpeed0 / gradientSlowLoc * 230;
-			
+
 			//I may use these arrays to make queue construction more dry with a for loop
 			//var gradientLocs = [gradientSlowLoc, gradientFastLoc, gradientFinalLoc];
 			//var gradientSpeeds = [gradientSpeed0, gradientSpeed1, gradientSpeed2];
 			var $victoryTrio = $("#"+TRIO_CELLS[trio][0]+", #"+TRIO_CELLS[trio][1]+", #"+TRIO_CELLS[trio][2]); //jquery object containing the cells of winning trio
-			
+
 			var $queueObj = $({});//empty jquery object to hold queue of functions
-			
+
 			$(".pokemon").removeClass("pokemon--wiggle"); //pokemon stop wiggling
-			
+
 			$queueObj
 				.delay(350, "victoryAnimation")
 				.queue("victoryAnimation", function(next) {
@@ -1366,20 +1366,20 @@ $(function() {
 							$("#pokemon-container--"+cell).addClass("pokemon-container--fadeOutDown");
 						}
 					}
-					
+
 					$(".pokemon").not($victoryTrio).last().one(ANIMATION_END, next);
 				})
 				.queue("victoryAnimation", function(next) {
 				  //remove pokemon that fell off board
 					 $(".pokemon").not($victoryTrio).attr("class", "").last().off(ANIMATION_END);
-					 
+
 					 $(".pokemon-container").removeClass("pokemon-container--fadeOutDown");
-					 
-					 
+
+
 					 if (gameWon) { //if player won the game
 					   if (earnedBadges.indexOf(currentGym) == -1) { //if gym's badge has not already been awarded
 					     //prepare badge for awarding
-  					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0, "-webkit-transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0, "-webkit-transform": zoomInDownObj.scale0}); 
+  					   $("#badge__btn--" + currentGym).css({opacity: "0", "transform": zoomInDownObj.translate0, "-webkit-transform": zoomInDownObj.translate0}).children(".badge__icon").css({transform: zoomInDownObj.scale0, "-webkit-transform": zoomInDownObj.scale0});
 					   }
 						 next(); //continue animations
 					 } else { //if player did not win the game
@@ -1391,14 +1391,14 @@ $(function() {
 					var durationVal = gradientSpeed0 + "ms";
 					var delayVal = (gradientSpeed0 / 2) + "ms";
 					var wordartCssObj = {
-					  "transition-duration": durationVal, 
-					  "-webkit-transition-duration": durationVal, 
+					  "transition-duration": durationVal,
+					  "-webkit-transition-duration": durationVal,
 					  "transition-delay": delayVal,
 					  "-webkit-transition-delay": delayVal,
 					};
-					//animate victory wordart 
+					//animate victory wordart
 					$(".victory-container").css(wordartCssObj).addClass("victory-container--showing");
-					
+
 					//begin first fast animation segment of gradients
 					 $("#victory-gradient--r").css({transform: "translate(-"+gradientSlowLoc+"px)", "-webkit-transform": "translate(-"+gradientSlowLoc+"px)", "transition-duration": gradientSpeed0 + "ms", "-webkit-transition-duration": gradientSpeed0 + "ms"});
 					 console.log($("#victory-gradient--r").attr("style"));
@@ -1444,22 +1444,22 @@ $(function() {
 					console.log("badge earned?: "+ (earnedBadges.indexOf(currentGym) == -1));
 					console.log("earnedBadges: "+earnedBadges);
 					console.log("gym: "+currentGym);
-					
+
 					if (earnedBadges.indexOf(currentGym) == -1) { //if player has not already earned current gym's badge
 						victoryDialogue();
 					} else {
 					 endGame();
 					}
 				});
-				
+
 			$queueObj.dequeue("victoryAnimation");
 
 		} //end victoryAnimation(trio)
-		
+
 		//challenger comments on player victory
 		function victoryDialogue() {
 			console.log("victoryDialogue()");
-			
+
 			marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[0], "speak", function() {
 				marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[1], "speak", function() {
 					marqueeMessage(CHALLENGERS()[currentGym].victoryMessages[2], "speak", function() {
@@ -1468,13 +1468,13 @@ $(function() {
 				});
 			});
 		}//end victoryDialogue()
-		
+
 		//animates awarding badge to player
 		function awardBadge() {
 			earnedBadges.push(currentGym);
       var badgeHang; //a setInterval function
       var badgeHangReverse; //a setTimeout function
-      
+
       //css values for sending awarded badge to badge tray
 			var unAwardBadgeCss = {
 				transform: "",
@@ -1484,7 +1484,7 @@ $(function() {
 				"transition": "-webkit-transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
 				"transition": "transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275), -webkit-transform 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275)"
 			};
-			
+
 			//animates badge up and down like floating in air before player grabs it
 			function badgeHangFn() {
 		    $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangDown, "-webkit-transform": awardBadgeCss().transformHangDown});
@@ -1492,18 +1492,18 @@ $(function() {
 		      $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp});
 		    }, 1500);
 			}
-			
+
 		function badgeWon(badgeNum) {
 		  //animate awarding of badge
   		$("#badge__icon--" + badgeNum).removeClass("u-invisible").css({transition: zoomInDownObj.transitionScale0, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale0, "transition": "-webkit-" + zoomInDownObj.transitionScale0, "transition": zoomInDownObj.transitionScale0 + ", -webkit-" + zoomInDownObj.transitionScale0, transform: zoomInDownObj.scale1, "-webkit-transform": zoomInDownObj.scale1}).one(TRANSITION_END, function() {
   		  event.stopPropagation();
   		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionScale1, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale1, "transition": "-webkit-" + zoomInDownObj.transitionScale1, "transition": zoomInDownObj.transitionScale1 + ", -webkit-" + zoomInDownObj.transitionScale1, transform: zoomInDownObj.scale2, "-webkit-transform": zoomInDownObj.scale2});
   		}).closest(".badge__btn").css({transition: zoomInDownObj.transitionTranslate0, "-webkit-transition": zoomInDownObj.transitionTranslate0, transform: zoomInDownObj.translate1, "-webkit-transform": zoomInDownObj.translate1, opacity: "1"}).on(TRANSITION_END, function() {
-  		  
+
   		  $(this).children(".badge__icon").addClass("badge__icon--big").css({transition: zoomInDownObj.transitionScale2, "-webkit-transition": "-webkit-" + zoomInDownObj.transitionScale2, "transition": "-webkit-" + zoomInDownObj.transitionScale2, "transition": zoomInDownObj.transitionScale2 + ", -webkit-" + zoomInDownObj.transitionScale2, transform: "", "-webkit-transform": ""});
   		  $(this).off(TRANSITION_END).css({transition: zoomInDownObj.transitionTranslate1, "-webkit-transition": zoomInDownObj.transitionTranslate1, transform: awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp}).on(TRANSITION_END, function() {
   		      if (event.srcElement == $(this)[0] && event.elapsedTime < 0.6) { //filtering for the desired transitionend event
-  		        
+
       		    $(this).children(".badge__icon").css({transition: "", "-webkit-transition": ""});
       		    $(this).off(TRANSITION_END).attr( "disabled", false ) //enable button
       		    .css({"transition": "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"}) //set transition values for badgeHang animation
@@ -1511,7 +1511,7 @@ $(function() {
       		      //badge stops hanging animation
         			  clearInterval(badgeHang);
               	clearTimeout(badgeHangReverse);
-              	
+
               	//badge goes to middle of screen
               	$(this).css({"transform": awardBadgeCss().transformCenter, "-webkit-transform": awardBadgeCss().transformCenter, transition: "transform 80ms ease-in-out", "-webkit-transition": "-webkit-transform 80ms ease-in-out", "transition": "-webkit-transform 80ms ease-in-out", "transition": "transform 80ms ease-in-out, -webkit-transform 80ms ease-in-out"});
         			})
@@ -1526,14 +1526,14 @@ $(function() {
         			.one("click", function() {
         			  $(this)
         			  //disable button
-        			  .off("click").attr("disabled", true) 
+        			  .off("click").attr("disabled", true)
         			  //animate badge going to badge tray
         			  .css(unAwardBadgeCss).children(".badge__icon--big").css(unAwardBadgeCss).removeClass("badge__icon--big").one(TRANSITION_END, function() {
         			    //enable showing of badge shimmer, show mask that hides where the shimmer gradient overflows the badge
             					$(this).off(TRANSITION_END).children(".badge__shimmer").removeClass("u-invisible");
             		  //trigger badge shimmer animation
             					badgeShimmer(currentGym);
-            					
+
             					setTimeout(endGame, 1000);
             				});
         			});
@@ -1544,27 +1544,27 @@ $(function() {
       	  });
   		  });
 		}
-		
+
 		badgeWon(currentGym);
 		} //end awardBadge()
-		
+
 	} // end playGame();
-	
+
 	/*******************************************************
 	  FUNCTIONS USED OUTSIDE OF playGame()
 	*******************************************************/
-	
+
 	/*this function moves the gradient image across the badge to create the shimmer*/
 	function badgeShimmer(badgeNum){
 		$("#badge__icon--" + badgeNum + " > span").stop();
 		 $("#badge__icon--" + badgeNum + " > span").css('background-position', '-40px -40px').animate({'background-position': '38px 38px'}, 450);
 	}
-	
+
 	//trigger badge shimmer animation
 	$(".badge__screen").mouseenter(function() {
 		badgeShimmer($(this).data().badgenumber);
 	});
-	
+
 	//animate marquee up off of screen, reset things for next game, and call showChallengers()
 	function endGame() {
 		console.log("endGame()");
@@ -1578,19 +1578,19 @@ $(function() {
 			$("#challengers").show();
 			showChallengers();
 		});
-		
+
 	}
-				
-	//used for dynamically determing center of screen to keep an awarded "hanging" badge in center, even on window resize			
+
+	//used for dynamically determing center of screen to keep an awarded "hanging" badge in center, even on window resize
 	function awardBadgeCss() {
 		var badgeTopPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().top;
 		var centerTopPosition = $('#screen-center').offset().top;
 		var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
 		var centerLeftPosition = $('#screen-center').offset().left;
-		
+
 		var translateTop = centerTopPosition - badgeTopPosition;
-		var translateLeft = centerLeftPosition - badgeLeftPosition; 
-		
+		var translateLeft = centerLeftPosition - badgeLeftPosition;
+
 		var result = {
 		  "translateLeft": translateLeft,
 		  "translateTop": translateTop,
@@ -1598,10 +1598,10 @@ $(function() {
 		  transformHangDown: "translate3d("+translateLeft+"px, "+(translateTop + 8)+"px, 0px)",
 			transformCenter: "translate3d("+translateLeft+"px, "+translateTop+"px, 0px)",
 		};
-		
+
 		return result;
 	}
-	
+
 	//keeps awarded "hanging" badge in center of screen
 	$(window).on("resize", function() {
 	  if ($(".badge__icon--big").length > 0) {
@@ -1609,14 +1609,14 @@ $(function() {
 		  $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp, "transition": "", "-webkit-transition": ""});
 		  recenterBigBadge = setTimeout(function() {
 		    $(".badge__icon--big").closest(".badge__btn").css({transition: "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"});
-		  }, 20);
+		  }, 0);
 	  }
 	});
-	
-	
-		
+
+
+
 		splashAnimation(); //triggers animation of tic tac toe logo
 		$("body").one('click', oak1);//first oak dialogue screen
-		
-	
+
+
 }); // end document.ready function
