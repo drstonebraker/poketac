@@ -372,10 +372,21 @@ $(function() {
 	function oak2() {
 		console.log("oak2");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>We’ve just discovered a new pastime here in the Pokemon world.  It’s all the rage.  They call it Tic-Tac-Toe!<br>That’s why you’re here, isn’t it?</p>";
-		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
+		var storyBtn = '<button type="submit" class="button button--green" id="button-story">Tell me more</button>';
+		var quickStartBtn = '<button type="submit" class="button button--green" id="button-quickstart">Yes, let\'s play!</button>';
+		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+storyBtn+quickStartBtn+'</div>';
 
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("body").one('click', oak3);
+		$("#button-story").one('click', oak3);
+		$("#button-quickstart").one('click', function() {
+			event.stopPropagation();
+			playerName = 'Player'
+			playerAvatar = 'female';
+			$("#avatar--player").addClass("avatar--" + playerAvatar);
+			playerStarterPokemon = 'Charmander';
+			playerType = POKEMON[playerStarterPokemon].type;
+			oak11('#button-quickstart')
+		});
 	}
 
 	function oak3() {
@@ -492,14 +503,14 @@ $(function() {
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+buttonPlay+'</div>';
 
 		$("#modal__content--oak").replaceWith(modalContentOak);
-		$("#button-play").one('click', oak11);
+		$("#button-play").one('click', function() {oak11('#button-play')});
 	}
 
-	function oak11() {
+	function oak11(buttonId) {
 		console.log("oak11");
 		//enter gamespace
 		$("#gamespace").removeClass("u-hidden");
-			$("#button-play").addClass("animated bounceBtn").one(ANIMATION_END, function() {
+			$(buttonId).addClass("animated bounceBtn").one(ANIMATION_END, function() {
 				$(this).removeClass("animated bounceBtn").off(ANIMATION_END);
 				var text = "<p class='modal-text modal-text--oak' id='modal-text'>Good luck!</p>";
 			var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+'</div>';
