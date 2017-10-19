@@ -381,7 +381,7 @@ $(function() {
 	function oak3() {
 		console.log("oak3");
 		var text = "<p class='modal-text modal-text--oak' id='modal-text'>But look at me getting ahead of myself.  I’ve forgotten my manners!  I’m Professor Oak.<br>And you are...?</p>";
-		var nameInput = '<input type="text" placeholder="Type your name" class="name-input" id="name-input"></input>';
+		var nameInput = '<input autofocus type="text" placeholder="Type your name" class="name-input" id="name-input"></input>';
 		var nameBtn = '<button type="submit" class="button button--green" id="button-player-name">OK</button>';
 		var nameForm = "<form id='nameForm'>"+nameInput+nameBtn+"</form>";
 		var modalContentOak = '<div class="modal__content modal__content--oak" id="modal__content--oak">'+text+nameForm+'</div>';
