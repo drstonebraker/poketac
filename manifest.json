@@ -1,6 +1,6 @@
 {
-  "short_name": "Pkmn TTT",
-  "name": "Pokemon Tic-Tac-Toe",
+  "short_name": "PokeTac",
+  "name": "Tic-Tac-Toe Pokemon",
   "icons": [
     {
       "src": "\/tic-tac-toe-390x390.png",
@@ -19,6 +19,7 @@
     }
   ],
   "start_url": "/index.html",
-  "display": "fullscreen",
-  "orientation": "portrait"
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFEAA0"
 }

@@ -1626,8 +1626,15 @@ $(function() {
 
 
 
-		splashAnimation(); //triggers animation of tic tac toe logo
-		$("body").one('click', oak1);//first oak dialogue screen
+	splashAnimation(); //triggers animation of tic tac toe logo
+	$("body").one('click', oak1);//first oak dialogue screen
 
+	if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(function() {
+        console.log('Service Worker Registered')
+      })
+  }
 
 }); // end document.ready function
