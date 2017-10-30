@@ -1,15 +1,4 @@
 var cacheName = 'PokeTac';
-var backgroundSource;
-var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-//use different resolution overworld image based on screen size
-if (viewHeight > 1080) {
-    backgroundSource = "/img/johto-kanto-map-3000x1316.jpg";
-} else if (viewHeight > 680) {
-    backgroundSource = "/img/johto-kanto-map-3000x1062.jpg";
-} else {
-    backgroundSource = "/img/johto-kanto-map-1921x680.jpg";
-}
 
 var filesToCache = [
   '/',
@@ -23,7 +12,7 @@ var filesToCache = [
   '/img/dimension-poke-grey.png',
   '/img/dimension-poke.png',
   '/img/gym.png',
-  backgroundSource,
+  '/img/johto-kanto-map-3000x1062.jpg',
   '/img/spritesheet.png',
   '/sounds/music/main-theme.mp3',
   '/css/fonts/Quicksand.ttf'

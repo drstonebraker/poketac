@@ -242,16 +242,16 @@ $(function() {
 		//load overworld background image
 		new Promise(function(resolve) {
 				var backgroundSource;
-				var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
 		    //use different resolution overworld image based on screen size
-				if (viewHeight > 1080) {
-						backgroundSource = "./img/johto-kanto-map-3000x1316.jpg";
-				} else if (viewHeight > 680) {
+				// var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+				// if (viewHeight > 1080) {
+				// 		backgroundSource = "./img/johto-kanto-map-3000x1316.jpg";
+				// } else if (viewHeight > 680) {
 						backgroundSource = "./img/johto-kanto-map-3000x1062.jpg";
-				} else {
-						backgroundSource = "./img/johto-kanto-map-1921x680.jpg";
-				}
+				// } else {
+				// 		backgroundSource = "./img/johto-kanto-map-1921x680.jpg";
+				// }
 
 				var background = document.createElement('img');
 				background.src = backgroundSource;
