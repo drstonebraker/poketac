@@ -594,7 +594,7 @@ html {
     display: -ms-flexbox;
     display: flex;
     position: relative;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 200px);
     -ms-flex-pack: distribute;
         justify-content: space-around;
     -ms-flex-wrap: wrap;
