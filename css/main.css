@@ -98,7 +98,7 @@ textarea {
 
 @font-face {
   font-family: "Quicksand";
-  src: url("css/fonts/Quicksand.ttf") format('ttf');
+  src: url("./fonts/Quicksand.ttf") format('truetype');
 }
 
 html {
@@ -594,7 +594,7 @@ html {
     display: -ms-flexbox;
     display: flex;
     position: relative;
-    height: calc(100vh - 122px);
+    height: calc(100vh - 160px);
     -ms-flex-pack: distribute;
         justify-content: space-around;
     -ms-flex-wrap: wrap;
