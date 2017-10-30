@@ -134,7 +134,7 @@ html {
 .controls {
     position: fixed;
     width: 50px;
-    height: 65px;
+    height: 24px;
     top: 30px;
     right: 0px;
     z-index: 100;
