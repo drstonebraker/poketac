@@ -554,7 +554,7 @@ $(function() {
 	function showChallengers() {
 		console.log("showChallengers()");
 		$("#tray").removeClass("u-blurred");
-		$("#challengers").removeClass("u-blurred").one(TRANSITION_END, function() {
+		$("#challengers, #heading--challengers").removeClass("u-blurred").one(TRANSITION_END, function() {
 			$( ".button--avatar" ).prop( "disabled", false ); //enable buttons
 		});
 
@@ -572,7 +572,7 @@ $(function() {
 				$("#heading--challengers").addClass("animated fadeOutDown").one(ANIMATION_END, function() {
 					$(this).off(ANIMATION_END);
 					//prepare for showing again after next game
-					$("#challengers").hide().addClass("u-blurred");
+					$("#challengers, #heading--challengers").hide().addClass("u-blurred");
 					$(".button--avatar, #heading--challengers").removeClass("animated fadeOutDown bounceOutUp button--no-outline");
 					$("#marquee").addClass("marquee--drop").one(TRANSITION_END, function() {
 						$(this).off(TRANSITION_END);
@@ -1586,7 +1586,7 @@ $(function() {
 			$("#marquee").addClass("u-hidden");
 			$(".gameboard__cell").off("click");
 			$("#avatar--challenger").removeClass("avatar--challenger-" + currentGym);
-			$("#challengers").show();
+			$("#challengers, #heading--challengers").show();
 			showChallengers();
 		});
 
