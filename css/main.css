@@ -96,6 +96,11 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+@font-face {
+  font-family: "Harabara Bold";
+  src: url("css/fonts/Quicksand.ttf") format('ttf');
+}
+
 html {
     overflow: hidden;
 }
@@ -309,7 +314,7 @@ html {
 	margin: 30px 100px 30px 30px;
 }
 
-.modal-text--oak {	
+.modal-text--oak {
 	text-align: center;
 	min-width: 160px;
 }
@@ -332,12 +337,12 @@ html {
 	padding: 5px 20px;
 	border-radius: 10px;
 	  text-shadow:
-   -1px -1px 0 #6EC637,  
+   -1px -1px 0 #6EC637,
     1px -1px 0 #6EC637,
     -1px 1px 0 #6EC637,
      1px 1px 0 #6EC637;
 	margin: 15px auto 0 auto;
-	box-shadow: 
+	box-shadow:
 		0 0 0 1px white,
 		1px 1px 0 1px #333;
 	font-size: .8em;
@@ -371,7 +376,7 @@ html {
 	background-image: url("../img/dimension-poke.png");
 }
 
-.button--avatar:hover > .button__avatar, 
+.button--avatar:hover > .button__avatar,
 .button--avatar:focus > .button__avatar{
 		-webkit-transform: scale(1.2);
 		        transform: scale(1.2);
@@ -385,10 +390,10 @@ html {
 }
 
 .button__avatar {
-	border-radius: 18px;  
-	-webkit-transition: -webkit-transform 50ms ease;  
-	transition: -webkit-transform 50ms ease;  
-	transition: transform 50ms ease;  
+	border-radius: 18px;
+	-webkit-transition: -webkit-transform 50ms ease;
+	transition: -webkit-transform 50ms ease;
+	transition: transform 50ms ease;
 	transition: transform 50ms ease, -webkit-transform 50ms ease;
 }
 
@@ -420,24 +425,24 @@ html {
 	background-position-y: -160px;
 }
 
-.pokeball__ball {	
-	background-position-x: -1.5px;	
-	-webkit-transition: -webkit-transform 300ms ease;	
-	transition: -webkit-transform 300ms ease;	
-	transition: transform 300ms ease;	
+.pokeball__ball {
+	background-position-x: -1.5px;
+	-webkit-transition: -webkit-transform 300ms ease;
+	transition: -webkit-transform 300ms ease;
+	transition: transform 300ms ease;
 	transition: transform 300ms ease, -webkit-transform 300ms ease;
 	z-index: 1;
 }
 
-.pokeball:hover > .pokeball__ball, 
-.pokeball:focus > .pokeball__ball, 
+.pokeball:hover > .pokeball__ball,
+.pokeball:focus > .pokeball__ball,
 .pokeball--focus > .pokeball__ball {
 	-webkit-transform: translateX(-22px) rotate(-1rad);
 	        transform: translateX(-22px) rotate(-1rad);
 }
 
-.pokeball:hover > .pokeball__pokemon, 
-.pokeball:focus > .pokeball__pokemon, 
+.pokeball:hover > .pokeball__pokemon,
+.pokeball:focus > .pokeball__pokemon,
 .pokeball--focus > .pokeball__pokemon {
 	-webkit-transform: scale(1.2) translateX(7px);
 	        transform: scale(1.2) translateX(7px);
@@ -479,7 +484,7 @@ html {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
-	
+
 	0% {
 	  opacity: 0;
     -webkit-transform: scale3d(1, 1, 1);
@@ -508,7 +513,7 @@ html {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
-	
+
 	0% {
 	  opacity: 0;
     -webkit-transform: scale3d(1, 1, 1);
@@ -604,10 +609,10 @@ html {
     color: white;
     font-family: 'Quicksand', Helvetica, sans-serif;
     text-shadow:
-   -1px -1px 0 #111,  
+   -1px -1px 0 #111,
     1px -1px 0 #111,
     -1px 1px 0 #111,
-     1px 1px 0 #111;	
+     1px 1px 0 #111;
     text-align: center;
     margin: 15px 0 0 0;
     font-size: 1.5em;
@@ -659,7 +664,7 @@ html {
 
 .avatar--challenger-7 {
     background-position-x: -1054px;
-} 
+}
 
 .button--no-outline:focus {
   outline: none;
@@ -671,8 +676,8 @@ html {
   height: 49px;
   position: absolute;
   top: 50%;
-  left: 50%; 
-  -webkit-transform: translate(-50%, -50%); 
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -697,7 +702,7 @@ html {
   border: 1px solid white;
   box-shadow: 0 0 0 2px black, 0 0 15px 0 black;
   width: 600px;
-  max-width: 80%;  
+  max-width: 80%;
   bottom: 5px;
   margin: 0 auto;
   padding: 2px 20px;
@@ -723,7 +728,7 @@ html {
 
 .badge {
   display: inline-block;
-  position: relative;   
+  position: relative;
   height:49px;
   width:49px;
 }
@@ -742,7 +747,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   left: 50%;
   top: 50%;
   margin: -5px -5px;
-  
+
 }
 
 .badge__btn {
@@ -777,35 +782,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .badge__icon--0 {
-  background-position-x: -1px; 
+  background-position-x: -1px;
 }
 
 .badge__icon--1 {
-  background-position-x: -47px; 
+  background-position-x: -47px;
 }
 
 .badge__icon--2 {
-  background-position-x: -93px; 
+  background-position-x: -93px;
 }
 
 .badge__icon--3 {
-  background-position-x: -139px; 
+  background-position-x: -139px;
 }
 
 .badge__icon--4 {
-  background-position-x: -185px; 
+  background-position-x: -185px;
 }
 
 .badge__icon--5 {
-  background-position-x: -230px; 
+  background-position-x: -230px;
 }
 
 .badge__icon--6 {
-  background-position-x: -276px; 
+  background-position-x: -276px;
 }
 
 .badge__icon--7 {
-  background-position-x: -322px; 
+  background-position-x: -322px;
 }
 
 .badge__shimmer {
@@ -817,7 +822,7 @@ background: -webkit-linear-gradient(315deg, rgba(255,255,255,0) 0%, rgba(255,255
 background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 23%, rgba(255,255,255,0.9) 49%, rgba(255,255,255,0.87) 54%, rgba(255,255,255,0) 57%, rgba(255,255,255,0) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1 );
   background-position: -40px -40px;
-  background-repeat: no-repeat;		
+  background-repeat: no-repeat;
 
 	height: 150%;
 	width: 150%;
@@ -830,39 +835,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   width: 49px;
   background: url("../img/spritesheet.png") 0 0 no-repeat;
   background-size: 405px;
-  background-position-y: -158.5px; 
+  background-position-y: -158.5px;
 }
 
 .badge__screen--0 {
-  background-position-x: -2.5px; 
+  background-position-x: -2.5px;
 }
 
 .badge__screen--1 {
-  background-position-x: -52.5px; 
+  background-position-x: -52.5px;
 }
 
 .badge__screen--2 {
-  background-position-x: -102.5px; 
+  background-position-x: -102.5px;
 }
 
 .badge__screen--3 {
-  background-position-x: -153px; 
+  background-position-x: -153px;
 }
 
 .badge__screen--4 {
-  background-position-x: -202.5px; 
+  background-position-x: -202.5px;
 }
 
 .badge__screen--5 {
-  background-position-x: -251.5px; 
+  background-position-x: -251.5px;
 }
 
 .badge__screen--6 {
-  background-position-x: -302px; 
+  background-position-x: -302px;
 }
 
 .badge__screen--7 {
-  background-position-x: -351.5px; 
+  background-position-x: -351.5px;
 }
 
 .badge__icon--big {
@@ -885,7 +890,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   cursor: grabbing;
   cursor: -webkit-grabbing;
   -webkit-transform: scale(4.0);
-          transform: scale(4.0); 
+          transform: scale(4.0);
 }/* end gym badges */
 
 /* marquee: avatars and challenger dialogue */
@@ -934,7 +939,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .marquee__avatar-box--challenger {
     left: calc(50% + 20px);
-} 
+}
 
 .avatar--drop-shadow {
     -webkit-filter: drop-shadow(16px 16px 10px black);
@@ -947,7 +952,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     width: 100%;
 }
 
-.marquee__dialogue { 
+.marquee__dialogue {
   display: table;
     height: 42px;
     width: 90%;
@@ -995,12 +1000,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                 transform: translate3d(30px, -10px, 0px) scale(.5);
         opacity: .2;
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 0px, 0px) scale(1);
                 transform: translate3d(0px, 0px, 0px) scale(1);
         opacity: 1;
-    }    
+    }
 }
 
 
@@ -1010,12 +1015,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                 transform: translate3d(30px, -10px, 0px) scale(.5);
         opacity: .2;
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 0px, 0px) scale(1);
                 transform: translate3d(0px, 0px, 0px) scale(1);
         opacity: 1;
-    }    
+    }
 }
 
 @-webkit-keyframes unspeak {
@@ -1024,12 +1029,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                 transform: translate3d(0px, 0px, 0px);
         opacity: 1;
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 20px, 0px);
                 transform: translate3d(0px, 20px, 0px);
         opacity: 0;
-    }    
+    }
 }
 
 @keyframes unspeak {
@@ -1038,12 +1043,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                 transform: translate3d(0px, 0px, 0px);
         opacity: 1;
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 20px, 0px);
                 transform: translate3d(0px, 20px, 0px);
         opacity: 0;
-    }    
+    }
 }
 
 @-webkit-keyframes drop {
@@ -1051,7 +1056,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         -webkit-transform: translate3d(0px,-70px, 0px);
                 transform: translate3d(0px,-70px, 0px);
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 0px, 0px);
                 transform: translate3d(0px, 0px, 0px);
@@ -1063,7 +1068,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         -webkit-transform: translate3d(0px,-70px, 0px);
                 transform: translate3d(0px,-70px, 0px);
     }
-    
+
     to {
         -webkit-transform: translate3d(0px, 0px, 0px);
                 transform: translate3d(0px, 0px, 0px);
@@ -1075,7 +1080,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotateX(-90deg);
             transform: rotateX(-90deg);
   }
-    
+
   20% {
     -webkit-transform: rotateX(40deg);
             transform: rotateX(40deg);
@@ -1107,7 +1112,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotateX(-90deg);
             transform: rotateX(-90deg);
   }
-    
+
   20% {
     -webkit-transform: rotateX(40deg);
             transform: rotateX(40deg);
@@ -1147,7 +1152,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     height: 74vw;
     width: 74vw;
     max-height: 50vh;
-    max-width: 50vh;    
+    max-width: 50vh;
     background: rgba(25,25,25,0.95);
     border-radius: 3px;
     margin: 0 auto;
@@ -1197,10 +1202,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   -webkit-animation-name: wiggle;
           animation-name: wiggle;
   -webkit-animation-duration: 3.5s;
-          animation-duration: 3.5s; 
-  -webkit-animation-timing-function: ease-in-out; 
-          animation-timing-function: ease-in-out; 
-  -webkit-animation-delay: 2s; 
+          animation-duration: 3.5s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-delay: 2s;
           animation-delay: 2s;
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
@@ -1291,7 +1296,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
   }
-	
+
   100% {
     -webkit-transform: rotate3d(0, 0, 1, -40deg);
             transform: rotate3d(0, 0, 1, -40deg);
@@ -1303,7 +1308,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
   }
-	
+
   100% {
     -webkit-transform: rotate3d(0, 0, 1, -40deg);
             transform: rotate3d(0, 0, 1, -40deg);
@@ -1315,7 +1320,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
   }
-	
+
   100% {
     -webkit-transform: rotate3d(0, 0, 1, 40deg);
             transform: rotate3d(0, 0, 1, 40deg);
@@ -1327,7 +1332,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
             transform: rotate3d(0, 0, 1, 0deg);
   }
-	
+
   100% {
     -webkit-transform: rotate3d(0, 0, 1, 40deg);
             transform: rotate3d(0, 0, 1, 40deg);
@@ -1340,7 +1345,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
             transform: translate3d(0, 0, 0);
 		opacity: 1;
   }
-	
+
   100% {
     -webkit-transform: translate3d(0, 100px, 0);
             transform: translate3d(0, 100px, 0);
@@ -1354,7 +1359,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
             transform: translate3d(0, 0, 0);
 		opacity: 1;
   }
-	
+
   100% {
     -webkit-transform: translate3d(0, 100px, 0);
             transform: translate3d(0, 100px, 0);
@@ -1391,12 +1396,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
-  
+
   0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
-	
+
 	33% {
     -webkit-transform: scale3d(.7, .7, .7);
     transform: scale3d(.7, .7, .7);
@@ -1418,12 +1423,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
-  
+
   0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
-	
+
 	33% {
     -webkit-transform: scale3d(.7, .7, .7);
     transform: scale3d(.7, .7, .7);
@@ -1572,7 +1577,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	left: 0px;
 }
 
-.victory__element--right {	
+.victory__element--right {
 	background-position-x: -246px;
 	right: 0px;
 }
@@ -1603,7 +1608,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--o {
 	width: 34px;
-	background-position-x: -397px;	
+	background-position-x: -397px;
 }
 
 .letter-container--u {
@@ -1613,7 +1618,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--u {
 	width: 34px;
-	background-position-x: -432px;	
+	background-position-x: -432px;
 }
 
 .letter-container--t {
@@ -1622,7 +1627,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--t {
 	width: 34px;
-	background-position-x: -467px;	
+	background-position-x: -467px;
 }
 
 .letter-container--i {
@@ -1631,7 +1636,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--i {
 	width: 34px;
-	background-position-x: -502px;	
+	background-position-x: -502px;
 }
 
 .letter-container--e {
@@ -1640,7 +1645,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--e {
 	width: 34px;
-	background-position-x: -537px;	
+	background-position-x: -537px;
 }
 
 .letter-container--d {
@@ -1649,7 +1654,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--d {
 	width: 34px;
-	background-position-x: -572px;	
+	background-position-x: -572px;
 }
 
 .letter-container--l {
@@ -1658,7 +1663,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--l {
 	width: 34px;
-	background-position-x: -607px;	
+	background-position-x: -607px;
 }
 
 .letter-container--s {
@@ -1667,7 +1672,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .letter__element--s {
 	width: 34px;
-	background-position-x: -642px;	
+	background-position-x: -642px;
 }
 
 .wordart__element--bounceInOut {
@@ -1680,48 +1685,48 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 		-webkit-animation-timing-function: ease-in;
 		        animation-timing-function: ease-in;
 	}
-	
+
 	15%, 45% {
 		-webkit-animation-timing-function: ease-out;
 		        animation-timing-function: ease-out;
 	}
-	
+
   0% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg)
 	}
-	
+
   15% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
 	}
-	
+
 	30% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
 	}
-	
+
 	45% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0);
 		        transform: translate3d(0, 0px, 0);
 	}
-	
+
 	60% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -5px, 0);
 		        transform: translate3d(0, -5px, 0);
 	}
-	
+
 	75% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0);
 		        transform: translate3d(0, 0px, 0);
 	}
-	
+
 	100% {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 50px, 0);
@@ -1734,48 +1739,48 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 		-webkit-animation-timing-function: ease-in;
 		        animation-timing-function: ease-in;
 	}
-	
+
 	15%, 45% {
 		-webkit-animation-timing-function: ease-out;
 		        animation-timing-function: ease-out;
 	}
-	
+
   0% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, -50px, 0) rotate3d(0,0,1,0deg)
 	}
-	
+
   15% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, 0px, 0) rotate3d(0,0,1,0deg);
 	}
-	
+
 	30% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
 		        transform: translate3d(0, -15px, 0) rotate3d(0,0,1,0deg);
 	}
-	
+
 	45% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0);
 		        transform: translate3d(0, 0px, 0);
 	}
-	
+
 	60% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -5px, 0);
 		        transform: translate3d(0, -5px, 0);
 	}
-	
+
 	75% {
 		opacity: 1;
 		-webkit-transform: translate3d(0, 0px, 0);
 		        transform: translate3d(0, 0px, 0);
 	}
-	
+
 	100% {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 50px, 0);
@@ -1984,4 +1989,3 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         page-break-after: avoid;
     }
 }
-

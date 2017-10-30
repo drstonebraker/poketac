@@ -12,15 +12,10 @@
         <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
         <!-- Place favicon.ico in the root directory -->
-        
+
         <link rel="manifest" href="/manifest.json">
-        
-        <script>
-            //load local stylesheet if CDN load triggers onerror event
-          function loadLocalAnimateCss() {document.write('<link rel="stylesheet" href="css/animate.min.css">');}  
-        </script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" onerror="loadLocalAnimateCss()" >
-        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/animate.min.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -33,7 +28,7 @@
         <!-- Add your site or application content here -->
         <audio id="music" src="./sounds/music/main-theme.mp3" autoplay loop preload="auto"></audio>
         <main class="view" id="view">
-            
+
             <div class="modal modal--splash" id="modal">
             	<div class="modal__content modal__content--splash" id="modal__content--splash">
             		<div class="ttt-logo" id="ttt-logo">
@@ -43,7 +38,7 @@
             	</div>
             	<div class="char-tall char-tall--oak u-hidden" id="char-tall--oak"></div>
             </div>
-            
+
             <section class="gamespace u-hidden" id="gamespace">
                 <div class="screen-center u-invisible" id="screen-center"></div>
                 <div class="victory-gradient victory-gradient--r" id="victory-gradient--r"></div>
@@ -58,7 +53,7 @@
                             <div class="button__avatar avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
                         </button>
                     </div>
-                    <div class="challengers__row">    
+                    <div class="challengers__row">
                         <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" disabled data-gymnumber="2">
                             <div class="button__avatar avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
                         </button>
@@ -66,7 +61,7 @@
                             <div class="button__avatar avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
                         </button>
                     </div>
-                    <div class="challengers__row">    
+                    <div class="challengers__row">
                         <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" disabled data-gymnumber="4">
                             <div class="button__avatar avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
                         </button>
@@ -105,7 +100,7 @@
                 			<span class="victory__element victory__element--right u-wordart"></span>
                 		</span>
                 	</div>
-                
+
                 	<div class="game-end-wordart__element game-end-wordart__element--tied u-hidden" id="game-end-wordart__element--tied">
                 		<span class="letter-container letter-container--y" id="tied-container--0">
                 			<span class="letter__element letter__element--y u-wordart u-hidden" id="tied__element--0"></span>
@@ -129,7 +124,7 @@
                 			<span class="letter__element letter__element--d u-wordart u-hidden" id="tied__element--6"></span>
                 		</span>
                 	</div>
-                	
+
                 	<div class="game-end-wordart__element game-end-wordart__element--lost u-hidden" id="game-end-wordart__element--lost">
                 		<span class="letter-container letter-container--y" id="lost-container--0">
                 			<span class="letter__element letter__element--y u-wordart u-hidden" id="lost__element--0"></span>
@@ -278,19 +273,15 @@
                     </div>
                 </div><!--end badge tray-->
             </section><!--end gamespace-->
-            
+
             <aside class="controls u-grey-bg" id="controls">
                 <button type="button" class="controls__toggle controls__toggle--music" id="controls__toggle--music" title="Music Off"></button>
                 <button type="button" class="controls__toggle controls__toggle--sound" id="controls__toggle--sound" title="Sound Effects Off"></button>
             </aside>
         </main>
-        
 
-        <script
-          src="https://code.jquery.com/jquery-3.1.1.min.js"
-          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-          crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.1.1.min.js"><\/script>');</script>
+
+        <script src="js/vendor/jquery-3.1.1.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
