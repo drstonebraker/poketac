@@ -1,6 +1,6 @@
 # PokeTac
 
-[--> Live Link!!](https://tic-tac-toe-pokemon.herokuapp.com/index.html) (warning: this site plays music)
+[--> Live Link!!](https://www.poketac.com) (warning: this site plays music)
 
 ### What is this project?
 
