@@ -21,7 +21,7 @@ PokeTac uses Progressive Web App technology to allow users to download the game 
 #### Custom CSS animations
 Animations throughout the game were written custom using css keyframes.
 
-![A demonstration of Progressive Web App features](https://www.poketac.com)
+![A demonstration of css animations](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636289/animation_mqt7e2.gif)
 
 ```css
 @keyframes speak {
@@ -42,7 +42,6 @@ Animations throughout the game were written custom using css keyframes.
 #### Fully responsive layout
 Fully responsive layout fluidly accommodates all screen sizes.
 
-![A demonstration of responsive layout](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636290/responsive_pifxzj.gif)
 ![A demonstration of responsive layout](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636290/responsive_pifxzj.gif)
 
 #### Spritesheet
