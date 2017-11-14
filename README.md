@@ -16,7 +16,7 @@ To learn the fundamentals, this project was built with only HTML, CSS, Javascrip
 #### Progressive Web App
 PokeTac uses Progressive Web App technology to allow users to download the game as a native mobile application (on supported phones) and play any time without an internet connection.
 
-![A demonstration of Progressive Web App features](https://www.poketac.com)
+![A demonstration of Progressive Web App features](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510638619/progressive_web_app_small_ctg5ey.gif)
 
 #### Custom CSS animations
 Animations throughout the game were written custom using css keyframes.
@@ -47,7 +47,7 @@ Fully responsive layout fluidly accommodates all screen sizes.
 #### Spritesheet
 Images are loaded via a spritesheet for faster load times.
 
-![A segment of the spritesheet](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636829/Screen_Shot_2017-11-13_at_9.18.52_PM_cm7sw4.png)
+![A segment of the spritesheet](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510638794/Screen_Shot_2017-11-13_at_9.52.17_PM_g1lsfn.png)
 
 #### Smart AI
 Each of 8 different opponents were given unique skill levels by applying various algorithms depending on the opponent.
