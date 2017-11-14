@@ -42,7 +42,8 @@ Animations throughout the game were written custom using css keyframes.
 #### Fully responsive layout
 Fully responsive layout fluidly accommodates all screen sizes.
 
-![A demonstration of responsize layout](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636290/responsive_pifxzj.gif)
+![A demonstration of responsive layout](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636290/responsive_pifxzj.gif)
+![A demonstration of responsive layout](http://res.cloudinary.com/dvcr1kq1u/image/upload/v1510636290/responsive_pifxzj.gif)
 
 #### Spritesheet
 Images are loaded via a spritesheet for faster load times.
