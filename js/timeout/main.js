@@ -7,6 +7,8 @@ if (isIE) {
 	document.body.innerHTML = "<p class='browserupgrade'>You are using an <strong>outdated</strong> browser. This game is only playable with <a href='http://browsehappy.com/'>an upgraded browser</a>.</p>";
 }
 
+var currentGym;
+
 //vendor prefixes for universal transitionend and animationend event
 const TRANSITION_END = "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
@@ -87,10 +89,9 @@ $(function() {
 	var playerAvatar;
 	var playerStarterPokemon;
 	var playerType;
-	var currentGym;
 	var earnedBadges = [];
 	var animateBackground; //a setInterval function
-	var recenterBigBadge; //a setTimeout function
+
 	//challenger-specific dialogue
 	const CHALLENGERS = function() {
 		return {
@@ -1493,39 +1494,11 @@ $(function() {
 
 	}
 
-	//used for dynamically determining center of screen to keep an awarded "hanging" badge in center, even on window resize
-	function awardBadgeCss() {
-		var badgeTopPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().top;
-		var centerTopPosition = $('#screen-center').offset().top;
-		var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
-		var centerLeftPosition = $('#screen-center').offset().left;
+	// $.getScript('./js/synchronous/resize.js')
 
-		var translateTop = centerTopPosition - badgeTopPosition;
-		var translateLeft = centerLeftPosition - badgeLeftPosition;
-
-		var result = {
-		  "translateLeft": translateLeft,
-		  "translateTop": translateTop,
-		  transformHangUp: "translate3d("+translateLeft+"px, "+(translateTop - 8)+"px, 0px)",
-		  transformHangDown: "translate3d("+translateLeft+"px, "+(translateTop + 8)+"px, 0px)",
-			transformCenter: "translate3d("+translateLeft+"px, "+translateTop+"px, 0px)",
-		};
-
-		return result;
-	}
-
-	//keeps awarded "hanging" badge in center of screen
-	$(window).on("resize", function() {
-	  if ($(".badge__icon--big").length > 0) {
-	    clearTimeout(recenterBigBadge);
-		  $(".badge__icon--big").closest(".badge__btn").css({"transform": awardBadgeCss().transformHangUp, "-webkit-transform": awardBadgeCss().transformHangUp, "transition": "", "-webkit-transition": ""});
-		  recenterBigBadge = setTimeout(function() {
-		    $(".badge__icon--big").closest(".badge__btn").css({transition: "transform 1500ms ease-in-out", "-webkit-transition": "-webkit-transform 1500ms ease-in-out", "transition": "-webkit-transform 1500ms ease-in-out", "transition": "transform 1500ms ease-in-out, -webkit-transform 1500ms ease-in-out"});
-		  }, 0);
-	  }
-	});
-
-
+	var script = document.createElement('script');
+	script.src = './js/timeout/resize.js';
+	document.body.appendChild(script);
 
 	splashAnimation(); //triggers animation of tic tac toe logo
 	$("body").one('click', oak1);//first oak dialogue screen
@@ -1538,3 +1511,25 @@ $(function() {
   }
 
 }); // end document.ready function
+
+
+//used for dynamically determining center of screen to keep an awarded "hanging" badge in center, even on window resize
+function awardBadgeCss() {
+	var badgeTopPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().top;
+	var centerTopPosition = $('#screen-center').offset().top;
+	var badgeLeftPosition = $("#badge__icon--" + currentGym).closest(".badge").offset().left;
+	var centerLeftPosition = $('#screen-center').offset().left;
+
+	var translateTop = centerTopPosition - badgeTopPosition;
+	var translateLeft = centerLeftPosition - badgeLeftPosition;
+
+	var result = {
+		"translateLeft": translateLeft,
+		"translateTop": translateTop,
+		transformHangUp: "translate3d("+translateLeft+"px, "+(translateTop - 8)+"px, 0px)",
+		transformHangDown: "translate3d("+translateLeft+"px, "+(translateTop + 8)+"px, 0px)",
+		transformCenter: "translate3d("+translateLeft+"px, "+translateTop+"px, 0px)",
+	};
+
+	return result;
+}
