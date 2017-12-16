@@ -1,0 +1,301 @@
+<!doctype html>
+<html class="no-js" lang="" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Tic-Tac-Toe Pokemon!</title>
+        <meta name="description" content="">
+        <meta name="viewport" content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui'>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- for social media sharing -->
+        <meta property="og:title" content="Tic-Tac-Toe Pokemon!">
+        <meta property="og:description" content="Play Tic-Tac-Toe against your favorite Pokemon gym leaders!">
+        <meta property="og:image" content="https://poketac.me/feature.jpg/">
+        <meta property="og:image:secure_url" content="https://poketac.me/feature.jpg/" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1203">
+        <meta property="og:image:height" content="630">
+        <meta property="og:url" content="https://poketac.me/">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:site_name" content="Tic-Tac-Toe Pokemon!">
+        <meta name="twitter:image:alt" content="An in-game screenshot from the webpage">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="manifest" href="/manifest.json">
+
+        <link rel="stylesheet" href="css/animate.min.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if IE]>
+            <p class='browserupgrade'>You are using an <strong>outdated</strong> browser. This game is only playable with <a href='http://browsehappy.com/'>an upgraded browser</a>.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <audio id="music" src="./sounds/music/main-theme.mp3" autoplay loop preload="auto"></audio>
+        <main class="view" id="view">
+
+            <div class="modal modal--splash" id="modal">
+            	<div class="modal__content modal__content--splash" id="modal__content--splash">
+            		<div class="ttt-logo" id="ttt-logo">
+            			<div class="ttt-logo__element ttt-logo__element--board u-hidden" id="ttt-logo__element"></div>
+            		</div>
+            		<div class="pokemon-logo u-hidden" id="pokemon-logo"></div>
+            	</div>
+            	<div class="char-tall char-tall--oak u-hidden" id="char-tall--oak"></div>
+            </div>
+
+            <section class="gamespace u-hidden" id="gamespace">
+                <div class="screen-center u-invisible" id="screen-center"></div>
+                <div class="victory-gradient victory-gradient--r" id="victory-gradient--r"></div>
+                <div class="victory-gradient victory-gradient--l" id="victory-gradient--l"></div>
+                <h1 class="heading heading--challengers" id="heading--challengers">Choose a Challenger</h1>
+                <div class="challengers u-blurred u-blurred-transition" id="challengers">
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-0" id="button--challenger-0" title="Brock (Very Easy)" disabled data-gymnumber="0">
+                            <div class="button__avatar avatar avatar--challenger-0" id="button__avatar--challenger-0"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-1" id="button--challenger-1" title="Misty (Very Easy)" disabled data-gymnumber="1">
+                            <div class="button__avatar avatar avatar--challenger-1" id="button__avatar--challenger-1"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-2" id="button--challenger-2" title="Lt. Surge (Easy)" disabled data-gymnumber="2">
+                            <div class="button__avatar avatar avatar--challenger-2" id="button__avatar--challenger-2"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-3" id="button--challenger-3" title="Erika (Easy)"  disabled data-gymnumber="3">
+                            <div class="button__avatar avatar avatar--challenger-3" id="button__avatar--challenger-3"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-4" id="button--challenger-4" title="Koga (Moderate)" disabled data-gymnumber="4">
+                            <div class="button__avatar avatar avatar--challenger-4" id="button__avatar--challenger-4"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-5" id="button--challenger-5" title="Sabrina (Moderate)" disabled data-gymnumber="5">
+                            <div class="button__avatar avatar avatar--challenger-5" id="button__avatar--challenger-5"></div>
+                        </button>
+                    </div>
+                    <div class="challengers__row">
+                        <button type="button" class="button button--avatar button--challenger-6" id="button--challenger-6" title="Blaine (Difficult)" disabled data-gymnumber="6">
+                            <div class="button__avatar avatar avatar--challenger-6" id="button__avatar--challenger-6"></div>
+                        </button>
+                        <button type="button" class="button button--avatar button--challenger-7" id="button--challenger-7" title="Giovanni (Very Difficult)" disabled data-gymnumber="7">
+                            <div class="button__avatar avatar avatar--challenger-7" id="button__avatar--challenger-7"></div>
+                        </button>
+                    </div>
+                </div><!--end challenger buttons-->
+                <div class="marquee u-hidden" id="marquee">
+                    <div class="marquee__avatar-box marquee__avatar-box--player u-textured" id="marquee__avatar-box--player">
+                        <div class="avatar avatar--drop-shadow" id="avatar--player"></div>
+                    </div>
+                    <div class="marquee__avatar-box marquee__avatar-box--challenger u-textured" id="marquee__avatar-box--challenger">
+                        <div class="avatar avatar--drop-shadow" id="avatar--challenger"></div>
+                    </div>
+                    <div class="marquee__dialogue-container">
+                        <div class="marquee__dialogue u-textured" id="marquee__dialogue">
+                            <p class="marquee__dialogue__text" id="marquee__dialogue__text"></p>
+                        </div>
+                    </div>
+                </div><!--end marquee-->
+                <div class="game-end-wordart u-hidden" id="game-end-wordart">
+                	<div class="game-end-wordart__element game-end-wordart__element--victory u-hidden" id="game-end-wordart__element--victory">
+                		<span class="victory-container victory-container--left">
+                			<span class="victory__element victory__element--left u-wordart"></span>
+                		</span>
+                		<span class="victory-container victory-container--right">
+                			<span class="victory__element victory__element--right u-wordart"></span>
+                		</span>
+                	</div>
+
+                	<div class="game-end-wordart__element game-end-wordart__element--tied u-hidden" id="game-end-wordart__element--tied">
+                		<span class="letter-container letter-container--y" id="tied-container--0">
+                			<span class="letter__element letter__element--y u-wordart u-hidden" id="tied__element--0"></span>
+                		</span>
+                		<span class="letter-container letter-container--o" id="tied-container--1">
+                			<span class="letter__element letter__element--o u-wordart u-hidden" id="tied__element--1"></span>
+                		</span>
+                		<span class="letter-container letter-container--u" id="tied-container--2">
+                			<span class="letter__element letter__element--u u-wordart u-hidden" id="tied__element--2"></span>
+                		</span>
+                		<span class="letter-container letter-container--t" id="tied-container--3">
+                			<span class="letter__element letter__element--t u-wordart u-hidden" id="tied__element--3"></span>
+                		</span>
+                		<span class="letter-container letter-container--i" id="tied-container--4">
+                			<span class="letter__element letter__element--i u-wordart u-hidden" id="tied__element--4"></span>
+                		</span>
+                		<span class="letter-container letter-container--e" id="tied-container--5">
+                			<span class="letter__element letter__element--e u-wordart u-hidden" id="tied__element--5"></span>
+                		</span>
+                		<span class="letter-container letter-container--d" id="tied-container--6">
+                			<span class="letter__element letter__element--d u-wordart u-hidden" id="tied__element--6"></span>
+                		</span>
+                	</div>
+
+                	<div class="game-end-wordart__element game-end-wordart__element--lost u-hidden" id="game-end-wordart__element--lost">
+                		<span class="letter-container letter-container--y" id="lost-container--0">
+                			<span class="letter__element letter__element--y u-wordart u-hidden" id="lost__element--0"></span>
+                		</span>
+                		<span class="letter-container letter-container--o" id="lost-container--1">
+                			<span class="letter__element letter__element--o u-wordart u-hidden" id="lost__element--1"></span>
+                		</span>
+                		<span class="letter-container letter-container--u" id="lost-container--2">
+                			<span class="letter__element letter__element--u u-wordart u-hidden" id="lost__element--2"></span>
+                		</span>
+                		<span class="letter-container letter-container--l" id="lost-container--3">
+                			<span class="letter__element letter__element--l u-wordart u-hidden" id="lost__element--3"></span>
+                		</span>
+                		<span class="letter-container letter-container--o" id="lost-container--4">
+                			<span class="letter__element letter__element--o u-wordart u-hidden" id="lost__element--4"></span>
+                		</span>
+                		<span class="letter-container letter-container--s" id="lost-container--5">
+                			<span class="letter__element letter__element--s u-wordart u-hidden" id="lost__element--5"></span>
+                		</span>
+                		<span class="letter-container letter-container--t" id="lost-container--6">
+                			<span class="letter__element letter__element--t u-wordart u-hidden" id="lost__element--6"></span>
+                		</span>
+                	</div>
+                </div>
+                <div class="gameboard u-hidden" id="gameboard">
+                    <div class="gameboard__row">
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--a1" disabled data-cell="a1">
+                            <span class="pokemon-container" id="pokemon-container--a1"><span id="a1"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--b1" disabled data-cell="b1">
+                            <span class="pokemon-container" id="pokemon-container--b1"><span id="b1"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--c1" disabled data-cell="c1">
+                            <span class="pokemon-container" id="pokemon-container--c1"><span id="c1"></span></span>
+                        </button>
+                    </div>
+                    <div class="gameboard__row">
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--a2" disabled data-cell="a2">
+                            <span class="pokemon-container" id="pokemon-container--a2"><span id="a2"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--b2" disabled data-cell="b2">
+                            <span class="pokemon-container" id="pokemon-container--b2"><span id="b2"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--c2" disabled data-cell="c2">
+                            <span class="pokemon-container" id="pokemon-container--c2"><span id="c2"></span></span>
+                        </button>
+                    </div>
+                    <div class="gameboard__row">
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--a3" disabled data-cell="a3">
+                            <span class="pokemon-container" id="pokemon-container--a3"><span id="a3"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--b3" disabled data-cell="b3">
+                            <span class="pokemon-container" id="pokemon-container--b3"><span id="b3"></span></span>
+                        </button>
+                        <button type="button" class="gameboard__cell" id="gameboard__cell--c3" disabled data-cell="c3">
+                            <span class="pokemon-container" id="pokemon-container--c3"><span id="c3"></span></span>
+                        </button>
+                    </div>
+                </div><!--end gameboard-->
+                <div class="tray-container">
+                    <div class="tray u-blurred u-blurred-transition" id="tray">
+                        <div class="tray__row tray__row--0">
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--0" id="badge__btn--0">
+  															<span class="badge__icon badge__icon--0 u-invisible" id="badge__icon--0">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--0">
+                                    <span class="badge__screen badge__screen--0" id="badge__screen--0" data-badgenumber="0"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--1" id="badge__btn--1">
+  															<span class="badge__icon badge__icon--1 u-invisible" id="badge__icon--1">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--1">
+                                    <span class="badge__screen badge__screen--1" id="badge__screen--1" data-badgenumber="1"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--2" id="badge__btn--2">
+															  <span class="badge__icon badge__icon--2 u-invisible" id="badge__icon--2">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--2">
+                                    <span class="badge__screen badge__screen--2" id="badge__screen--2" data-badgenumber="2"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--3" id="badge__btn--3">
+															  <span class="badge__icon badge__icon--3 u-invisible" id="badge__icon--3">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--3">
+                                    <span class="badge__screen badge__screen--3" id="badge__screen--3" data-badgenumber="3"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                        </div>
+                        <div class="tray__row tray__row--1">
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--4" id="badge__btn--4">
+															  <span class="badge__icon badge__icon--4 u-invisible" id="badge__icon--4">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--4">
+                                    <span class="badge__screen badge__screen--4" id="badge__screen--4" data-badgenumber="4"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--5" id="badge__btn--5">
+															  <span class="badge__icon badge__icon--5 u-invisible" id="badge__icon--5">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--5">
+                                    <span class="badge__screen badge__screen--5" id="badge__screen--5" data-badgenumber="5"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--6" id="badge__btn--6">
+  															<span class="badge__icon badge__icon--6 u-invisible" id="badge__icon--6">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--6">
+                                    <span class="badge__screen badge__screen--6" id="badge__screen--6" data-badgenumber="6"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                            <div class="badge">
+                              <span class="badge__dot"></span>
+                              <button type="button" disabled class="badge__btn badge__btn--7" id="badge__btn--7">
+  															<span class="badge__icon badge__icon--7 u-invisible" id="badge__icon--7">
+                                  <span class="badge__shimmer u-invisible" id="badge__shimmer--7">
+                                    <span class="badge__screen badge__screen--7" id="badge__screen--7" data-badgenumber="7"></span>
+                                  </span>
+                                </span>
+															</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end badge tray-->
+            </section><!--end gamespace-->
+
+            <aside class="controls u-grey-bg" id="controls">
+                <button type="button" class="controls__toggle controls__toggle--music" id="controls__toggle--music" title="Music Off"></button>
+            </aside>
+        </main>
+
+
+        <script src="js/vendor/jquery-3.1.1.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/synchronous/main.js"></script>
+
+    </body>
+</html>
