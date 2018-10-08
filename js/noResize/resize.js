@@ -5,7 +5,7 @@
 // a timeoutID
 let recenterBigBadge;
 
-window.addEventListener("resize", function() {
+$(window).on("resize", function() {
   const bigBadge = document.querySelector(".badge__icon--big");
 
   if (bigBadge) {
